@@ -236,7 +236,8 @@
                                         <rect key="frame" x="0.0" y="164.33333333333331" width="394" height="120"/>
                                         <state key="normal" title="Log In"/>
                                         <connections>
-                                            <segue destination="Qyk-dU-NcL" kind="showDetail" id="O6l-hU-dz0"/>
+                                            <action selector="login:" destination="Mdi-SY-eRN" eventType="touchUpInside" id="qAC-5O-sEd"/>
+                                            <segue destination="Qyk-dU-NcL" kind="show" identifier="login" id="MH2-fL-p0b"/>
                                         </connections>
                                     </button>
                                 </subviews>

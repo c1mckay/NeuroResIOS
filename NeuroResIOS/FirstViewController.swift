@@ -35,6 +35,8 @@ class FirstViewController: UIViewController {
     
     }
 
+    @IBAction func login(_ sender: Any) {
+    }
 
     // TODO: Change email/password verification
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
