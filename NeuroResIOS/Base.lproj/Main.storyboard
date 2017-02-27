@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -82,7 +83,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="VJN-ce-tM7">
-                                <rect key="frame" x="357" y="84" width="57" height="22"/>
+                                <rect key="frame" x="356.66666666666674" y="84" width="57.333333333333314" height="22"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yf-bn-ygy">
                                         <rect key="frame" x="0.0" y="0.0" width="36.333333333333314" height="22"/>
@@ -193,75 +194,79 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UC San Diego" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="YfP-FL-EY7">
-                                <rect key="frame" x="20" y="25" width="374" height="45.666666666666671"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="38"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1Al-kD-a4y">
-                                <rect key="frame" x="20" y="526" width="374" height="170"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="geM-Qp-16c" userLabel="Top60">
+                                <rect key="frame" x="0.0" y="20" width="414" height="441.66666666666669"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UC San Diego" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="YfP-FL-EY7">
+                                        <rect key="frame" x="89.666666666666686" y="0.0" width="234.66666666666663" height="241.66666666666669"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="200" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="SQf-2z-2eV">
+                                        <rect key="frame" x="107" y="241.66666666666669" width="200" height="200"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="SQf-2z-2eV" secondAttribute="height" multiplier="1:1" id="KIF-P8-j85"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hga-T6-XjU" userLabel="Bottom40">
+                                <rect key="frame" x="10" y="441.66666666666674" width="394" height="284.33333333333326"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ucsd email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EVP-9c-KEF">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="64Y-39-uNI"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="60"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PcK-bc-UUm">
-                                        <rect key="frame" x="0.0" y="50" width="374" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="W4Y-rx-E35"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="68" width="394" height="59.999999999999943"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incorrect password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvm-19-okJ">
+                                        <rect key="frame" x="0.0" y="135.99999999999994" width="394" height="20.333333333333371"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mOy-mW-IGB">
-                                        <rect key="frame" x="0.0" y="100" width="374" height="70"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="70" id="DYH-aG-J8w"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="164.33333333333331" width="394" height="120"/>
                                         <state key="normal" title="Log In"/>
                                         <connections>
-                                            <action selector="Login:" destination="Mdi-SY-eRN" eventType="touchUpInside" id="D78-a8-9yZ"/>
-                                            <segue destination="Qyk-dU-NcL" kind="show" identifier="login" id="IdX-qa-K2D"/>
+                                            <segue destination="Qyk-dU-NcL" kind="showDetail" id="O6l-hU-dz0"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                            </stackView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="200" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="SQf-2z-2eV">
-                                <rect key="frame" x="70" y="91.333333333333314" width="274" height="274"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="SQf-2z-2eV" secondAttribute="height" multiplier="1:1" id="Uge-Mg-6iI"/>
+                                    <constraint firstItem="PcK-bc-UUm" firstAttribute="height" secondItem="mOy-mW-IGB" secondAttribute="height" multiplier="0.5" id="AC6-g7-7cc"/>
+                                    <constraint firstItem="EVP-9c-KEF" firstAttribute="height" secondItem="PcK-bc-UUm" secondAttribute="height" id="Xt0-D1-E5C"/>
                                 </constraints>
-                            </imageView>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="YfP-FL-EY7" firstAttribute="top" secondItem="l2T-eg-KMR" secondAttribute="bottom" constant="5" id="3MY-fP-JLc"/>
-                            <constraint firstItem="YfP-FL-EY7" firstAttribute="top" secondItem="l2T-eg-KMR" secondAttribute="bottom" constant="5" id="Jrk-yn-I8q"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="YfP-FL-EY7" secondAttribute="trailing" id="K1V-li-f7W"/>
-                            <constraint firstItem="SQf-2z-2eV" firstAttribute="leading" secondItem="JwX-HK-kJd" secondAttribute="leadingMargin" constant="50" id="NQr-zT-cG0"/>
-                            <constraint firstItem="1Al-kD-a4y" firstAttribute="leading" secondItem="JwX-HK-kJd" secondAttribute="leadingMargin" id="TzY-Sf-8RK"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="1Al-kD-a4y" secondAttribute="trailing" id="W1O-sN-3hq"/>
-                            <constraint firstItem="YfP-FL-EY7" firstAttribute="leading" secondItem="JwX-HK-kJd" secondAttribute="leadingMargin" id="ho4-Qb-HW3"/>
-                            <constraint firstItem="xHg-Cq-6te" firstAttribute="top" secondItem="1Al-kD-a4y" secondAttribute="bottom" constant="40" id="r0P-OB-hpg"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="SQf-2z-2eV" secondAttribute="trailing" constant="50" id="rJ4-lK-6t5"/>
-                            <constraint firstItem="SQf-2z-2eV" firstAttribute="top" secondItem="YfP-FL-EY7" secondAttribute="bottom" constant="20" id="tMd-Fq-mhw"/>
+                            <constraint firstItem="Hga-T6-XjU" firstAttribute="height" secondItem="JwX-HK-kJd" secondAttribute="height" multiplier="0.4" constant="-10" id="5Yv-3Y-5eA"/>
+                            <constraint firstItem="xHg-Cq-6te" firstAttribute="top" secondItem="Hga-T6-XjU" secondAttribute="bottom" constant="10" id="60x-IO-Y67"/>
+                            <constraint firstItem="geM-Qp-16c" firstAttribute="width" secondItem="JwX-HK-kJd" secondAttribute="width" id="H9J-ri-cMB"/>
+                            <constraint firstItem="geM-Qp-16c" firstAttribute="centerX" secondItem="JwX-HK-kJd" secondAttribute="centerX" id="bvf-Ok-ldF"/>
+                            <constraint firstItem="geM-Qp-16c" firstAttribute="height" secondItem="JwX-HK-kJd" secondAttribute="height" multiplier="0.6" id="hAe-MW-FSZ"/>
+                            <constraint firstItem="geM-Qp-16c" firstAttribute="top" secondItem="JwX-HK-kJd" secondAttribute="topMargin" constant="20" id="p6l-ov-8ze"/>
+                            <constraint firstItem="Hga-T6-XjU" firstAttribute="width" secondItem="JwX-HK-kJd" secondAttribute="width" constant="-20" id="sxh-K0-AFg"/>
+                            <constraint firstItem="Hga-T6-XjU" firstAttribute="centerX" secondItem="JwX-HK-kJd" secondAttribute="centerX" id="waE-sS-Tb6"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="email" destination="EVP-9c-KEF" id="NRD-4g-9hy"/>
-                        <outlet property="password" destination="PcK-bc-UUm" id="QN1-4J-H5v"/>
+                        <outlet property="ErrorMessage" destination="tvm-19-okJ" id="Ful-LT-tTj"/>
+                        <outlet property="email" destination="EVP-9c-KEF" id="K8N-7Z-JDI"/>
+                        <outlet property="password" destination="PcK-bc-UUm" id="EBl-5G-nN1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cuQ-62-AB4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1667" y="0.0"/>
+            <point key="canvasLocation" x="-1735" y="30"/>
         </scene>
     </scenes>
     <resources>

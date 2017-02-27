@@ -11,8 +11,12 @@ import UIKit
 
 class FirstViewController: UIViewController {
 
-    @IBOutlet weak var email: UITextField! // User's Login email
-    @IBOutlet weak var password: UITextField! // User's password
+    @IBOutlet weak var email: UITextField!
+
+    @IBOutlet weak var password: UITextField!
+    
+    @IBOutlet weak var ErrorMessage: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -23,9 +27,6 @@ class FirstViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func Login(_ sender: Any) {
-        print(email.text! + " " + password.text!)
-    }
     
     override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
         let secondViewController = segue.destination as! SecondViewController
@@ -42,6 +43,8 @@ class FirstViewController: UIViewController {
             return true
         }
         else {
+            ErrorMessage.text = "Incorrect Password"
+            ErrorMessage.textColor = UIColor.red
             return false
         }
     }
