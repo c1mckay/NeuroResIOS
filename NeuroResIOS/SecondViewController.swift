@@ -9,9 +9,16 @@
 import UIKit
 
 class SecondViewController: UIViewController {
+    
+    @IBOutlet weak var User: UILabel!
+    
+    var email = ""
+    var password = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        User.text = email
         // Do any additional setup after loading the view, typically from a nib.
     }
 

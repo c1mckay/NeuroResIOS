@@ -410,6 +410,7 @@
 				F68439CD1E5F92C90027802C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F68439CE1E5F92C90027802C /* Build configuration list for PBXNativeTarget "NeuroResIOSTests" */ = {
 			isa = XCConfigurationList;
@@ -418,6 +419,7 @@
 				F68439D01E5F92C90027802C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
