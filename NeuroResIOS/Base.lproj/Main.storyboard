@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Mdi-SY-eRN">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Mdi-SY-eRN">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -195,46 +195,77 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="geM-Qp-16c" userLabel="Top60">
-                                <rect key="frame" x="0.0" y="20" width="414" height="441.66666666666669"/>
+                                <rect key="frame" x="0.0" y="10" width="414" height="431.66666666666669"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UC San Diego" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="YfP-FL-EY7">
-                                        <rect key="frame" x="89.666666666666686" y="0.0" width="234.66666666666663" height="241.66666666666669"/>
+                                        <rect key="frame" x="89.666666666666686" y="0.0" width="234.66666666666663" height="73.666666666666671"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="200" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="SQf-2z-2eV">
-                                        <rect key="frame" x="107" y="241.66666666666669" width="200" height="200"/>
+                                        <rect key="frame" x="92.666666666666686" y="73.666666666666657" width="228.66666666666663" height="228.33333333333334"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="SQf-2z-2eV" secondAttribute="height" multiplier="1:1" id="KIF-P8-j85"/>
                                         </constraints>
                                     </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Department of Neuroscience" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBE-wL-RFx">
+                                        <rect key="frame" x="62" y="302" width="290" height="129.66666666666669"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="PBE-wL-RFx" firstAttribute="height" secondItem="geM-Qp-16c" secondAttribute="height" multiplier="0.3" id="EOf-7e-0dz"/>
+                                    <constraint firstItem="PBE-wL-RFx" firstAttribute="width" secondItem="geM-Qp-16c" secondAttribute="width" multiplier="0.7" id="Ipg-7k-qHA"/>
+                                    <constraint firstItem="YfP-FL-EY7" firstAttribute="height" secondItem="geM-Qp-16c" secondAttribute="height" multiplier="0.17" id="Un8-pJ-Fqt"/>
+                                </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hga-T6-XjU" userLabel="Bottom40">
                                 <rect key="frame" x="10" y="441.66666666666674" width="394" height="284.33333333333326"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ucsd email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EVP-9c-KEF">
                                         <rect key="frame" x="0.0" y="0.0" width="394" height="60"/>
+                                        <color key="backgroundColor" red="0.83921568627450982" green="0.81960784313725488" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="17"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PcK-bc-UUm">
-                                        <rect key="frame" x="0.0" y="68" width="394" height="59.999999999999943"/>
+                                        <rect key="frame" x="0.0" y="68" width="394" height="60.333333333333314"/>
+                                        <color key="backgroundColor" red="0.83921568629999999" green="0.81960784310000001" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="17"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incorrect password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvm-19-okJ">
-                                        <rect key="frame" x="0.0" y="135.99999999999994" width="394" height="20.333333333333371"/>
+                                        <rect key="frame" x="0.0" y="136.33333333333331" width="394" height="20.333333333333371"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mOy-mW-IGB">
-                                        <rect key="frame" x="0.0" y="164.33333333333331" width="394" height="120"/>
-                                        <state key="normal" title="Log In"/>
+                                        <rect key="frame" x="0.0" y="164.66666666666669" width="394" height="119.66666666666663"/>
+                                        <color key="backgroundColor" red="0.0" green="0.27450980392156865" blue="0.37254901960784315" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="Log In">
+                                            <color key="titleColor" red="0.90854056540000006" green="1" blue="0.63164022269999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="login:" destination="Mdi-SY-eRN" eventType="touchUpInside" id="qAC-5O-sEd"/>
                                             <segue destination="Qyk-dU-NcL" kind="show" identifier="login" id="MH2-fL-p0b"/>
@@ -247,14 +278,14 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Hga-T6-XjU" firstAttribute="height" secondItem="JwX-HK-kJd" secondAttribute="height" multiplier="0.4" constant="-10" id="5Yv-3Y-5eA"/>
                             <constraint firstItem="xHg-Cq-6te" firstAttribute="top" secondItem="Hga-T6-XjU" secondAttribute="bottom" constant="10" id="60x-IO-Y67"/>
                             <constraint firstItem="geM-Qp-16c" firstAttribute="width" secondItem="JwX-HK-kJd" secondAttribute="width" id="H9J-ri-cMB"/>
                             <constraint firstItem="geM-Qp-16c" firstAttribute="centerX" secondItem="JwX-HK-kJd" secondAttribute="centerX" id="bvf-Ok-ldF"/>
-                            <constraint firstItem="geM-Qp-16c" firstAttribute="height" secondItem="JwX-HK-kJd" secondAttribute="height" multiplier="0.6" id="hAe-MW-FSZ"/>
-                            <constraint firstItem="geM-Qp-16c" firstAttribute="top" secondItem="JwX-HK-kJd" secondAttribute="topMargin" constant="20" id="p6l-ov-8ze"/>
+                            <constraint firstItem="geM-Qp-16c" firstAttribute="height" secondItem="JwX-HK-kJd" secondAttribute="height" multiplier="0.6" constant="-10" id="hAe-MW-FSZ"/>
+                            <constraint firstItem="geM-Qp-16c" firstAttribute="top" secondItem="JwX-HK-kJd" secondAttribute="topMargin" constant="10" id="p6l-ov-8ze"/>
                             <constraint firstItem="Hga-T6-XjU" firstAttribute="width" secondItem="JwX-HK-kJd" secondAttribute="width" constant="-20" id="sxh-K0-AFg"/>
                             <constraint firstItem="Hga-T6-XjU" firstAttribute="centerX" secondItem="JwX-HK-kJd" secondAttribute="centerX" id="waE-sS-Tb6"/>
                         </constraints>
