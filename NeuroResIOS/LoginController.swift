@@ -9,7 +9,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class LoginController: UIViewController {
 
     @IBOutlet weak var email: UITextField!
 
@@ -29,7 +29,7 @@ class FirstViewController: UIViewController {
 
     
     override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
-        let secondViewController = segue.destination as! SecondViewController
+        let secondViewController = segue.destination as! ChatController
         secondViewController.email = email.text!
         secondViewController.password = password.text!
     
@@ -40,14 +40,14 @@ class FirstViewController: UIViewController {
 
     // TODO: Change email/password verification
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if (email.text?.hasSuffix("@ucsd.edu"))! {
-            performSegue(withIdentifier: identifier, sender:nil)
+        //if (email.text?.hasSuffix("@ucsd.edu") || true)! {
+            //performSegue(withIdentifier: identifier, sender:nil)
             return true
-        }
+        /*}
         else {
             ErrorMessage.text = "Incorrect Password"
             ErrorMessage.textColor = UIColor.red
             return false
-        }
+        }*/
     }
 }
