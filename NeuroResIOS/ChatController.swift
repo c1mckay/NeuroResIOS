@@ -18,6 +18,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet weak var chatContainer: UITableView!
     
+    @IBOutlet weak var messageInput: UITextField!
     var  staticMessages:[[String]] = [
         ["Ice Cream Cone", "Ice Creamdddddddddddddddddddd\n\n\n dddasadlkfjsld;kfjasd asdlfkjasdf asdlfksja"],
         ["Ice Cream Sundae",  "Ice Cream"],
@@ -88,6 +89,22 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         return cell
+    }
+    
+    func scrollToBottom(){
+        let indexPath = IndexPath(row: self.staticMessages.count-1, section: 0)
+        self.chatContainer.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
+    
+    
+    @IBAction func sendMessage(_ sender: Any) {
+        staticMessages.append(["User",messageInput.text!])
+        chatContainer.beginUpdates()
+        chatContainer.insertRows(at: [IndexPath(row: staticMessages.count-1, section: 0)], with: .automatic)
+        chatContainer.endUpdates()
+        chatContainer.reloadData()
+        scrollToBottom()
+        messageInput.text = ""
     }
 }
 
