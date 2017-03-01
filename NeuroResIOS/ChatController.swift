@@ -91,12 +91,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
+    
+    // Used to go to the bottom of tableview
     func scrollToBottom(){
         let indexPath = IndexPath(row: self.staticMessages.count-1, section: 0)
         self.chatContainer.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
     
-    
+    //TODO: Replace staticmessages and "User". Add code to send message to server later
     @IBAction func sendMessage(_ sender: Any) {
         staticMessages.append(["User",messageInput.text!])
         chatContainer.beginUpdates()
