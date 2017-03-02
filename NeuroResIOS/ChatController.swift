@@ -9,7 +9,7 @@
 import UIKit
 import os.log
 
-class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ChatController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var User: UILabel!
     
@@ -38,11 +38,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         ["Root Beer Float", "Drink"]
     ]
     
+    @IBOutlet weak var usersButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addSlideMenuButton(usersButton)
         
-        User.text = email
+        //User.text = email
         
         chatContainer.estimatedRowHeight = 68.0
         chatContainer.rowHeight = UITableViewAutomaticDimension

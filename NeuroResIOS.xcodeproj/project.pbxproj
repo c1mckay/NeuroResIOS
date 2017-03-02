@@ -15,6 +15,9 @@
 		F68439BC1E5F92C90027802C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F68439BA1E5F92C90027802C /* LaunchScreen.storyboard */; };
 		F68439C71E5F92C90027802C /* NeuroResIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68439C61E5F92C90027802C /* NeuroResIOSTests.swift */; };
 		F6E309321E64D527007EE749 /* ChatTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E309311E64D527007EE749 /* ChatTableCell.swift */; };
+		F6E309341E67B1CB007EE749 /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E309331E67B1CB007EE749 /* SlideMenuController.swift */; };
+		F6F7DE3A1E67C4EA00F79E6D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE391E67C4EA00F79E6D /* BaseViewController.swift */; };
+		F6F7DE3C1E67CD6700F79E6D /* ChatDescripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,9 @@
 		F68439C61E5F92C90027802C /* NeuroResIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuroResIOSTests.swift; sourceTree = "<group>"; };
 		F68439C81E5F92C90027802C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6E309311E64D527007EE749 /* ChatTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatTableCell.swift; path = ../ChatTableCell.swift; sourceTree = "<group>"; };
+		F6E309331E67B1CB007EE749 /* SlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuController.swift; sourceTree = "<group>"; };
+		F6F7DE391E67C4EA00F79E6D /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = ../BaseViewController.swift; sourceTree = "<group>"; };
+		F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDescripCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +87,13 @@
 		F68439AE1E5F92C90027802C /* NeuroResIOS */ = {
 			isa = PBXGroup;
 			children = (
-				F6E309311E64D527007EE749 /* ChatTableCell.swift */,
 				F68439AF1E5F92C90027802C /* AppDelegate.swift */,
+				F6F7DE391E67C4EA00F79E6D /* BaseViewController.swift */,
+				F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */,
+				F6E309331E67B1CB007EE749 /* SlideMenuController.swift */,
 				F68439B11E5F92C90027802C /* LoginController.swift */,
 				F68439B31E5F92C90027802C /* ChatController.swift */,
+				F6E309311E64D527007EE749 /* ChatTableCell.swift */,
 				F68439B51E5F92C90027802C /* Main.storyboard */,
 				F68439B81E5F92C90027802C /* Assets.xcassets */,
 				F68439BA1E5F92C90027802C /* LaunchScreen.storyboard */,
@@ -207,8 +216,11 @@
 			files = (
 				F68439B41E5F92C90027802C /* ChatController.swift in Sources */,
 				F68439B01E5F92C90027802C /* AppDelegate.swift in Sources */,
+				F6F7DE3C1E67CD6700F79E6D /* ChatDescripCell.swift in Sources */,
 				F6E309321E64D527007EE749 /* ChatTableCell.swift in Sources */,
 				F68439B21E5F92C90027802C /* LoginController.swift in Sources */,
+				F6E309341E67B1CB007EE749 /* SlideMenuController.swift in Sources */,
+				F6F7DE3A1E67C4EA00F79E6D /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
