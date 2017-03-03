@@ -17,8 +17,9 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     /**
     *   Array to display menu options
     */
+    @IBOutlet weak var usersList: UITableView!
     
-    @IBOutlet var tblMenuOptions : UITableView!
+    
     
     /**
     *   Transparent button to hide menu
@@ -100,6 +101,16 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         })
     }
     
+    var configured = false
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !configured{
+            usersList.delegate = self
+            usersList.dataSource = self
+        }
+        configured = true
+    }
+    
     //MARK: UITableViewDelegate and Datasource Methods
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -115,10 +126,10 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         let row = indexPath.row
         
         let username = users[row][0]
-        let text = staticMessages[row][1]
-        cell.username.text = username
+        //let text = users[row][1]
+        cell.name.text = username
         //cell.date.text = "date"
-        cell.content.text = text
+        //cell.content.text = text
         
         
         return cell

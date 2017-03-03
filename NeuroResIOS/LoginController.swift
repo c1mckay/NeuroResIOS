@@ -29,9 +29,9 @@ class LoginController: UIViewController {
 
     
     override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
-        let secondViewController = segue.destination as! ChatController
-        secondViewController.email = email.text!
-        secondViewController.password = password.text!
+        //let secondViewController = segue.destination as! ChatController
+        //secondViewController.email = email.text!
+        //secondViewController.password = password.text!
     
     }
 

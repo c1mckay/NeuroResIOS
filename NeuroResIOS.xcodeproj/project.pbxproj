@@ -18,6 +18,7 @@
 		F6E309341E67B1CB007EE749 /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E309331E67B1CB007EE749 /* SlideMenuController.swift */; };
 		F6F7DE3A1E67C4EA00F79E6D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE391E67C4EA00F79E6D /* BaseViewController.swift */; };
 		F6F7DE3C1E67CD6700F79E6D /* ChatDescripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */; };
+		F6F7DE461E69007200F79E6D /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE451E69007200F79E6D /* SWRevealViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,9 @@
 		F6E309331E67B1CB007EE749 /* SlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuController.swift; sourceTree = "<group>"; };
 		F6F7DE391E67C4EA00F79E6D /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = ../BaseViewController.swift; sourceTree = "<group>"; };
 		F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDescripCell.swift; sourceTree = "<group>"; };
+		F6F7DE431E69007100F79E6D /* NeuroResIOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NeuroResIOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		F6F7DE441E69007200F79E6D /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		F6F7DE451E69007200F79E6D /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +91,7 @@
 		F68439AE1E5F92C90027802C /* NeuroResIOS */ = {
 			isa = PBXGroup;
 			children = (
+				F6F7DE421E69005500F79E6D /* SWRevealViewController */,
 				F68439AF1E5F92C90027802C /* AppDelegate.swift */,
 				F6F7DE391E67C4EA00F79E6D /* BaseViewController.swift */,
 				F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */,
@@ -109,6 +114,16 @@
 				F68439C81E5F92C90027802C /* Info.plist */,
 			);
 			path = NeuroResIOSTests;
+			sourceTree = "<group>";
+		};
+		F6F7DE421E69005500F79E6D /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F6F7DE441E69007200F79E6D /* SWRevealViewController.h */,
+				F6F7DE451E69007200F79E6D /* SWRevealViewController.m */,
+				F6F7DE431E69007100F79E6D /* NeuroResIOS-Bridging-Header.h */,
+			);
+			name = SWRevealViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +176,7 @@
 				TargetAttributes = {
 					F68439AB1E5F92C90027802C = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					F68439C11E5F92C90027802C = {
@@ -217,6 +233,7 @@
 				F68439B41E5F92C90027802C /* ChatController.swift in Sources */,
 				F68439B01E5F92C90027802C /* AppDelegate.swift in Sources */,
 				F6F7DE3C1E67CD6700F79E6D /* ChatDescripCell.swift in Sources */,
+				F6F7DE461E69007200F79E6D /* SWRevealViewController.m in Sources */,
 				F6E309321E64D527007EE749 /* ChatTableCell.swift in Sources */,
 				F68439B21E5F92C90027802C /* LoginController.swift in Sources */,
 				F6E309341E67B1CB007EE749 /* SlideMenuController.swift in Sources */,
@@ -359,10 +376,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = NeuroResIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.NeuroResIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "NeuroResIOS/NeuroResIOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -371,10 +391,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = NeuroResIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.NeuroResIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "NeuroResIOS/NeuroResIOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

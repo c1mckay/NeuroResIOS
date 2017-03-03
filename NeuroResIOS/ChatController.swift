@@ -38,11 +38,10 @@ class ChatController: BaseViewController, UITableViewDelegate, UITableViewDataSo
         ["Root Beer Float", "Drink"]
     ]
     
-    @IBOutlet weak var usersButton: UIButton!
+    @IBOutlet weak var usersButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSlideMenuButton(usersButton)
         
         //User.text = email
         
@@ -50,6 +49,12 @@ class ChatController: BaseViewController, UITableViewDelegate, UITableViewDataSo
         chatContainer.rowHeight = UITableViewAutomaticDimension
         
         // Do any additional setup after loading the view, typically from a nib.
+        
+        if self.revealViewController() != nil {
+            usersButton.target = self.revealViewController()
+            usersButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            //self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
     }
 
     override func didReceiveMemoryWarning() {
