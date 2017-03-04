@@ -55,6 +55,14 @@ class ChatController: BaseViewController, UITableViewDelegate, UITableViewDataSo
             usersButton.action = #selector(SWRevealViewController.revealToggle(_:))
             //self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginController.dismissKeyboard))
+        self.view.addGestureRecognizer(tap)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -115,5 +123,38 @@ class ChatController: BaseViewController, UITableViewDelegate, UITableViewDataSo
         scrollToBottom()
         messageInput.text = ""
     }
+    
+    
+    // Move views when keyboard is present
+    func keyboardWillShow(notification: NSNotification) {
+        let offset = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue.size
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                if keyboardSize.height == offset.height {
+                    UIView.animate(withDuration: 0.1, animations: { () -> Void in
+                        self.view.frame.origin.y -= keyboardSize.height
+                    })
+                } else {
+                    UIView.animate(withDuration: 0.1, animations: { () -> Void in
+                        self.view.frame.origin.y += keyboardSize.height - offset.height
+                    })
+                }
+            }
+        }
+        
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y = 0
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    
+    
+    
 }
 
