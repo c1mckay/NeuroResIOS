@@ -9,7 +9,7 @@
 
 import UIKit
 
-class LoginController: UIViewController {
+class LoginController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var email: UITextField!
 
@@ -17,8 +17,15 @@ class LoginController: UIViewController {
     
     @IBOutlet weak var ErrorMessage: UILabel!
     
+    @IBOutlet weak var loginButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginController.dismissKeyboard))
+        self.view.addGestureRecognizer(tap)
+
+
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -34,6 +41,39 @@ class LoginController: UIViewController {
         //secondViewController.password = password.text!
     
     }
+    
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    
+    
+    
+    // Move views when keyboard is present
+    func keyboardWillShow(notification: NSNotification) {
+        let offset = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue.size
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                if keyboardSize.height == offset.height {
+                    UIView.animate(withDuration: 0.1, animations: { () -> Void in
+                        self.view.frame.origin.y -= keyboardSize.height
+                    })
+                } else {
+                    UIView.animate(withDuration: 0.1, animations: { () -> Void in
+                        self.view.frame.origin.y += keyboardSize.height - offset.height
+                    })
+                }
+            }
+        }
+        
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y = 0
+    }
+    
 
     @IBAction func login(_ sender: Any) {
     }
