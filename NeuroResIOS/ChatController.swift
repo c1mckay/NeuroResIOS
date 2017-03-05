@@ -55,6 +55,13 @@ class ChatController: BaseViewController, UITableViewDelegate, UITableViewDataSo
             usersButton.action = #selector(SWRevealViewController.revealToggle(_:))
             //self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
+        let screenSize: CGRect = UIScreen.main.fixedCoordinateSpace.bounds
+        print(screenSize.width.description)
+        let sliderWidth = (screenSize.width * 0.7)
+        
+        
+        print(sliderWidth.description)
+        self.revealViewController().rearViewRevealWidth = sliderWidth
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -76,8 +83,7 @@ class ChatController: BaseViewController, UITableViewDelegate, UITableViewDataSo
         super.viewWillAppear(animated)
         if !configured{
             chatContainer.delegate = self
-            chatContainer.dataSource = self
-        }
+            chatContainer.dataSource = self        }
         configured = true
     }
     

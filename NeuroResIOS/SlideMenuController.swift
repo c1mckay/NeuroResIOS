@@ -55,6 +55,8 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         ["H. Ansari", "Headache"],
         ["S. Khoromi", "General"]
     ]
+    
+    var unread:[String] = ["C. McKay"]
 
     
     override func viewDidLoad() {
@@ -117,21 +119,45 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        var unread_title = 0
+        if(unread.count > 0){
+            unread_title = 1;
+        }
+        return users.count + unread.count + unread_title
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatDescripCell", for: indexPath) as! ChatDescripCell
+        if(unread.count > 0 && indexPath.row == 0){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
+            
+            cell.titleText.text = "Not Read"
+            
+            return cell
+        }else if(unread.count > 0 && indexPath.row < unread.count + 1){ //for title text
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ChatDescripCell", for: indexPath) as! ChatDescripCell
+            
+            print(indexPath.row)
+            
+            cell.name.text = unread[indexPath.row - 1]
+            
+            return cell
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ChatDescripCell", for: indexPath) as! ChatDescripCell
         
-        let row = indexPath.row
+            var row = indexPath.row
+            
+            if(unread.count > 0){
+                row = row - unread.count - 1//for title text
+            }
         
-        let username = users[row][0]
-        //let text = users[row][1]
-        cell.name.text = username
-        //cell.date.text = "date"
-        //cell.content.text = text
+            let username = users[row][0]
+            //let text = users[row][1]
+            cell.name.text = username
+            //cell.date.text = "date"
+            //cell.content.text = text
         
         
-        return cell
+            return cell
+        }
     }
 }
