@@ -524,6 +524,38 @@
                                             <outlet property="unreadIcon" destination="cYb-De-WQ1" id="zGi-5Z-2hl"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MoreDescripCell" id="Mvr-Rb-Kvm" userLabel="more" customClass="MoreDescripCell" customModule="NeuroResIOS">
+                                        <rect key="frame" x="0.0" y="126" width="289.66666666666669" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mvr-Rb-Kvm" id="9I4-yA-4LJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="289.66666666666669" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lTr-Kw-Jaw">
+                                                    <rect key="frame" x="-1" y="0.0" width="290" height="44"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="See more...">
+                                                            <attributes>
+                                                                <font key="NSFont" size="12" name=".AppleSystemUIFontItalic"/>
+                                                                <font key="NSOriginalFont" size="17" name=".AppleSystemUIFontItalic"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="lTr-Kw-Jaw" firstAttribute="centerY" secondItem="9I4-yA-4LJ" secondAttribute="centerY" id="3re-hA-6au"/>
+                                                <constraint firstItem="lTr-Kw-Jaw" firstAttribute="centerX" secondItem="9I4-yA-4LJ" secondAttribute="centerX" id="lAZ-21-Rr8"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" secondItem="lTr-Kw-Jaw" secondAttribute="height" id="OWH-SC-GhL"/>
+                                            <constraint firstAttribute="width" secondItem="lTr-Kw-Jaw" secondAttribute="width" id="Ygq-0m-jZm"/>
+                                        </constraints>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings" translatesAutoresizingMaskIntoConstraints="NO" id="fLD-96-vdb">

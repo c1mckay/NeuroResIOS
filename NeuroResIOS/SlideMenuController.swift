@@ -127,7 +127,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         let staff_section = staff.count + 1
         let users_section = users.count + 1
-        return unread_section + staff_section + users_section
+        return unread_section + staff_section + users_section + 1//1 is the last row for more
     }
     
     func unreadHeader(indexPath: IndexPath) -> Bool{
@@ -169,6 +169,16 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func header(indexPath: IndexPath) -> Bool{
         return unreadHeader(indexPath: indexPath) || staffHeader(indexPath: indexPath) || usersHeader(indexPath: indexPath)
+    }
+    
+    func moreCell(indexPath: IndexPath) -> Bool{
+        var unread_section = unread.count
+        if(unread.count > 0){
+            unread_section += 1
+        }
+        let staff_section = staff.count + 1
+        let users_section = users.count + 1
+        return unread_section + staff_section + users_section == indexPath.row
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -217,12 +227,13 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.titleText.text = "Private"
             
             return cell
-            
+        }else if(moreCell(indexPath: indexPath)){
+            return tableView.dequeueReusableCell(withIdentifier: "MoreDescripCell", for: indexPath) as! MoreDescripCell        
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatDescripCell", for: indexPath) as! ChatDescripCell
         
             var row = indexPath.row
-            
+    
             if(unread.count > 0){
                 row -= (unread.count + 1)//for title text
             }

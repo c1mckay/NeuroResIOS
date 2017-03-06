@@ -21,6 +21,7 @@
 		F6F7DE461E69007200F79E6D /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE451E69007200F79E6D /* SWRevealViewController.m */; };
 		F6F7DE481E6CAC1700F79E6D /* ChatHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE471E6CAC1700F79E6D /* ChatHeaderCell.swift */; };
 		F6F7DE4A1E6D186D00F79E6D /* StaffDescripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE491E6D186D00F79E6D /* StaffDescripCell.swift */; };
+		F6F7DE4C1E6D204600F79E6D /* MoreDescripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE4B1E6D204600F79E6D /* MoreDescripCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		F6F7DE451E69007200F79E6D /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		F6F7DE471E6CAC1700F79E6D /* ChatHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatHeaderCell.swift; sourceTree = "<group>"; };
 		F6F7DE491E6D186D00F79E6D /* StaffDescripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaffDescripCell.swift; sourceTree = "<group>"; };
+		F6F7DE4B1E6D204600F79E6D /* MoreDescripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoreDescripCell.swift; path = ../MoreDescripCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,8 +101,9 @@
 				F68439AF1E5F92C90027802C /* AppDelegate.swift */,
 				F6F7DE391E67C4EA00F79E6D /* BaseViewController.swift */,
 				F6F7DE471E6CAC1700F79E6D /* ChatHeaderCell.swift */,
-				F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */,
 				F6F7DE491E6D186D00F79E6D /* StaffDescripCell.swift */,
+				F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */,
+				F6F7DE4B1E6D204600F79E6D /* MoreDescripCell.swift */,
 				F6E309331E67B1CB007EE749 /* SlideMenuController.swift */,
 				F68439B11E5F92C90027802C /* LoginController.swift */,
 				F68439B31E5F92C90027802C /* ChatController.swift */,
@@ -236,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6F7DE4C1E6D204600F79E6D /* MoreDescripCell.swift in Sources */,
 				F68439B41E5F92C90027802C /* ChatController.swift in Sources */,
 				F6F7DE481E6CAC1700F79E6D /* ChatHeaderCell.swift in Sources */,
 				F68439B01E5F92C90027802C /* AppDelegate.swift in Sources */,
