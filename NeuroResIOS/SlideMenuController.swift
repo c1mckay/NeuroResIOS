@@ -56,6 +56,8 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         ["S. Khoromi", "General"]
     ]
     
+    var staff:[String] = ["Stroke", "Epilepsy", "NCC", "Headache"]
+    
     var unread:[String] = ["C. McKay"]
 
     
@@ -119,42 +121,118 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var unread_title = 0
+        var unread_section = unread.count
         if(unread.count > 0){
-            unread_title = 1;
+            unread_section += 1
         }
-        return users.count + unread.count + unread_title
+        let staff_section = staff.count + 1
+        let users_section = users.count + 1
+        return unread_section + staff_section + users_section
+    }
+    
+    func unreadHeader(indexPath: IndexPath) -> Bool{
+        return unread.count > 0 && indexPath.row == 0
+    }
+    
+    func unreadCell(indexPath: IndexPath) -> Bool{
+        if(unread.count == 0){
+            return false
+        }
+        return indexPath.row - 1 < unread.count
+    }
+    
+    func staffHeader(indexPath: IndexPath) -> Bool{
+        let row = indexPath.row
+        if(unread.count == 0){
+            return row == 0
+        }
+        return row == unread.count + 1;
+    }
+    
+    func usersHeader(indexPath: IndexPath) -> Bool{
+        var row = indexPath.row
+        if(unread.count != 0){
+            row -= (unread.count + 1)
+        }
+        row -= (staff.count + 1)
+        return row == 0
+    }
+    
+    func staffCell(indexPath: IndexPath) -> Bool{
+        var row = indexPath.row
+        if(unread.count != 0){
+            row -= (unread.count + 1)
+        }
+        row -= 1
+        return row >= 0 && row < staff.count
+    }
+    
+    func header(indexPath: IndexPath) -> Bool{
+        return unreadHeader(indexPath: indexPath) || staffHeader(indexPath: indexPath) || usersHeader(indexPath: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if(header(indexPath: indexPath)){
+            return 40
+        }else{
+            return 20
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if(unread.count > 0 && indexPath.row == 0){
+        if(unreadHeader(indexPath: indexPath)){
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
             
             cell.titleText.text = "Not Read"
             
             return cell
-        }else if(unread.count > 0 && indexPath.row < unread.count + 1){ //for title text
+        }else if(unreadCell(indexPath: indexPath)){ //for title text
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatDescripCell", for: indexPath) as! ChatDescripCell
-            
-            print(indexPath.row)
             
             cell.name.text = unread[indexPath.row - 1]
             
             return cell
+        }else if(staffHeader(indexPath: indexPath)){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
+            
+            cell.titleText.text = "Staff"
+            
+            return cell
+        
+        }else if(staffCell(indexPath: indexPath)){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "StaffDescripCell", for: indexPath) as! StaffDescripCell
+            
+            var staffCell = indexPath.row
+            if(unread.count > 0){
+                staffCell -= unread.count + 1
+            }
+            staffCell -= 1 //staff header
+            
+            cell.name.text = staff[staffCell]
+            
+            return cell
+        }else if(usersHeader(indexPath: indexPath)){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
+            
+            cell.titleText.text = "Private"
+            
+            return cell
+            
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatDescripCell", for: indexPath) as! ChatDescripCell
         
             var row = indexPath.row
             
             if(unread.count > 0){
-                row = row - unread.count - 1//for title text
+                row -= (unread.count + 1)//for title text
             }
+            row -= (staff.count + 1) //for staff section
+            row -= 1 //for users header
         
             let username = users[row][0]
-            //let text = users[row][1]
             cell.name.text = username
-            //cell.date.text = "date"
-            //cell.content.text = text
+            
+            cell.unreadIcon.isHidden = true
         
         
             return cell

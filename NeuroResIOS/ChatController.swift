@@ -97,6 +97,7 @@ class ChatController: BaseViewController, UITableViewDelegate, UITableViewDataSo
         return staticMessages.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatTableCell", for: indexPath) as! ChatTableCell
         
