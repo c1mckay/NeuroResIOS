@@ -16,12 +16,14 @@
 		F68439C71E5F92C90027802C /* NeuroResIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68439C61E5F92C90027802C /* NeuroResIOSTests.swift */; };
 		F6E309321E64D527007EE749 /* ChatTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E309311E64D527007EE749 /* ChatTableCell.swift */; };
 		F6E309341E67B1CB007EE749 /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E309331E67B1CB007EE749 /* SlideMenuController.swift */; };
-		F6F7DE3A1E67C4EA00F79E6D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE391E67C4EA00F79E6D /* BaseViewController.swift */; };
 		F6F7DE3C1E67CD6700F79E6D /* ChatDescripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */; };
 		F6F7DE461E69007200F79E6D /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE451E69007200F79E6D /* SWRevealViewController.m */; };
 		F6F7DE481E6CAC1700F79E6D /* ChatHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE471E6CAC1700F79E6D /* ChatHeaderCell.swift */; };
 		F6F7DE4A1E6D186D00F79E6D /* StaffDescripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE491E6D186D00F79E6D /* StaffDescripCell.swift */; };
 		F6F7DE4C1E6D204600F79E6D /* MoreDescripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE4B1E6D204600F79E6D /* MoreDescripCell.swift */; };
+		F6F7DE501E6DF50A00F79E6D /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE4F1E6DF50A00F79E6D /* SearchController.swift */; };
+		F6F7DE541E736DE900F79E6D /* StaffNameDescripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE531E736DE900F79E6D /* StaffNameDescripCell.swift */; };
+		F6F7DE561E76061700F79E6D /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE551E76061700F79E6D /* SearchResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +50,6 @@
 		F68439C81E5F92C90027802C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6E309311E64D527007EE749 /* ChatTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatTableCell.swift; path = ../ChatTableCell.swift; sourceTree = "<group>"; };
 		F6E309331E67B1CB007EE749 /* SlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuController.swift; sourceTree = "<group>"; };
-		F6F7DE391E67C4EA00F79E6D /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = ../BaseViewController.swift; sourceTree = "<group>"; };
 		F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDescripCell.swift; sourceTree = "<group>"; };
 		F6F7DE431E69007100F79E6D /* NeuroResIOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NeuroResIOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		F6F7DE441E69007200F79E6D /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
@@ -56,6 +57,9 @@
 		F6F7DE471E6CAC1700F79E6D /* ChatHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatHeaderCell.swift; sourceTree = "<group>"; };
 		F6F7DE491E6D186D00F79E6D /* StaffDescripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaffDescripCell.swift; sourceTree = "<group>"; };
 		F6F7DE4B1E6D204600F79E6D /* MoreDescripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoreDescripCell.swift; path = ../MoreDescripCell.swift; sourceTree = "<group>"; };
+		F6F7DE4F1E6DF50A00F79E6D /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchController.swift; path = ../SearchController.swift; sourceTree = "<group>"; };
+		F6F7DE531E736DE900F79E6D /* StaffNameDescripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffNameDescripCell.swift; path = ../StaffNameDescripCell.swift; sourceTree = "<group>"; };
+		F6F7DE551E76061700F79E6D /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +103,11 @@
 			children = (
 				F6F7DE421E69005500F79E6D /* SWRevealViewController */,
 				F68439AF1E5F92C90027802C /* AppDelegate.swift */,
-				F6F7DE391E67C4EA00F79E6D /* BaseViewController.swift */,
+				F6F7DE4F1E6DF50A00F79E6D /* SearchController.swift */,
+				F6F7DE551E76061700F79E6D /* SearchResult.swift */,
 				F6F7DE471E6CAC1700F79E6D /* ChatHeaderCell.swift */,
 				F6F7DE491E6D186D00F79E6D /* StaffDescripCell.swift */,
+				F6F7DE531E736DE900F79E6D /* StaffNameDescripCell.swift */,
 				F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */,
 				F6F7DE4B1E6D204600F79E6D /* MoreDescripCell.swift */,
 				F6E309331E67B1CB007EE749 /* SlideMenuController.swift */,
@@ -243,13 +249,15 @@
 				F68439B41E5F92C90027802C /* ChatController.swift in Sources */,
 				F6F7DE481E6CAC1700F79E6D /* ChatHeaderCell.swift in Sources */,
 				F68439B01E5F92C90027802C /* AppDelegate.swift in Sources */,
+				F6F7DE541E736DE900F79E6D /* StaffNameDescripCell.swift in Sources */,
 				F6F7DE3C1E67CD6700F79E6D /* ChatDescripCell.swift in Sources */,
 				F6F7DE461E69007200F79E6D /* SWRevealViewController.m in Sources */,
+				F6F7DE561E76061700F79E6D /* SearchResult.swift in Sources */,
 				F6F7DE4A1E6D186D00F79E6D /* StaffDescripCell.swift in Sources */,
 				F6E309321E64D527007EE749 /* ChatTableCell.swift in Sources */,
+				F6F7DE501E6DF50A00F79E6D /* SearchController.swift in Sources */,
 				F68439B21E5F92C90027802C /* LoginController.swift in Sources */,
 				F6E309341E67B1CB007EE749 /* SlideMenuController.swift in Sources */,
-				F6F7DE3A1E67C4EA00F79E6D /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@
 import UIKit
 import os.log
 
-class ChatController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var User: UILabel!
     
@@ -20,22 +20,24 @@ class ChatController: BaseViewController, UITableViewDelegate, UITableViewDataSo
     
     @IBOutlet weak var messageInput: UITextField!
     var  staticMessages:[[String]] = [
-        ["Ice Cream Cone", "Ice Creamdddddddddddddddddddd\n\n\n dddasadlkfjsld;kfjasd asdlfkjasdf asdlfksja"],
-        ["Ice Cream Sundae",  "Ice Cream"],
-        ["Apple Pie",  "Pie"],
-        ["Cherry Pie",  "Pie"],
-        ["Coconut Cream",  "Pie"],
-        ["Tiramisu",  "Cake"],
-        ["Chocolate Chip Cookie", "Cookie"],
-        ["7-Layer Cake", "Cake"],
-        ["Boston Cream Doughnut", "Doughnut"],
-        ["Cruller", "Doughnut"],
-        ["Long John", "Doughnut"],
-        ["Blueberry Muffin", "Cake"],
-        ["Vanilla Cupcake", "Cake"],
-        ["Shake", "Drink"],
-        ["Malted", "Drink"],
-        ["Root Beer Float", "Drink"]
+        ["J. Alexander", "Hello"],
+        ["C. Konersman",  "This is a chat example with an incredibly long message."],
+        ["J. Alexander",  "Back to me."],
+        ["C. Konersman",  "I will demonstrate overflowing messages with two messages.\nThis is my second message I submitted.\nMore concept."],
+        ["J. Alexander",  "Interesting. I can also play with the borders to see how that looks like."],
+        ["C. Konersman",  "Thoughts?"],
+        ["J. Alexander", "Hello"],
+        ["C. Konersman",  "This is a chat example with an incredibly long message."],
+        ["J. Alexander",  "Back to me."],
+        ["C. Konersman",  "I will demonstrate overflowing messages with two messages.\nThis is my second message I submitted.\nMore concept."],
+        ["J. Alexander",  "Interesting. I can also play with the borders to see how that looks like."],
+        ["C. Konersman",  "Thoughts?"],
+        ["J. Alexander", "Hello"],
+        ["C. Konersman",  "This is a chat example with an incredibly long message."],
+        ["J. Alexander",  "Back to me."],
+        ["C. Konersman",  "I will demonstrate overflowing messages with two messages.\nThis is my second message I submitted.\nMore concept."],
+        ["J. Alexander",  "Interesting. I can also play with the borders to see how that looks like."],
+        ["C. Konersman",  "Thoughts?"]
     ]
     
     @IBOutlet weak var usersButton: UIBarButtonItem!
@@ -56,12 +58,12 @@ class ChatController: BaseViewController, UITableViewDelegate, UITableViewDataSo
             //self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         let screenSize: CGRect = UIScreen.main.fixedCoordinateSpace.bounds
-        print(screenSize.width.description)
-        let sliderWidth = (screenSize.width * 0.7)
+        let sliderWidth = (screenSize.width * 0.7) - 100
         
+        self.revealViewController().rearViewRevealWidth = 290
         
-        print(sliderWidth.description)
-        self.revealViewController().rearViewRevealWidth = sliderWidth
+        print(screenSize.width)
+        print(sliderWidth)
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)

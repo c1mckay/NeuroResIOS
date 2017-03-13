@@ -56,14 +56,51 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         ["S. Khoromi", "General"]
     ]
     
-    var staff:[String] = ["Stroke", "Epilepsy", "NCC", "Headache"]
+    var staff:[String:[String]] = [
+        "Headache":[
+        //    "H. Ansari"
+        ],
+        "Movement":[
+        //    "F. Nahab"
+        ],
+        "Stroke":[
+            "T. Hemmen",
+            "B. Huisa-Garate",
+            "R. Modir",
+            "K. Agrawal",
+            "B. Meyer"
+        ],
+        "Epilepsy":[
+        //    "J. Shih",
+        //    "E. Tecoma",
+        //    "V. Iragui-Madoz"
+        ],
+        "NCC":[
+        //    "C. Gonzalez",
+        //    "J. Labuzetta"
+        ],
+        "General":[
+        //    "S. Khoromi",
+        //    "S. Siavoshi",
+        //    "R. Ellis",
+        //    "R. Haas"
+        ],
+        "IOM":[
+        //    "J. Gertsch",
+        //    "M. Shtrahman"
+        ],
+        "Memory":[
+        //    "S. Yan"
+        ]
+    ]
     
     var unread:[String] = ["C. McKay"]
 
+    var staffKeys:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        staffKeys = Array(staff.keys)
         // Do any additional setup after loading the view.
     }
 
@@ -127,7 +164,18 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         let staff_section = staff.count + 1
         let users_section = users.count + 1
-        return unread_section + staff_section + users_section + 1//1 is the last row for more
+        
+        
+        
+        return unread_section + staff_section + getStaffCount() + users_section + 1//1 is the last row for more
+    }
+    
+    func getStaffCount() -> Int{
+        var staff_subsection = 0;
+        for(_, staff_names) in staff{
+            staff_subsection += staff_names.count
+        }
+        return staff_subsection
     }
     
     func unreadHeader(indexPath: IndexPath) -> Bool{
@@ -148,29 +196,66 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         return row == unread.count + 1;
     }
-    
+
     func usersHeader(indexPath: IndexPath) -> Bool{
         var row = indexPath.row
         if(unread.count != 0){
             row -= (unread.count + 1)
         }
         row -= (staff.count + 1)
+        row -= getStaffCount()
         return row == 0
     }
     
-    func staffCell(indexPath: IndexPath) -> Bool{
+    func staffTypeCell(indexPath: IndexPath) -> Bool{
         var row = indexPath.row
         if(unread.count != 0){
             row -= (unread.count + 1)
         }
-        row -= 1
-        return row >= 0 && row < staff.count
+        row -= 1 //for Staff entirety section
+        
+        if(staff.count > 0){
+            for i in 0 ... staff.count - 1{
+                if(row == 0){
+                    return true;
+                }
+                row -= 1
+                row -= (staff[staffKeys[i]]?.count)!
+            }
+        }
+        return false
     }
+    
+    func staffNameCell(indexPath: IndexPath) -> Bool{
+        var row = indexPath.row
+        if(unread.count != 0){
+            row -= (unread.count + 1)
+        }
+        
+        row -= 1
+        
+        var size = 0
+        if(staff.count > 0){
+            for i in 0 ... (staff.count - 1) {
+                row -= 1
+                size = (staff[staffKeys[i]]?.count)!
+            
+                if(row >= 0 && row < size){
+                    return true
+                }
+                row -= size
+            }
+        }
+        return false
+    }
+    
+    
     
     func header(indexPath: IndexPath) -> Bool{
         return unreadHeader(indexPath: indexPath) || staffHeader(indexPath: indexPath) || usersHeader(indexPath: indexPath)
     }
     
+    //the ... show more people button
     func moreCell(indexPath: IndexPath) -> Bool{
         var unread_section = unread.count
         if(unread.count > 0){
@@ -178,7 +263,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         let staff_section = staff.count + 1
         let users_section = users.count + 1
-        return unread_section + staff_section + users_section == indexPath.row
+        return unread_section + staff_section + users_section + getStaffCount() == indexPath.row
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -209,7 +294,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             
             return cell
         
-        }else if(staffCell(indexPath: indexPath)){
+        }else if(staffTypeCell(indexPath: indexPath)){
             let cell = tableView.dequeueReusableCell(withIdentifier: "StaffDescripCell", for: indexPath) as! StaffDescripCell
             
             var staffCell = indexPath.row
@@ -218,7 +303,40 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             staffCell -= 1 //staff header
             
-            cell.name.text = staff[staffCell]
+            for i in 0 ... staff.count - 1{
+                if(staffCell == 0){
+                    cell.name.text = staffKeys[i]
+                    return cell
+                }
+                staffCell -= 1
+                staffCell -= (staff[staffKeys[i]]?.count)!
+            }
+            
+            return cell
+        }else if(staffNameCell(indexPath: indexPath)){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "StaffNameDescripCell", for: indexPath) as! StaffNameDescripCell
+        
+            var row = indexPath.row
+            if(unread.count != 0){
+                row -= (unread.count + 1)
+            }
+            
+            row -= 1 //big staff header
+            
+            var size = 0
+            for i in 0 ... (staff.count - 1) {
+                row -= 1
+                size = (staff[staffKeys[i]]?.count)!
+                    
+                if(row >= 0 && row < size){
+                    cell.name.text = staff[staffKeys[i]]?[row]
+                    return cell
+                }
+                row -= size
+            
+            }
+            
+            
             
             return cell
         }else if(usersHeader(indexPath: indexPath)){
@@ -239,14 +357,23 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             row -= (staff.count + 1) //for staff section
             row -= 1 //for users header
+            row -= getStaffCount() //for all the staff
         
             let username = users[row][0]
             cell.name.text = username
             
-            cell.unreadIcon.isHidden = true
+            cell.unreadCount.isHidden = true
         
         
             return cell
         }
+    }
+    
+    func uicolorFromHex(rgbValue:UInt32)->UIColor{
+        let red = CGFloat((rgbValue & 0xFF0000) >> 16)/256.0
+        let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
+        let blue = CGFloat(rgbValue & 0xFF)/256.0
+        
+        return UIColor(red:red, green:green, blue:blue, alpha:1.0)
     }
 }
