@@ -43,72 +43,158 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     */
     var delegate: SlideMenuDelegate?
     
+    var userName = "syeu"
+    
+    var loginToken = ""
+    
+    var userList: Data?
+   
+    
+
+    func get_login(_ url: String) {
+        let tokenGroup = DispatchGroup()
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "POST"
+        request.addValue(userName, forHTTPHeaderField: "auth")
+        tokenGroup.enter()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print("error=\(error)")
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(response)")
+            }
+            
+            let responseString = String(data: data, encoding: .utf8) ?? ""
+            //completion(responseString)
+            self.loginToken = responseString
+            tokenGroup.leave()
+
+        }
+        task.resume()
+        tokenGroup.wait()
+        DispatchQueue.main.async {
+        }
+    }
+    
+    func getUsers(_ url: String) {
+        let userGroup = DispatchGroup()
+        var request = URLRequest(url: URL(string: url)!)
+        print(loginToken)
+        request.httpMethod = "POST"
+        request.addValue(loginToken, forHTTPHeaderField: "auth")
+        userGroup.enter()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print("error=\(error)")
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(response)")
+            }
+            
+            let responseString = String(data: data, encoding: .utf8) ?? ""
+            print(responseString)
+            do {
+                
+                let parsedData = try JSONSerialization.jsonObject(with: data) as? [[String:Any]]
+                
+                for i in 0 ... ((parsedData?.count))! - 1 {
+                
+                    let json = parsedData![i] as? [String:Any]
+                    let name = json!["email"] as? String
+                    self.users.append([name!])
+                    let userType = json!["user_type"] as? String
+                    if self.staff[userType!] != nil {
+                        self.staff[userType!]!.append(name!)
+
+                    }
+                    else {
+                        self.staff[userType!] = [name!]
+                    }
+                }
+                
+                
+                //for i in 0 ... parsedData.count-1 {
+                    //let json = JSONSerialization.jsonObject(with: data) as? [String:Any]
+                    //print(json["email"])
+                //}
+            } catch let error as NSError {
+                print(error)
+            }
+            userGroup.leave()
+            
+        }
+        task.resume()
+        userGroup.wait()
+        DispatchQueue.main.async {
+            
+        }
+    
+    
+    }
+    
+    
+    
+    
     var  users:[[String]] = [
-        ["T. Hemmen", "Stroke"],
-        ["B. Huisa-Garate", "Stroke"],
-        ["R. Modir", "Stroke"],
-        ["K. Agrawal", "Stroke"],
-        ["B. Meyer", "Stroke"],
-        ["D. Meyer", "Stroke"],
-        ["J. Shih", "Epilepsy"],
-        ["C. Gonzalez", "NCC"],
-        ["H. Ansari", "Headache"],
-        ["S. Khoromi", "General"]
+
     ]
     
     var staff:[String:[String]] = [
         "Headache":[
-        //    "H. Ansari"
+
         ],
         "Movement":[
-        //    "F. Nahab"
+
         ],
         "Stroke":[
-            "T. Hemmen",
-            "B. Huisa-Garate",
-            "R. Modir",
-            "K. Agrawal",
-            "B. Meyer"
         ],
         "Epilepsy":[
-        //    "J. Shih",
-        //    "E. Tecoma",
-        //    "V. Iragui-Madoz"
+
         ],
         "NCC":[
-        //    "C. Gonzalez",
-        //    "J. Labuzetta"
+
         ],
         "General":[
-        //    "S. Khoromi",
-        //    "S. Siavoshi",
-        //    "R. Ellis",
-        //    "R. Haas"
+
         ],
         "IOM":[
-        //    "J. Gertsch",
-        //    "M. Shtrahman"
+
         ],
         "Memory":[
-        //    "S. Yan"
         ]
     ]
     
-    var unread:[String] = ["C. McKay"]
+    var unread:[String] = []
 
     var staffKeys:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        get_login("http://neurores.ucsd.edu:3000/login")
+        getUsers("http://neurores.ucsd.edu:3000/users_list")
+        //print(userList)
         staffKeys = Array(staff.keys)
-        // Do any additional setup after loading the view.
+
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    
+    func setToken(token:String) {
+        self.loginToken = token
+    }
 
     /*
     // MARK: - Navigation
@@ -123,7 +209,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func onCloseMenuClick(_ button:UIButton!){
         btnMenu.tag = 0
-        
         if (self.delegate != nil) {
             var index = Int32(button.tag)
             if(button == self.btnCloseMenuOverlay){
@@ -140,6 +225,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             self.view.removeFromSuperview()
             self.removeFromParentViewController()
         })
+
     }
     
     var configured = false
@@ -376,4 +462,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         
         return UIColor(red:red, green:green, blue:blue, alpha:1.0)
     }
+    
+    
+    
 }
