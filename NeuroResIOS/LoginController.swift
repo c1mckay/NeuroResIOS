@@ -85,6 +85,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         //if (email.text?.hasSuffix("@ucsd.edu") || true)! {
             //performSegue(withIdentifier: identifier, sender:nil)
+            get_login("http://neurores.ucsd.edu:3000/login")
             return true
         /*}
         else {
