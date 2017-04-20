@@ -13,12 +13,24 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var User: UILabel!
     
-    var email = ""
+    var email = "syeu"
     var password = ""
+    
+    let defaults = UserDefaults.standard
+    var token = "" // User's auth token
+    var selected = "" // Which user is been selected
+    var users = [String:Any]() // dictionary key: usernameand and val: id
+    var userLookup = [Int: String]() // dictionary key: id and val: username
+    var convID = Int() // Conversation Data - ID
+    var convUsers = Int() // Conversation Data - UserID
+    var messages = [[String]]() // contains messages
+    
 
     @IBOutlet weak var chatContainer: UITableView!
     
     @IBOutlet weak var messageInput: UITextField!
+   
+    // Not used any more
     var  staticMessages:[[String]] = [
         ["J. Alexander", "Hello"],
         ["C. Konersman",  "This is a chat example with an incredibly long message."],
@@ -45,7 +57,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //User.text = email
+        //get_login("http://neurores.ucsd.edu:3000/login")
+        token = defaults.string(forKey: "token")!
         
         chatContainer.estimatedRowHeight = 68.0
         chatContainer.rowHeight = UITableViewAutomaticDimension
@@ -57,20 +70,32 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             usersButton.action = #selector(SWRevealViewController.revealToggle(_:))
             //self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-        let screenSize: CGRect = UIScreen.main.fixedCoordinateSpace.bounds
-        let sliderWidth = (screenSize.width * 0.7) - 100
         
         self.revealViewController().rearViewRevealWidth = 290
         
-        print(screenSize.width)
-        print(sliderWidth)
         
-        
+        // For displaying keyborad correctly
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
+        
+        // For dismissing keyboard by tapping
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginController.dismissKeyboard))
         self.view.addGestureRecognizer(tap)
+        
+        // Get list of users and get id of selected user
+        users = defaults.dictionary(forKey: "users")!
+        selected = defaults.string(forKey: "selected")!
+        
+        // Get conversation data
+        let sid = getIDs(name: selected)
+        let ids = "[" + String(sid) + "," + String(getIDs(name: email)) + "]"
+        startConversation(url: "http://neurores.ucsd.edu:3000/start_conversation", info: ids)
+        
+        // Get messagees from conversation
+        let cid = String(convID)
+        createLookUpTable()
+        getMessages(url: "http://neurores.ucsd.edu:3000/get_messages", info: cid)
         
     }
 
@@ -96,7 +121,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return staticMessages.count
+        return messages.count
     }
     
     
@@ -105,8 +130,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let row = indexPath.row
         
-        let username = staticMessages[row][0]
-        let text = staticMessages[row][1]
+        let username = messages[row][0]
+        let text = messages[row][1]
         cell.username.text = username
         //cell.date.text = "date"
         cell.content.text = text
@@ -118,15 +143,15 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // Used to go to the bottom of tableview
     func scrollToBottom(){
-        let indexPath = IndexPath(row: self.staticMessages.count-1, section: 0)
+        let indexPath = IndexPath(row: self.messages.count-1, section: 0)
         self.chatContainer.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
     
     //TODO: Replace staticmessages and "User". Add code to send message to server later
     @IBAction func sendMessage(_ sender: Any) {
-        staticMessages.append(["User",messageInput.text!])
+        messages.append(["User",messageInput.text!])
         chatContainer.beginUpdates()
-        chatContainer.insertRows(at: [IndexPath(row: staticMessages.count-1, section: 0)], with: .automatic)
+        chatContainer.insertRows(at: [IndexPath(row: messages.count-1, section: 0)], with: .automatic)
         chatContainer.endUpdates()
         chatContainer.reloadData()
         scrollToBottom()
@@ -162,6 +187,146 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         view.endEditing(true)
     }
     
+    
+  
+    
+    /**
+     * Function to get messages
+     * Parameters: url:String - address of endpoint for API call
+     *             info: String - Conversation ID
+     */
+    func getMessages(url: String, info: String) {
+        let tokenGroup = DispatchGroup()
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "POST"
+        request.addValue(self.token, forHTTPHeaderField: "auth")
+        request.httpBody = info.data(using: String.Encoding.utf8)
+
+        tokenGroup.enter()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print("error=\(error)")
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(response)")
+            }
+            
+            do {
+                
+                let parsedData = try JSONSerialization.jsonObject(with: data) as? [[String:Any]]
+                
+                if !(parsedData?.isEmpty)! {
+                    for i in 0 ... ((parsedData?.count))! - 1 {
+                        
+                        let json = parsedData![i] as? [String:Any]
+                        let userid = json!["sender"] as? String
+                        let text = json!["text"] as? String
+                        let userIdInt = Int(userid!)
+                        let userName = self.getUserName(id: userIdInt!)
+                        let message = [userName, text]
+                        self.messages.append(message as! [String])
+                        
+                    }
+                }
+                
+
+            } catch let error as NSError {
+                print(error)
+            }
+
+            tokenGroup.leave()
+            
+        }
+        task.resume()
+        tokenGroup.wait()
+        DispatchQueue.main.async {
+        }
+        
+        
+    }
+    
+    
+    /**
+     * Function get and start conversation
+     * Parameters: url:String - address of endpoint for API call
+     *             info: String - json array of userids
+     */
+    func startConversation(url: String, info: String) {
+        let tokenGroup = DispatchGroup()
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "POST"
+        request.addValue(self.token, forHTTPHeaderField: "auth")
+        request.httpBody = info.data(using: String.Encoding.utf8)
+        
+        tokenGroup.enter()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print("error=\(error)")
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(response)")
+            }
+            
+            //let responseString = String(data: data, encoding: .utf8) ?? ""
+            //print(responseString)
+            do {
+                
+                let parsedData = try JSONSerialization.jsonObject(with: data) as? [String:Any]
+                let key = Array(parsedData!.keys)
+                let conv = key[0] as? String
+                let val = parsedData?[conv!] as? Int
+                self.convID = val!
+
+            } catch let error as NSError {
+                print(error)
+            };
+            tokenGroup.leave()
+            
+        }
+        task.resume()
+        tokenGroup.wait()
+        DispatchQueue.main.async {
+        }
+        
+        
+    }
+    
+    
+    
+    /**
+     * Function to get UserIDs
+     * Parameters: name:String - username
+     * Returns:  Int - the user's id
+     */
+    func getIDs(name:String) -> Int{
+        let id = users[selected]
+        return id as! Int
+    
+    }
+
+    /**
+     * Function to create a dictionary to get usernames from ids
+     */
+    func createLookUpTable() {
+        for (key, value) in users {
+            let id = value as? Int
+            userLookup[id!] = key
+        
+        }
+        
+    }
+    
+    func getUserName(id:Int) -> String {
+        return userLookup[id]! as String
+    }
+    
+
     
     
     

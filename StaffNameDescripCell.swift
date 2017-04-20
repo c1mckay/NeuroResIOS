@@ -11,6 +11,7 @@ import UIKit
 class StaffNameDescripCell: UITableViewCell {
 
     @IBOutlet weak var name: UILabel!
+    let defautls = UserDefaults.standard
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,6 +21,12 @@ class StaffNameDescripCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        if selected {
+            //print(name.text ?? "user")
+            defautls.set(name.text!, forKey: "selected")
+            
+        }
+
     }
 
 }

@@ -20,7 +20,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var usersList: UITableView!
     
     
-    
     /**
     *   Transparent button to hide menu
     */
@@ -43,47 +42,20 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     */
     var delegate: SlideMenuDelegate?
     
+    /* TODO: Change user name */
     var userName = "syeu"
-    
+    let defaults = UserDefaults.standard
     var loginToken = ""
     
-    var userList: Data?
-   
     
-
-    func get_login(_ url: String) {
-        let tokenGroup = DispatchGroup()
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "POST"
-        request.addValue(userName, forHTTPHeaderField: "auth")
-        tokenGroup.enter()
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                print("error=\(error)")
-                return
-            }
-            
-            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
-                print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                print("response = \(response)")
-            }
-            
-            let responseString = String(data: data, encoding: .utf8) ?? ""
-            //completion(responseString)
-            self.loginToken = responseString
-            tokenGroup.leave()
-
-        }
-        task.resume()
-        tokenGroup.wait()
-        DispatchQueue.main.async {
-        }
-    }
     
+    /**
+     * Function to get list of users
+     * Parameters: url:String - address of endpoint for API call
+     */
     func getUsers(_ url: String) {
         let userGroup = DispatchGroup()
         var request = URLRequest(url: URL(string: url)!)
-        print(loginToken)
         request.httpMethod = "POST"
         request.addValue(loginToken, forHTTPHeaderField: "auth")
         userGroup.enter()
@@ -98,8 +70,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                 print("response = \(response)")
             }
             
-            let responseString = String(data: data, encoding: .utf8) ?? ""
-            print(responseString)
+            //let responseString = String(data: data, encoding: .utf8) ?? ""
             do {
                 
                 let parsedData = try JSONSerialization.jsonObject(with: data) as? [[String:Any]]
@@ -108,7 +79,9 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                 
                     let json = parsedData![i] as? [String:Any]
                     let name = json!["email"] as? String
+                    let id = json!["user_id"] as? Int
                     self.users.append([name!])
+                    self.usersIDs[name!] = id
                     let userType = json!["user_type"] as? String
                     if self.staff[userType!] != nil {
                         self.staff[userType!]!.append(name!)
@@ -118,12 +91,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                         self.staff[userType!] = [name!]
                     }
                 }
-                
-                
-                //for i in 0 ... parsedData.count-1 {
-                    //let json = JSONSerialization.jsonObject(with: data) as? [String:Any]
-                    //print(json["email"])
-                //}
             } catch let error as NSError {
                 print(error)
             }
@@ -141,6 +108,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     
+    var usersIDs:NSMutableDictionary = [:]
     
     var  users:[[String]] = [
 
@@ -177,11 +145,16 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        get_login("http://neurores.ucsd.edu:3000/login")
+        
+        // Get token
+        loginToken  =  defaults.string(forKey: "token")!
+        
+        // Get users
         getUsers("http://neurores.ucsd.edu:3000/users_list")
-        //print(userList)
         staffKeys = Array(staff.keys)
-
+        
+        // store users
+        defaults.set(usersIDs, forKey: "users")
     }
     
     
@@ -205,6 +178,22 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "userSelect" {
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in
+                self.view.frame = CGRect(x: -UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width,height: UIScreen.main.bounds.size.height)
+                self.view.layoutIfNeeded()
+                self.view.backgroundColor = UIColor.clear
+            }, completion: { (finished) -> Void in
+                self.view.removeFromSuperview()
+                self.removeFromParentViewController()
+            })
+        
+        }
+    }
+    
+
     
     
     @IBAction func onCloseMenuClick(_ button:UIButton!){
@@ -462,6 +451,8 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         
         return UIColor(red:red, green:green, blue:blue, alpha:1.0)
     }
+    
+    
     
     
     
