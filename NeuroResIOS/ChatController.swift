@@ -13,11 +13,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var User: UILabel!
     
-    var email = "syeu"
-    var password = ""
     
-    let defaults = UserDefaults.standard
-    var token = "" // User's auth token
     var selected = "" // Which user is been selected
     var users = [String:Any]() // dictionary key: usernameand and val: id
     var userLookup = [Int: String]() // dictionary key: id and val: username
@@ -57,8 +53,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //get_login("http://neurores.ucsd.edu:3000/login")
-        token = defaults.string(forKey: "token")!
+        if(UserDefaults.standard.string(forKey: "user_auth_token") == nil){
+            print("login token not found")
+            performSegue(withIdentifier: "noLoginTokenSegue", sender: nil)
+            return
+        }
         
         chatContainer.estimatedRowHeight = 68.0
         chatContainer.rowHeight = UITableViewAutomaticDimension
@@ -83,8 +82,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginController.dismissKeyboard))
         self.view.addGestureRecognizer(tap)
         
+        //print(defaults)
+        
         // Get list of users and get id of selected user
-        users = defaults.dictionary(forKey: "users")!
+        /*users = defaults.dictionary(forKey: "users")!
         selected = defaults.string(forKey: "selected")!
         
         // Get conversation data
@@ -95,7 +96,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Get messagees from conversation
         let cid = String(convID)
         createLookUpTable()
-        getMessages(url: "http://neurores.ucsd.edu:3000/get_messages", info: cid)
+        getMessages(url: "http://neurores.ucsd.edu:3000/get_messages", info: cid)*/
         
     }
 
@@ -187,6 +188,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         view.endEditing(true)
     }
     
+    func getToken() -> String{
+        return UserDefaults.standard.string(forKey: "user_auth_token")!
+    }
     
   
     
@@ -199,7 +203,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let tokenGroup = DispatchGroup()
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
-        request.addValue(self.token, forHTTPHeaderField: "auth")
+        request.addValue(getToken(), forHTTPHeaderField: "auth")
         request.httpBody = info.data(using: String.Encoding.utf8)
 
         tokenGroup.enter()
@@ -258,7 +262,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let tokenGroup = DispatchGroup()
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
-        request.addValue(self.token, forHTTPHeaderField: "auth")
+        request.addValue(getToken(), forHTTPHeaderField: "auth")
         request.httpBody = info.data(using: String.Encoding.utf8)
         
         tokenGroup.enter()

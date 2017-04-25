@@ -43,10 +43,10 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     var delegate: SlideMenuDelegate?
     
     /* TODO: Change user name */
-    var userName = "syeu"
-    let defaults = UserDefaults.standard
-    var loginToken = ""
     
+    func getToken() -> String{
+        return UserDefaults.standard.value(forKey: "user_auth_token")! as! String;
+    }
     
     
     /**
@@ -57,7 +57,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         let userGroup = DispatchGroup()
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
-        request.addValue(loginToken, forHTTPHeaderField: "auth")
+        request.addValue(getToken(), forHTTPHeaderField: "auth")
         userGroup.enter()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
@@ -77,12 +77,12 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                 
                 for i in 0 ... ((parsedData?.count))! - 1 {
                 
-                    let json = parsedData![i] as? [String:Any]
-                    let name = json!["email"] as? String
-                    let id = json!["user_id"] as? Int
+                    let json = parsedData![i] as [String:Any]
+                    let name = json["email"] as? String
+                    let id = json["user_id"] as? Int
                     self.users.append([name!])
                     self.usersIDs[name!] = id
-                    let userType = json!["user_type"] as? String
+                    let userType = json["user_type"] as? String
                     if self.staff[userType!] != nil {
                         self.staff[userType!]!.append(name!)
 
@@ -109,52 +109,20 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     var usersIDs:NSMutableDictionary = [:]
-    
-    var  users:[[String]] = [
-
-    ]
-    
-    var staff:[String:[String]] = [
-        "Headache":[
-
-        ],
-        "Movement":[
-
-        ],
-        "Stroke":[
-        ],
-        "Epilepsy":[
-
-        ],
-        "NCC":[
-
-        ],
-        "General":[
-
-        ],
-        "IOM":[
-
-        ],
-        "Memory":[
-        ]
-    ]
-    
+    var users:[[String]] = []
+    var staff:[String:[String]] = [:]
     var unread:[String] = []
-
     var staffKeys:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Get token
-        loginToken  =  defaults.string(forKey: "token")!
+        
         
         // Get users
         getUsers("http://neurores.ucsd.edu:3000/users_list")
         staffKeys = Array(staff.keys)
         
-        // store users
-        defaults.set(usersIDs, forKey: "users")
     }
     
     
@@ -164,10 +132,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         // Dispose of any resources that can be recreated.
     }
     
-    
-    func setToken(token:String) {
-        self.loginToken = token
-    }
 
     /*
     // MARK: - Navigation

@@ -39,10 +39,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
 
     
     override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
-        //let secondViewController = segue.destination as! ChatController
-        //secondViewController.email = email.text!
-        //secondViewController.password = password.text!
-    
+        //the functionality in this message has now been changed to use UserDefaults
     }
     
     
@@ -83,21 +80,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
 
     // TODO: Change email/password verification
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        //if (email.text?.hasSuffix("@ucsd.edu") || true)! {
-            //performSegue(withIdentifier: identifier, sender:nil)
+        if((email.text ?? "").isEmpty){
             get_login("http://neurores.ucsd.edu:3000/login")
-            return true
-        /*}
-        else {
-            ErrorMessage.text = "Incorrect Password"
-            ErrorMessage.textColor = UIColor.red
-            return false
-        }*/
+        }
+        return false
     }
-    
-    
-    
-    
     
     
     /**
@@ -109,7 +96,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
         //request.addValue(email.text!, forHTTPHeaderField: "auth")
-        request.addValue("syeu", forHTTPHeaderField: "auth") // change later
+        request.addValue(email.text!, forHTTPHeaderField: "auth") // change later
         tokenGroup.enter()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
@@ -120,11 +107,13 @@ class LoginController: UIViewController, UITextFieldDelegate {
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
                 print("response = \(response)")
+                self.ErrorMessage.text = "Invalid credentials"
+                self.ErrorMessage.textColor = UIColor.red
             }
             
             let responseString = String(data: data, encoding: .utf8) ?? ""
-            //completion(responseString)
-            self.defaults.set(responseString, forKey: "token")
+            UserDefaults.standard.set(responseString, forKey: "user_auth_token")
+            self.performSegue(withIdentifier: "successfulLogin", sender: nil)
             //self.token = responseString
             tokenGroup.leave()
             
