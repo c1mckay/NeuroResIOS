@@ -80,7 +80,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
 
     // TODO: Change email/password verification
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if((email.text ?? "").isEmpty){
+        if(!(email.text ?? "").isEmpty){
             get_login("http://neurores.ucsd.edu:3000/login")
         }
         return false
@@ -105,16 +105,19 @@ class LoginController: UIViewController, UITextFieldDelegate {
             }
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
-                print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                print("response = \(response)")
-                self.ErrorMessage.text = "Invalid credentials"
-                self.ErrorMessage.textColor = UIColor.red
+                DispatchQueue.main.async {
+                    self.ErrorMessage.text = "Invalid credentials"
+                    self.ErrorMessage.textColor = UIColor.red
+                }
+            }else{
+                DispatchQueue.main.async {
+                    let responseString = String(data: data, encoding: .utf8) ?? ""
+                    UserDefaults.standard.set(responseString, forKey: "user_auth_token")
+                    self.ErrorMessage.text = "Success!"
+                    self.ErrorMessage.textColor = UIColor.blue
+                    self.performSegue(withIdentifier: "successfulLogin", sender: nil)
+                }
             }
-            
-            let responseString = String(data: data, encoding: .utf8) ?? ""
-            UserDefaults.standard.set(responseString, forKey: "user_auth_token")
-            self.performSegue(withIdentifier: "successfulLogin", sender: nil)
-            //self.token = responseString
             tokenGroup.leave()
             
         }
