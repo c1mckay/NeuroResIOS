@@ -113,8 +113,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
                 DispatchQueue.main.async {
                     let responseString = String(data: data, encoding: .utf8) ?? ""
                     UserDefaults.standard.set(responseString, forKey: "user_auth_token")
-                    self.ErrorMessage.text = "Success!"
-                    self.ErrorMessage.textColor = UIColor.blue
+                    UserDefaults.standard.set(self.email.text!, forKey: "username")
                     self.performSegue(withIdentifier: "successfulLogin", sender: nil)
                 }
             }

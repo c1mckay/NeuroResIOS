@@ -37,6 +37,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     */
     var btnMenu: UIButton!
     
+    @IBOutlet weak var usernameLabel: UILabel!
     /**
     *   Delegate of the MenuVC
     */
@@ -46,6 +47,10 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func getToken() -> String{
         return UserDefaults.standard.value(forKey: "user_auth_token")! as! String;
+    }
+    
+    func getName() -> String{
+        return UserDefaults.standard.value(forKey: "username")! as! String;
     }
     
     
@@ -117,7 +122,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        usernameLabel.text = getName()
         
         // Get users
         getUsers("http://neurores.ucsd.edu:3000/users_list")
