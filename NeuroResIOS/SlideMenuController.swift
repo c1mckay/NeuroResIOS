@@ -382,6 +382,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
             
             cell.titleText.text = "Not Read"
+            cell.expander.image = getExpanderImage(status: unread_showing)
             
             return cell
         }else if(unreadCell(indexPath: indexPath)){ //for title text
@@ -394,6 +395,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
             
             cell.titleText.text = "Staff"
+            cell.expander.image = getExpanderImage(status: staff_showing)
             
             return cell
         
@@ -409,6 +411,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             for i in 0 ... staff.count - 1{
                 if(staffCell == 0){
                     cell.name.text = staffKeys[i]
+                    cell.expander.image = getExpanderImage(status: !staff_type_hiding.contains(staffKeys[i]))
                     return cell
                 }
                 staffCell -= 1//
@@ -448,6 +451,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
             
             cell.titleText.text = "Private"
+            cell.expander.image = getExpanderImage(status: users_showing)
             
             return cell
         }else if(moreCell(indexPath: indexPath)){
@@ -482,9 +486,18 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
+    func getExpanderImage(status: Bool) -> UIImage{
+        var imageName:String = "contract"
+        if(status){
+            imageName = "expand"
+        }
+        return UIImage(named: imageName)!
+        //return UIImageView(image: image!)
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(unreadHeader(indexPath: indexPath)){
-            print("Unread header")
+            unread_showing = !unread_showing
         }else if(staffHeader(indexPath: indexPath)){
             staff_showing = !staff_showing
         }else if(staffTypeCell(indexPath: indexPath)){

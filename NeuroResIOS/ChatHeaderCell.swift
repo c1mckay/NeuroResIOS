@@ -9,6 +9,8 @@
 import UIKit
 
 class ChatHeaderCell: UITableViewCell {
+    
+    @IBOutlet weak var expander: UIImageView!
 
     @IBOutlet weak var titleText: UILabel!
     override func awakeFromNib() {

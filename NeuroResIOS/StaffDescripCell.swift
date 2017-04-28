@@ -9,6 +9,7 @@
 import UIKit
 
 class StaffDescripCell: UITableViewCell {
+    @IBOutlet weak var expander: UIImageView!
 
     @IBOutlet weak var name: UILabel!
     override func awakeFromNib() {

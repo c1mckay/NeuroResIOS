@@ -455,6 +455,7 @@
                                             <constraint firstItem="GUu-Kk-jmm" firstAttribute="height" secondItem="Qfo-Y1-wmH" secondAttribute="height" multiplier="0.6" id="QsZ-JT-TjB"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="expander" destination="OaU-LY-xSy" id="5kK-uq-8Bi"/>
                                             <outlet property="titleText" destination="GUu-Kk-jmm" id="Cuv-xH-f9E"/>
                                         </connections>
                                     </tableViewCell>
@@ -493,6 +494,7 @@
                                             <constraint firstItem="U0s-4g-gSg" firstAttribute="leading" secondItem="pwe-aJ-D8k" secondAttribute="leading" constant="11" id="h4k-tB-jPB"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="expander" destination="ja8-XH-rcf" id="ZNr-e2-HBn"/>
                                             <outlet property="name" destination="U0s-4g-gSg" id="Dpl-UZ-ong"/>
                                         </connections>
                                     </tableViewCell>
@@ -737,6 +739,6 @@
         <image name="settings" width="21" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kYd-vM-zWY"/>
+        <segue reference="1rA-5A-m0w"/>
     </inferredMetricsTieBreakers>
 </document>
