@@ -132,6 +132,9 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         getUsers("http://neurores.ucsd.edu:3000/users_list")
         staffKeys = Array(staff.keys)
         
+        for staff_type_name in staffKeys{
+            staff_type_hiding.append(staff_type_name)
+        }
     }
     
     
@@ -485,7 +488,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }else if(staffHeader(indexPath: indexPath)){
             staff_showing = !staff_showing
         }else if(staffTypeCell(indexPath: indexPath)){
-            print("hitting this")
             var staffCell = indexPath.row
             if(unread.count > 0){
                 staffCell -= unread.count + 1
@@ -495,7 +497,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             for i in 0 ... staff.count - 1{
                 let type_name = staffKeys[i]
                 if(staffCell == 0){
-                    print("found")
                     if(staff_type_hiding.contains(type_name)){
                         let index = staff_type_hiding.index(of: type_name)
                         staff_type_hiding.remove(at: index!)
@@ -514,7 +515,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }else{
             return
         }
-        print("reloading")
+        
         tableView.reloadData()
     }
     
