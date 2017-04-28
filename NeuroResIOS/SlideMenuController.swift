@@ -88,6 +88,9 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                 
                     let json = parsedData![i] as [String:Any]
                     let name = json["email"] as? String
+                    if(name == self.getName()){
+                        continue
+                    }
                     let id = json["user_id"] as? Int
                     self.users.append([name!])
                     self.usersIDs[name!] = id
@@ -477,9 +480,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                 row -= getStaffCount() //for all the staff
             }
         
-            if(row >= users.count || row < 0){
-                print(indexPath.row)
-            }
             let username = users[row][0]
             cell.name.text = username
             
