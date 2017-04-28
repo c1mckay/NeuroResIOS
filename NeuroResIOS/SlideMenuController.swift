@@ -43,7 +43,11 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     */
     var delegate: SlideMenuDelegate?
     
-    /* TODO: Change user name */
+    var unread_showing = true
+    var staff_showing = true
+    var users_showing = false
+    var staff_type_hiding:[String] = []
+    
     
     func getToken() -> String{
         return UserDefaults.standard.value(forKey: "user_auth_token")! as! String;
@@ -205,20 +209,38 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         var unread_section = unread.count
         if(unread.count > 0){
             unread_section += 1
+            if(!users_showing){
+                unread_section -= unread.count
+            }
         }
-        let staff_section = staff.count + 1
-        let users_section = users.count + 1
+        var row_count = 0;
         
+        row_count += unread_section
+        row_count += 1 //for staff 'big' header
+        if(staff_showing){
+            row_count += staff.count // keys of the staff. i dont add these because the headers are also 'hidden'
+            row_count += getStaffCount()
+        }
         
+        row_count += 1 //for users 'big' header
+        if(users_showing){
+            row_count += users.count
+            row_count += 1 //for the last row of label 'more'
+        }
         
-        return unread_section + staff_section + getStaffCount() + users_section + 1//1 is the last row for more
+        return row_count
     }
     
     func getStaffCount() -> Int{
         var staff_subsection = 0;
-        for(_, staff_names) in staff{
-            staff_subsection += staff_names.count
+        if(staff_showing){
+            for(staff_type_name, staff_names) in staff{
+                if(!staff_type_hiding.contains(staff_type_name)){
+                    staff_subsection += staff_names.count
+                }
+            }
         }
+        
         return staff_subsection
     }
     
@@ -227,7 +249,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func unreadCell(indexPath: IndexPath) -> Bool{
-        if(unread.count == 0){
+        if(unread.count == 0 || !unread_showing){
             return false
         }
         return indexPath.row - 1 < unread.count
@@ -246,12 +268,18 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         if(unread.count != 0){
             row -= (unread.count + 1)
         }
-        row -= (staff.count + 1)
-        row -= getStaffCount()
+        row -= 1 //for the staff 'big' header
+        if(staff_showing){
+            row -= (staff.count)
+        }
+        row -= getStaffCount()//will return 0 if staff isn't showing
         return row == 0
     }
     
     func staffTypeCell(indexPath: IndexPath) -> Bool{
+        if(!staff_showing){
+            return false
+        }
         var row = indexPath.row
         if(unread.count != 0){
             row -= (unread.count + 1)
@@ -264,13 +292,18 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                     return true;
                 }
                 row -= 1
-                row -= (staff[staffKeys[i]]?.count)!
+                if(!staff_type_hiding.contains(staffKeys[i])){
+                    row -= (staff[staffKeys[i]]?.count)!
+                }
             }
         }
         return false
     }
     
     func staffNameCell(indexPath: IndexPath) -> Bool{
+        if(!staff_showing){
+            return false
+        }
         var row = indexPath.row
         if(unread.count != 0){
             row -= (unread.count + 1)
@@ -282,12 +315,19 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         if(staff.count > 0){
             for i in 0 ... (staff.count - 1) {
                 row -= 1
-                size = (staff[staffKeys[i]]?.count)!
+                if(staff_type_hiding.contains(staffKeys[i])){
+                    size = 0
+                }else{
+                    size = (staff[staffKeys[i]]?.count)!
+                }
             
                 if(row >= 0 && row < size){
                     return true
                 }
-                row -= size
+            
+                if(!staff_type_hiding.contains(staffKeys[i])){
+                    row -= size
+                }
             }
         }
         return false
@@ -301,13 +341,29 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     
     //the ... show more people button
     func moreCell(indexPath: IndexPath) -> Bool{
+        if(!users_showing){
+            return false
+        }
         var unread_section = unread.count
         if(unread.count > 0){
             unread_section += 1
         }
-        let staff_section = staff.count + 1
-        let users_section = users.count + 1
-        return unread_section + staff_section + users_section + getStaffCount() == indexPath.row
+        
+        var total_count = 0
+        
+        total_count += unread_section
+        total_count += 1 //for staff big header
+        if(staff_showing){
+            total_count += staff.count
+            total_count += getStaffCount()
+        }
+        
+        total_count += 1 //for users big header
+        if(users_showing){
+            total_count += users.count
+        }
+        
+        return total_count == indexPath.row
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -352,8 +408,10 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                     cell.name.text = staffKeys[i]
                     return cell
                 }
-                staffCell -= 1
-                staffCell -= (staff[staffKeys[i]]?.count)!
+                staffCell -= 1//
+                if(!staff_type_hiding.contains(staffKeys[i])){//showing
+                    staffCell -= (staff[staffKeys[i]]?.count)!
+                }
             }
             
             return cell
@@ -397,12 +455,20 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             var row = indexPath.row
     
             if(unread.count > 0){
-                row -= (unread.count + 1)//for title text
+                row -= 1
+                if(unread_showing){
+                    row -= (unread.count)//for title text
+                }
             }
-            row -= (staff.count + 1) //for staff section
-            row -= 1 //for users header
-            row -= getStaffCount() //for all the staff
+            row -= 2 //for users and staff 'big' headers
+            if(staff_showing){
+                row -= (staff.count) //for staff section
+                row -= getStaffCount() //for all the staff
+            }
         
+            if(row >= users.count || row < 0){
+                print(indexPath.row)
+            }
             let username = users[row][0]
             cell.name.text = username
             
@@ -411,6 +477,45 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if(unreadHeader(indexPath: indexPath)){
+            print("Unread header")
+        }else if(staffHeader(indexPath: indexPath)){
+            staff_showing = !staff_showing
+        }else if(staffTypeCell(indexPath: indexPath)){
+            print("hitting this")
+            var staffCell = indexPath.row
+            if(unread.count > 0){
+                staffCell -= unread.count + 1
+            }
+            staffCell -= 1 //staff header
+            
+            for i in 0 ... staff.count - 1{
+                let type_name = staffKeys[i]
+                if(staffCell == 0){
+                    print("found")
+                    if(staff_type_hiding.contains(type_name)){
+                        let index = staff_type_hiding.index(of: type_name)
+                        staff_type_hiding.remove(at: index!)
+                    }else{
+                        staff_type_hiding.append(type_name)
+                    }
+                    break
+                }
+                staffCell -= 1
+                if(!staff_type_hiding.contains(type_name)){
+                    staffCell -= (staff[staffKeys[i]]?.count)!
+                }
+            }
+        }else if(usersHeader(indexPath: indexPath)){
+            users_showing = !users_showing
+        }else{
+            return
+        }
+        print("reloading")
+        tableView.reloadData()
     }
     
     func uicolorFromHex(rgbValue:UInt32)->UIColor{
