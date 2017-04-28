@@ -434,10 +434,14 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             var size = 0
             for i in 0 ... (staff.count - 1) {
                 row -= 1
-                size = (staff[staffKeys[i]]?.count)!
-                    
+                let staff_type_name = staffKeys[i]
+                if(staff_type_hiding.contains(staff_type_name)){
+                    size = 0
+                }else{
+                    size = (staff[staff_type_name]?.count)!
+                }
                 if(row >= 0 && row < size){
-                    cell.name.text = staff[staffKeys[i]]?[row]
+                    cell.name.text = staff[staff_type_name]?[row]
                     return cell
                 }
                 row -= size
@@ -500,6 +504,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             unread_showing = !unread_showing
         }else if(staffHeader(indexPath: indexPath)){
             staff_showing = !staff_showing
+            print(staff)
         }else if(staffTypeCell(indexPath: indexPath)){
             var staffCell = indexPath.row
             if(unread.count > 0){
