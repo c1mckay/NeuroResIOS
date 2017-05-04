@@ -127,6 +127,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="chatContainer" destination="Vvs-90-qXF" id="X1S-cj-snl"/>
+                        <outlet property="chatTable" destination="Vvs-90-qXF" id="zbs-gb-xXG"/>
                         <outlet property="messageInput" destination="JSz-K7-cPs" id="r1h-jV-Ay8"/>
                         <outlet property="usersButton" destination="7QS-eI-3JU" id="SVc-UZ-XM1"/>
                         <segue destination="Mdi-SY-eRN" kind="presentation" identifier="noLoginTokenSegue" id="DLv-pn-pBO"/>
@@ -150,7 +151,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qub-vl-X7t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1395" y="108"/>
+            <point key="canvasLocation" x="-1389" y="156"/>
         </scene>
         <!--Search-->
         <scene sceneID="qlf-Xc-k3f">
@@ -247,7 +248,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-752" y="143"/>
+            <point key="canvasLocation" x="-619" y="113"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="RBW-Km-K40">
@@ -532,7 +533,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="name" destination="Lla-dC-HdL" id="5Au-PE-qfF"/>
-                                            <segue destination="1Rd-iz-8DA" kind="show" identifier="userSelect" animates="NO" id="1rA-5A-m0w"/>
+                                            <segue destination="1Rd-iz-8DA" kind="show" identifier="staffNameSelect" animates="NO" id="1rA-5A-m0w"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatDescripCell" rowHeight="10" id="HIw-6d-Ywo" customClass="ChatDescripCell" customModule="NeuroResIOS">
@@ -578,6 +579,7 @@
                                         <connections>
                                             <outlet property="name" destination="LL4-m8-h04" id="Wzw-KE-oiy"/>
                                             <outlet property="unreadCount" destination="iwt-Qb-qUJ" id="T3I-B9-nE1"/>
+                                            <segue destination="1Rd-iz-8DA" kind="show" identifier="directNameSelect" animates="NO" id="Ds2-K2-70J"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MoreDescripCell" id="Mvr-Rb-Kvm" userLabel="more" customClass="MoreDescripCell" customModule="NeuroResIOS">
@@ -702,13 +704,14 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="userTableView" destination="5l3-IW-1bE" id="cxp-Iu-IDW"/>
                         <outlet property="usernameLabel" destination="DG7-fH-exn" id="oAu-Fz-klB"/>
                         <outlet property="usersList" destination="5l3-IW-1bE" id="1sA-a1-hbz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="78C-Zc-z2f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2119" y="93"/>
+            <point key="canvasLocation" x="-2198" y="-93"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qJa-r2-2Ft">

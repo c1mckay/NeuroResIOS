@@ -47,6 +47,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         ["J. Alexander",  "Interesting. I can also play with the borders to see how that looks like."],
         ["C. Konersman",  "Thoughts?"]
     ]
+    @IBOutlet weak var chatTable: UITableView!
     
     @IBOutlet weak var usersButton: UIBarButtonItem!
     
@@ -54,10 +55,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         
         if(UserDefaults.standard.string(forKey: "user_auth_token") == nil){
-            print("login token not found")
             performSegue(withIdentifier: "noLoginTokenSegue", sender: nil)
             return
+        }else{
+            print("I am " + getName())
         }
+        
         
         chatContainer.estimatedRowHeight = 68.0
         chatContainer.rowHeight = UITableViewAutomaticDimension
@@ -69,6 +72,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             usersButton.action = #selector(SWRevealViewController.revealToggle(_:))
             //self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
+        
+        
         
         self.revealViewController().rearViewRevealWidth = 290
         
@@ -82,21 +87,24 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginController.dismissKeyboard))
         self.view.addGestureRecognizer(tap)
         
-        //print(defaults)
-        
-        // Get list of users and get id of selected user
-        /*users = defaults.dictionary(forKey: "users")!
-        selected = defaults.string(forKey: "selected")!
-        
-        // Get conversation data
-        let sid = getIDs(name: selected)
-        let ids = "[" + String(sid) + "," + String(getIDs(name: email)) + "]"
-        startConversation(url: "http://neurores.ucsd.edu:3000/start_conversation", info: ids)
-        
-        // Get messagees from conversation
-        let cid = String(convID)
         createLookUpTable()
-        getMessages(url: "http://neurores.ucsd.edu:3000/get_messages", info: cid)*/
+        
+        if(UserDefaults.standard.array(forKey: "conversationMembers") != nil){
+            print("have current conversation!")
+            let user_ids = UserDefaults.standard.array(forKey: "conversationMembers")!
+            if(users.isEmpty){
+                SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [[String]], userIDs_ret: NSMutableDictionary, staff_ret: [String:[String]]) in
+                   // users = userIDs_ret as Dictionary<String,Any>
+                    for (key, item) in userIDs_ret{
+                        self.users[key as! String] = item
+                    }
+                    self.createLookUpTable()
+                    self.startConversation(url: "http://neurores.ucsd.edu:3000/start_conversation", info: user_ids as! [Int])
+                }
+            }else{
+                startConversation(url: "http://neurores.ucsd.edu:3000/start_conversation", info: user_ids as! [Int])
+            }
+        }
         
     }
 
@@ -192,6 +200,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return UserDefaults.standard.string(forKey: "user_auth_token")!
     }
     
+    func getName() -> String{
+        return UserDefaults.standard.string(forKey: "username")!
+    }
+    
   
     
     /**
@@ -200,6 +212,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
      *             info: String - Conversation ID
      */
     func getMessages(url: String, info: String) {
+        print("getting messages with " + String(describing: info))
         let tokenGroup = DispatchGroup()
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
@@ -221,6 +234,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             do {
                 
                 let parsedData = try JSONSerialization.jsonObject(with: data) as? [[String:Any]]
+                print(parsedData!)
                 
                 if !(parsedData?.isEmpty)! {
                     for i in 0 ... ((parsedData?.count))! - 1 {
@@ -247,6 +261,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         task.resume()
         tokenGroup.wait()
         DispatchQueue.main.async {
+            self.chatTable.reloadData()
         }
         
         
@@ -258,27 +273,46 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
      * Parameters: url:String - address of endpoint for API call
      *             info: String - json array of userids
      */
-    func startConversation(url: String, info: String) {
+    func startConversation(url: String, info: [Int]) {
+        print("starting conversation with " + String(describing: info))
+        var string = ""
+        do{
+            let data = try JSONSerialization.data(withJSONObject: info)
+            string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as! String
+        }catch{
+            print("error serializing info")
+        }
+        
         let tokenGroup = DispatchGroup()
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
         request.addValue(getToken(), forHTTPHeaderField: "auth")
-        request.httpBody = info.data(using: String.Encoding.utf8)
+        request.httpBody = string.data(using: String.Encoding.utf8)
         
         tokenGroup.enter()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            
             guard let data = data, error == nil else {
                 print("error=\(error)")
                 return
             }
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                if(httpStatus.statusCode == 401){//unauthorized, send back to Login
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "noLoginTokenSegue", sender: nil)
+                    }
+                    tokenGroup.leave()
+                    return
+                }
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
                 print("response = \(response)")
+                tokenGroup.leave()
+                return;
+                //print("hopefully this doesn't prin")
             }
             
-            //let responseString = String(data: data, encoding: .utf8) ?? ""
-            //print(responseString)
             do {
                 
                 let parsedData = try JSONSerialization.jsonObject(with: data) as? [String:Any]
@@ -286,6 +320,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let conv = key[0] as? String
                 let val = parsedData?[conv!] as? Int
                 self.convID = val!
+                print(self.convID)
 
             } catch let error as NSError {
                 print(error)
@@ -296,13 +331,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         task.resume()
         tokenGroup.wait()
         DispatchQueue.main.async {
+            self.getMessages(url: "http://neurores.ucsd.edu:3000/get_messages", info: String(self.convID))
         }
         
         
     }
     
-    
-    
+
     /**
      * Function to get UserIDs
      * Parameters: name:String - username

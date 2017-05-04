@@ -62,11 +62,17 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
      * Function to get list of users
      * Parameters: url:String - address of endpoint for API call
      */
-    func getUsers(_ url: String) {
+    static func getUsers(token: String, myName: String, completion: @escaping (_ : [[String]], _ : NSMutableDictionary, _ : [String:[String]]) -> Void ) {
+            print("getting users")
+        
+        var users:[[String]] = []
+        var usersIDs:NSMutableDictionary = [:]
+        var staff:[String:[String]] = [:]
+        
         let userGroup = DispatchGroup()
-        var request = URLRequest(url: URL(string: url)!)
+        var request = URLRequest(url: URL(string: "http://neurores.ucsd.edu:3000/users_list")!)
         request.httpMethod = "POST"
-        request.addValue(getToken(), forHTTPHeaderField: "auth")
+        request.addValue(token, forHTTPHeaderField: "auth")
         userGroup.enter()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
@@ -79,40 +85,36 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                 print("response = \(response)")
             }
             
-            //let responseString = String(data: data, encoding: .utf8) ?? ""
             do {
-                
                 let parsedData = try JSONSerialization.jsonObject(with: data) as? [[String:Any]]
                 
                 for i in 0 ... ((parsedData?.count))! - 1 {
                 
                     let json = parsedData![i] as [String:Any]
                     let name = json["email"] as? String
-                    if(name == self.getName()){
+                    if(name == myName){
                         continue
                     }
                     let id = json["user_id"] as? Int
-                    self.users.append([name!])
-                    self.usersIDs[name!] = id
+                    users.append([name!])
+                    usersIDs[name!] = id
                     let userType = json["user_type"] as? String
-                    if self.staff[userType!] != nil {
-                        self.staff[userType!]!.append(name!)
-
+                    if staff[userType!] != nil {
+                        staff[userType!]!.append(name!)
                     }
-                    else {
-                        self.staff[userType!] = [name!]
+                    else{
+                        staff[userType!] = [name!]
                     }
                 }
             } catch let error as NSError {
                 print(error)
             }
             userGroup.leave()
-            
         }
         task.resume()
         userGroup.wait()
         DispatchQueue.main.async {
-            
+            completion(users, usersIDs, staff)
         }
     
     
@@ -126,18 +128,29 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     var unread:[String] = []
     var staffKeys:[String] = []
     
+    @IBOutlet weak var userTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         usernameLabel.text = getName()
         
         // Get users
-        getUsers("http://neurores.ucsd.edu:3000/users_list")
-        staffKeys = Array(staff.keys)
-        
-        for staff_type_name in staffKeys{
-            staff_type_hiding.append(staff_type_name)
+        SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [[String]], userIDs_ret: NSMutableDictionary, staff_ret: [String:[String]]) in
+            self.users = users_ret
+            self.staff = staff_ret
+            self.usersIDs = userIDs_ret
+            
+            self.staffKeys = Array(self.staff.keys)
+            
+            
+            for staff_type_name in self.staffKeys{
+                self.staff_type_hiding.append(staff_type_name)
+            }
+            
+            self.userTableView.reloadData()
         }
+        
     }
     
     
@@ -159,7 +172,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     */
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "userSelect" {
+        if segue.identifier == "staffNameSelect" || segue.identifier == "directNameSelect" {
             UIView.animate(withDuration: 0.3, animations: { () -> Void in
                 self.view.frame = CGRect(x: -UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width,height: UIScreen.main.bounds.size.height)
                 self.view.layoutIfNeeded()
@@ -426,31 +439,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             return cell
         }else if(staffNameCell(indexPath: indexPath)){
             let cell = tableView.dequeueReusableCell(withIdentifier: "StaffNameDescripCell", for: indexPath) as! StaffNameDescripCell
-        
-            var row = indexPath.row
-            if(unread.count != 0){
-                row -= (unread.count + 1)
-            }
-            
-            row -= 1 //big staff header
-            
-            var size = 0
-            for i in 0 ... (staff.count - 1) {
-                row -= 1
-                let staff_type_name = staffKeys[i]
-                if(staff_type_hiding.contains(staff_type_name)){
-                    size = 0
-                }else{
-                    size = (staff[staff_type_name]?.count)!
-                }
-                if(row >= 0 && row < size){
-                    cell.name.text = staff[staff_type_name]?[row]
-                    return cell
-                }
-                row -= size
-            
-            }
-            
+            cell.name.text = getStaffTextName(indexPath: indexPath)
             
             
             return cell
@@ -466,25 +455,8 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatDescripCell", for: indexPath) as! ChatDescripCell
         
-            var row = indexPath.row
-    
-            if(unread.count > 0){
-                row -= 1
-                if(unread_showing){
-                    row -= (unread.count)//for title text
-                }
-            }
-            row -= 2 //for users and staff 'big' headers
-            if(staff_showing){
-                row -= (staff.count) //for staff section
-                row -= getStaffCount() //for all the staff
-            }
-        
-            let username = users[row][0]
-            cell.name.text = username
-            
+            cell.name.text = getDirectUserName(indexPath: indexPath)
             cell.unreadCount.isHidden = true
-        
         
             return cell
         }
@@ -530,11 +502,69 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }else if(usersHeader(indexPath: indexPath)){
             users_showing = !users_showing
+        }else if(staffNameCell(indexPath: indexPath)){
+            setConversationMembers(name: getStaffTextName(indexPath: indexPath))
+            print("clicking on staff name")
+        }else if(!moreCell(indexPath: indexPath) && !unreadCell(indexPath: indexPath)){
+            setConversationMembers(name: getDirectUserName(indexPath: indexPath))
+            print(getDirectUserName(indexPath: indexPath))
+            print("clicking on direct name")
         }else{
             return
         }
         
         tableView.reloadData()
+    }
+    
+    func getStaffTextName(indexPath: IndexPath) -> String{
+        var row = indexPath.row
+        if(unread.count != 0){
+            row -= (unread.count + 1)
+        }
+        
+        row -= 1 //big staff header
+        
+        var size = 0
+        for i in 0 ... (staff.count - 1) {
+            row -= 1
+            let staff_type_name = staffKeys[i]
+            if(staff_type_hiding.contains(staff_type_name)){
+                size = 0
+            }else{
+                size = (staff[staff_type_name]?.count)!
+            }
+            if(row >= 0 && row < size){
+                return (staff[staff_type_name]?[row])!
+            }
+            row -= size
+            
+        }
+        return ""
+    }
+    
+    func getDirectUserName(indexPath: IndexPath) -> String{
+        var row = indexPath.row
+        
+        if(unread.count > 0){
+            row -= 1
+            if(unread_showing){
+                row -= (unread.count)//for title text
+            }
+        }
+        row -= 2 //for users and staff 'big' headers
+        if(staff_showing){
+            row -= (staff.count) //for staff section
+            row -= getStaffCount() //for all the staff
+        }
+        
+        return users[row][0]
+
+    }
+    
+    func setConversationMembers(name: String){
+        print([usersIDs[name]!])
+        UserDefaults.standard.set([usersIDs[name]!], forKey: "conversationMembers")
+        print(UserDefaults.standard.array(forKey: "conversationMembers"))
     }
     
     func uicolorFromHex(rgbValue:UInt32)->UIColor{
