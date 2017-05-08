@@ -63,7 +63,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
      * Parameters: url:String - address of endpoint for API call
      */
     static func getUsers(token: String, myName: String, completion: @escaping (_ : [[String]], _ : NSMutableDictionary, _ : [String:[String]]) -> Void ) {
-            print("getting users")
         
         var users:[[String]] = []
         var usersIDs:NSMutableDictionary = [:]

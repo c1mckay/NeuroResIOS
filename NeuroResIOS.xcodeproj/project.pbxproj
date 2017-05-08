@@ -24,6 +24,8 @@
 		F6F7DE501E6DF50A00F79E6D /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE4F1E6DF50A00F79E6D /* SearchController.swift */; };
 		F6F7DE541E736DE900F79E6D /* StaffNameDescripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE531E736DE900F79E6D /* StaffNameDescripCell.swift */; };
 		F6F7DE561E76061700F79E6D /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE551E76061700F79E6D /* SearchResult.swift */; };
+		F6FA9C6F1EC0E32500939202 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FA9C6E1EC0E32500939202 /* WebSocket.swift */; };
+		F6FA9C731EC0E59300939202 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F6FA9C721EC0E59300939202 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,9 @@
 		F6F7DE4F1E6DF50A00F79E6D /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchController.swift; path = ../SearchController.swift; sourceTree = "<group>"; };
 		F6F7DE531E736DE900F79E6D /* StaffNameDescripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffNameDescripCell.swift; path = ../StaffNameDescripCell.swift; sourceTree = "<group>"; };
 		F6F7DE551E76061700F79E6D /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		F6FA9C6E1EC0E32500939202 /* WebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
+		F6FA9C701EC0E49300939202 /* SwiftWebSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftWebSocket.h; sourceTree = "<group>"; };
+		F6FA9C721EC0E59300939202 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6FA9C731EC0E59300939202 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +92,7 @@
 				F68439AE1E5F92C90027802C /* NeuroResIOS */,
 				F68439C51E5F92C90027802C /* NeuroResIOSTests */,
 				F68439AD1E5F92C90027802C /* Products */,
+				F6FA9C711EC0E59300939202 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,6 +121,8 @@
 				F68439B11E5F92C90027802C /* LoginController.swift */,
 				F68439B31E5F92C90027802C /* ChatController.swift */,
 				F6E309311E64D527007EE749 /* ChatTableCell.swift */,
+				F6FA9C701EC0E49300939202 /* SwiftWebSocket.h */,
+				F6FA9C6E1EC0E32500939202 /* WebSocket.swift */,
 				F68439B51E5F92C90027802C /* Main.storyboard */,
 				F68439B81E5F92C90027802C /* Assets.xcassets */,
 				F68439BA1E5F92C90027802C /* LaunchScreen.storyboard */,
@@ -139,6 +148,14 @@
 				F6F7DE431E69007100F79E6D /* NeuroResIOS-Bridging-Header.h */,
 			);
 			name = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		F6FA9C711EC0E59300939202 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F6FA9C721EC0E59300939202 /* libz.dylib */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,6 +275,7 @@
 				F6F7DE501E6DF50A00F79E6D /* SearchController.swift in Sources */,
 				F68439B21E5F92C90027802C /* LoginController.swift in Sources */,
 				F6E309341E67B1CB007EE749 /* SlideMenuController.swift in Sources */,
+				F6FA9C6F1EC0E32500939202 /* WebSocket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

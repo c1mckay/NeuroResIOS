@@ -8,10 +8,16 @@
 
 import UIKit
 import os.log
+import Foundation
+
 
 class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var User: UILabel!
+    @IBOutlet weak var chatTable: UITableView!
+    @IBOutlet weak var chatContainer: UITableView!
+    @IBOutlet weak var messageInput: UITextField!
+    @IBOutlet weak var usersButton: UIBarButtonItem!
     
     
     var selected = "" // Which user is been selected
@@ -21,35 +27,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var convUsers = Int() // Conversation Data - UserID
     var messages = [[String]]() // contains messages
     
-
-    @IBOutlet weak var chatContainer: UITableView!
+    let ws = WebSocket("ws://neurores.ucsd.edu:3000")
     
-    @IBOutlet weak var messageInput: UITextField!
-   
-    // Not used any more
-    var  staticMessages:[[String]] = [
-        ["J. Alexander", "Hello"],
-        ["C. Konersman",  "This is a chat example with an incredibly long message."],
-        ["J. Alexander",  "Back to me."],
-        ["C. Konersman",  "I will demonstrate overflowing messages with two messages.\nThis is my second message I submitted.\nMore concept."],
-        ["J. Alexander",  "Interesting. I can also play with the borders to see how that looks like."],
-        ["C. Konersman",  "Thoughts?"],
-        ["J. Alexander", "Hello"],
-        ["C. Konersman",  "This is a chat example with an incredibly long message."],
-        ["J. Alexander",  "Back to me."],
-        ["C. Konersman",  "I will demonstrate overflowing messages with two messages.\nThis is my second message I submitted.\nMore concept."],
-        ["J. Alexander",  "Interesting. I can also play with the borders to see how that looks like."],
-        ["C. Konersman",  "Thoughts?"],
-        ["J. Alexander", "Hello"],
-        ["C. Konersman",  "This is a chat example with an incredibly long message."],
-        ["J. Alexander",  "Back to me."],
-        ["C. Konersman",  "I will demonstrate overflowing messages with two messages.\nThis is my second message I submitted.\nMore concept."],
-        ["J. Alexander",  "Interesting. I can also play with the borders to see how that looks like."],
-        ["C. Konersman",  "Thoughts?"]
-    ]
-    @IBOutlet weak var chatTable: UITableView!
-    
-    @IBOutlet weak var usersButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,8 +36,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if(UserDefaults.standard.string(forKey: "user_auth_token") == nil){
             performSegue(withIdentifier: "noLoginTokenSegue", sender: nil)
             return
-        }else{
-            print("I am " + getName())
         }
         
         
@@ -90,7 +67,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         createLookUpTable()
         
         if(UserDefaults.standard.array(forKey: "conversationMembers") != nil){
-            print("have current conversation!")
             let user_ids = UserDefaults.standard.array(forKey: "conversationMembers")!
             if(users.isEmpty){
                 SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [[String]], userIDs_ret: NSMutableDictionary, staff_ret: [String:[String]]) in
@@ -158,13 +134,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //TODO: Replace staticmessages and "User". Add code to send message to server later
     @IBAction func sendMessage(_ sender: Any) {
-        messages.append(["User",messageInput.text!])
-        chatContainer.beginUpdates()
-        chatContainer.insertRows(at: [IndexPath(row: messages.count-1, section: 0)], with: .automatic)
-        chatContainer.endUpdates()
-        chatContainer.reloadData()
-        scrollToBottom()
+
+        let testMessage: [String : Any] = ["text": messageInput.text ?? "", "conv_id" : self.convID]
+        let testMessageString = self.asString(jsonDictionary: testMessage)
+        self.ws.send(testMessageString)
+        
         messageInput.text = ""
+        scrollToBottom()
+
     }
     
     
@@ -212,7 +189,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
      *             info: String - Conversation ID
      */
     func getMessages(url: String, info: String) {
-        print("getting messages with " + String(describing: info))
         let tokenGroup = DispatchGroup()
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
@@ -234,7 +210,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             do {
                 
                 let parsedData = try JSONSerialization.jsonObject(with: data) as? [[String:Any]]
-                print(parsedData!)
                 
                 if !(parsedData?.isEmpty)! {
                     for i in 0 ... ((parsedData?.count))! - 1 {
@@ -262,11 +237,20 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tokenGroup.wait()
         DispatchQueue.main.async {
             self.chatTable.reloadData()
+            self.scrollToBottom()
         }
         
         
     }
     
+    func asString(jsonDictionary: [String : Any]) -> String {
+        do {
+            let data = try JSONSerialization.data(withJSONObject: jsonDictionary, options: .prettyPrinted)
+            return String(data: data, encoding: String.Encoding.utf8) ?? ""
+        } catch {
+            return ""
+        }
+    }
     
     /**
      * Function get and start conversation
@@ -274,7 +258,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
      *             info: String - json array of userids
      */
     func startConversation(url: String, info: [Int]) {
-        print("starting conversation with " + String(describing: info))
         var string = ""
         do{
             let data = try JSONSerialization.data(withJSONObject: info)
@@ -310,7 +293,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print("response = \(response)")
                 tokenGroup.leave()
                 return;
-                //print("hopefully this doesn't prin")
             }
             
             do {
@@ -320,7 +302,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let conv = key[0] as? String
                 let val = parsedData?[conv!] as? Int
                 self.convID = val!
-                print(self.convID)
 
             } catch let error as NSError {
                 print(error)
@@ -332,9 +313,61 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tokenGroup.wait()
         DispatchQueue.main.async {
             self.getMessages(url: "http://neurores.ucsd.edu:3000/get_messages", info: String(self.convID))
+            
+            
+            
+            
+            
+            //let testMessage: [String : Any] = ["text": "some gibberish", "conv_id" : self.convID]
+            //
+
+            self.connectSocket()
         }
         
         
+    }
+    
+    func connectSocket(){
+        
+        
+        ws.event.open = {
+            let dict: [String : Any] = ["greeting": self.getToken()]
+            let dictAsString = self.asString(jsonDictionary: dict)
+            self.ws.send(dictAsString)
+            
+            let testMessage: [String : Any] = ["text": "want some gib", "conv_id" : self.convID]
+            let testMessageString = self.asString(jsonDictionary: testMessage)
+            self.ws.send(testMessageString)
+
+        }
+        ws.event.close = { code, reason, clean in
+            print("close")
+        }
+        ws.event.error = { error in
+            print("whoa error")
+            print("error \(error)")
+        }
+        ws.event.message = { myString in
+            do {
+                
+                let myNSString = myString as! String
+                let myNSData = myNSString.data(using: String.Encoding.utf8)
+                let json = try JSONSerialization.jsonObject(with: myNSData!, options: []) as? [String:Any]
+                let userIdInt = json?["from"] as? Int
+                let mText = json?["text"] as? String
+                let userName = self.getUserName(id: userIdInt!)
+                let text = [userName, mText]
+
+                self.messages.append(text as! [String])
+                
+                self.chatContainer.reloadData()
+                self.scrollToBottom()
+                
+            }catch let error as NSError {
+                print(error)
+            }
+
+        }
     }
     
 
@@ -362,6 +395,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func getUserName(id:Int) -> String {
+        if(userLookup[id] == nil){
+            return getName()
+        }
         return userLookup[id]! as String
     }
     
