@@ -65,11 +65,11 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     static func getUsers(token: String, myName: String, completion: @escaping (_ : [[String]], _ : NSMutableDictionary, _ : [String:[String]]) -> Void ) {
         
         var users:[[String]] = []
-        var usersIDs:NSMutableDictionary = [:]
+        let usersIDs:NSMutableDictionary = [:]
         var staff:[String:[String]] = [:]
         
         let userGroup = DispatchGroup()
-        var request = URLRequest(url: URL(string: "http://neurores.ucsd.edu:3000/users_list")!)
+        var request = URLRequest(url: URL(string: "https://neurores.ucsd.edu/users_list")!)
         request.httpMethod = "POST"
         request.addValue(token, forHTTPHeaderField: "auth")
         userGroup.enter()
@@ -84,6 +84,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                 print("response = \(response)")
             }
             
+            
             do {
                 let parsedData = try JSONSerialization.jsonObject(with: data) as? [[String:Any]]
                 
@@ -94,7 +95,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                     if(name == myName){
                         continue
                     }
-                    let id = json["user_id"] as? Int
+                    let id = json["user_id"]!
                     users.append([name!])
                     usersIDs[name!] = id
                     let userType = json["user_type"] as? String
@@ -131,6 +132,10 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if(UserDefaults.standard.string(forKey: "user_auth_token") == nil){
+            return
+        }
         
         usernameLabel.text = getName()
         
@@ -561,9 +566,13 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func setConversationMembers(name: String){
+        print("entering")
+        print(usersIDs)
+        print("exiting")
+        
         print([usersIDs[name]!])
         UserDefaults.standard.set([usersIDs[name]!], forKey: "conversationMembers")
-        print(UserDefaults.standard.array(forKey: "conversationMembers"))
+        print(UserDefaults.standard.array(forKey: "conversationMembers")!)
     }
     
     func uicolorFromHex(rgbValue:UInt32)->UIColor{

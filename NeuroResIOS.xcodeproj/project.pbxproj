@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05E4EB68D3C96F103FE68C70 /* Pods_NeuroResIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 756B45D4CFFF372622C3BC66 /* Pods_NeuroResIOS.framework */; };
+		C8A4CD12FA7C20A752F3B75C /* Pods_NeuroResIOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C28B93A23E58D932BD1C5E1 /* Pods_NeuroResIOSTests.framework */; };
 		F68439B01E5F92C90027802C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68439AF1E5F92C90027802C /* AppDelegate.swift */; };
 		F68439B21E5F92C90027802C /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68439B11E5F92C90027802C /* LoginController.swift */; };
 		F68439B41E5F92C90027802C /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68439B31E5F92C90027802C /* ChatController.swift */; };
@@ -14,6 +16,7 @@
 		F68439B91E5F92C90027802C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F68439B81E5F92C90027802C /* Assets.xcassets */; };
 		F68439BC1E5F92C90027802C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F68439BA1E5F92C90027802C /* LaunchScreen.storyboard */; };
 		F68439C71E5F92C90027802C /* NeuroResIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68439C61E5F92C90027802C /* NeuroResIOSTests.swift */; };
+		F68DE08C1F216AAD00B1B401 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F68DE08B1F216AAD00B1B401 /* GoogleService-Info.plist */; };
 		F6E309321E64D527007EE749 /* ChatTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E309311E64D527007EE749 /* ChatTableCell.swift */; };
 		F6E309341E67B1CB007EE749 /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E309331E67B1CB007EE749 /* SlideMenuController.swift */; };
 		F6F7DE3C1E67CD6700F79E6D /* ChatDescripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */; };
@@ -39,6 +42,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B96E4348E7DF65B5384E6A0 /* Pods-NeuroResIOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeuroResIOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NeuroResIOSTests/Pods-NeuroResIOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		2C28B93A23E58D932BD1C5E1 /* Pods_NeuroResIOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NeuroResIOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		756B45D4CFFF372622C3BC66 /* Pods_NeuroResIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NeuroResIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D801B44ED7326946CB62F2F /* Pods-NeuroResIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeuroResIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-NeuroResIOS/Pods-NeuroResIOS.release.xcconfig"; sourceTree = "<group>"; };
+		861BC5C7AC3479CED20D8919 /* Pods-NeuroResIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeuroResIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NeuroResIOS/Pods-NeuroResIOS.debug.xcconfig"; sourceTree = "<group>"; };
+		DBF5A2C984BFEADC2840AF7B /* Pods-NeuroResIOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeuroResIOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NeuroResIOSTests/Pods-NeuroResIOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F68439AC1E5F92C90027802C /* NeuroResIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeuroResIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F68439AF1E5F92C90027802C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F68439B11E5F92C90027802C /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -50,6 +59,7 @@
 		F68439C21E5F92C90027802C /* NeuroResIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeuroResIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F68439C61E5F92C90027802C /* NeuroResIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuroResIOSTests.swift; sourceTree = "<group>"; };
 		F68439C81E5F92C90027802C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F68DE08B1F216AAD00B1B401 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		F6E309311E64D527007EE749 /* ChatTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatTableCell.swift; path = ../ChatTableCell.swift; sourceTree = "<group>"; };
 		F6E309331E67B1CB007EE749 /* SlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuController.swift; sourceTree = "<group>"; };
 		F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDescripCell.swift; sourceTree = "<group>"; };
@@ -73,6 +83,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6FA9C731EC0E59300939202 /* libz.dylib in Frameworks */,
+				05E4EB68D3C96F103FE68C70 /* Pods_NeuroResIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,12 +91,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8A4CD12FA7C20A752F3B75C /* Pods_NeuroResIOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		677ADC962285D095385411B3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				861BC5C7AC3479CED20D8919 /* Pods-NeuroResIOS.debug.xcconfig */,
+				7D801B44ED7326946CB62F2F /* Pods-NeuroResIOS.release.xcconfig */,
+				DBF5A2C984BFEADC2840AF7B /* Pods-NeuroResIOSTests.debug.xcconfig */,
+				2B96E4348E7DF65B5384E6A0 /* Pods-NeuroResIOSTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F68439A31E5F92C90027802C = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +116,7 @@
 				F68439C51E5F92C90027802C /* NeuroResIOSTests */,
 				F68439AD1E5F92C90027802C /* Products */,
 				F6FA9C711EC0E59300939202 /* Frameworks */,
+				677ADC962285D095385411B3 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,6 +151,7 @@
 				F68439B81E5F92C90027802C /* Assets.xcassets */,
 				F68439BA1E5F92C90027802C /* LaunchScreen.storyboard */,
 				F68439BD1E5F92C90027802C /* Info.plist */,
+				F68DE08B1F216AAD00B1B401 /* GoogleService-Info.plist */,
 			);
 			path = NeuroResIOS;
 			sourceTree = "<group>";
@@ -154,6 +179,8 @@
 			isa = PBXGroup;
 			children = (
 				F6FA9C721EC0E59300939202 /* libz.dylib */,
+				756B45D4CFFF372622C3BC66 /* Pods_NeuroResIOS.framework */,
+				2C28B93A23E58D932BD1C5E1 /* Pods_NeuroResIOSTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -165,9 +192,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F68439CB1E5F92C90027802C /* Build configuration list for PBXNativeTarget "NeuroResIOS" */;
 			buildPhases = (
+				8244E1675E398F51F3919B05 /* [CP] Check Pods Manifest.lock */,
 				F68439A81E5F92C90027802C /* Sources */,
 				F68439A91E5F92C90027802C /* Frameworks */,
 				F68439AA1E5F92C90027802C /* Resources */,
+				70A298B7F4FFA38044D5F75C /* [CP] Embed Pods Frameworks */,
+				3648D4142DC487608E2FB015 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -182,9 +212,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F68439CE1E5F92C90027802C /* Build configuration list for PBXNativeTarget "NeuroResIOSTests" */;
 			buildPhases = (
+				7602BDA4AD7AF44BBF5B76CE /* [CP] Check Pods Manifest.lock */,
 				F68439BE1E5F92C90027802C /* Sources */,
 				F68439BF1E5F92C90027802C /* Frameworks */,
 				F68439C01E5F92C90027802C /* Resources */,
+				C84465447B6BB9248227FB52 /* [CP] Embed Pods Frameworks */,
+				5D9C50FDE93C715757A7757C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -243,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F68439BC1E5F92C90027802C /* LaunchScreen.storyboard in Resources */,
+				F68DE08C1F216AAD00B1B401 /* GoogleService-Info.plist in Resources */,
 				F68439B91E5F92C90027802C /* Assets.xcassets in Resources */,
 				F68439B71E5F92C90027802C /* Main.storyboard in Resources */,
 			);
@@ -256,6 +290,99 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3648D4142DC487608E2FB015 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NeuroResIOS/Pods-NeuroResIOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5D9C50FDE93C715757A7757C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NeuroResIOSTests/Pods-NeuroResIOSTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		70A298B7F4FFA38044D5F75C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NeuroResIOS/Pods-NeuroResIOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7602BDA4AD7AF44BBF5B76CE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8244E1675E398F51F3919B05 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C84465447B6BB9248227FB52 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NeuroResIOSTests/Pods-NeuroResIOSTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F68439A81E5F92C90027802C /* Sources */ = {
@@ -412,12 +539,13 @@
 		};
 		F68439CC1E5F92C90027802C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 861BC5C7AC3479CED20D8919 /* Pods-NeuroResIOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = NeuroResIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.NeuroResIOS;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.ucsd.NeuroResIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "NeuroResIOS/NeuroResIOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -427,12 +555,13 @@
 		};
 		F68439CD1E5F92C90027802C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D801B44ED7326946CB62F2F /* Pods-NeuroResIOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = NeuroResIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.NeuroResIOS;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.ucsd.NeuroResIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "NeuroResIOS/NeuroResIOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -441,6 +570,7 @@
 		};
 		F68439CF1E5F92C90027802C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBF5A2C984BFEADC2840AF7B /* Pods-NeuroResIOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -455,6 +585,7 @@
 		};
 		F68439D01E5F92C90027802C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B96E4348E7DF65B5384E6A0 /* Pods-NeuroResIOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

@@ -1,0 +1,6 @@
+framework module Pods_NeuroResIOS {
+  umbrella header "Pods-NeuroResIOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

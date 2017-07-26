@@ -21,13 +21,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     var selected = "" // Which user is been selected
-    var users = [String:Any]() // dictionary key: usernameand and val: id
+    var users = [String:Int]() // dictionary key: usernameand and val: id
     var userLookup = [Int: String]() // dictionary key: id and val: username
     var convID = Int() // Conversation Data - ID
     var convUsers = Int() // Conversation Data - UserID
     var messages = [[String]]() // contains messages
     
-    let ws = WebSocket("ws://neurores.ucsd.edu:3000")
+    let ws = WebSocket("wss://neurores.ucsd.edu")
     
     
     override func viewDidLoad() {
@@ -67,18 +67,21 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         createLookUpTable()
         
         if(UserDefaults.standard.array(forKey: "conversationMembers") != nil){
-            let user_ids = UserDefaults.standard.array(forKey: "conversationMembers")!
+            let user_ids = (UserDefaults.standard.array(forKey: "conversationMembers")!).map { Int($0 as! String)!}
+            print("woww")
+            print(user_ids)
+            print("whoa")
             if(users.isEmpty){
                 SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [[String]], userIDs_ret: NSMutableDictionary, staff_ret: [String:[String]]) in
                    // users = userIDs_ret as Dictionary<String,Any>
                     for (key, item) in userIDs_ret{
-                        self.users[key as! String] = item
+                        self.users[key as! String] = Int(item as! String)
                     }
                     self.createLookUpTable()
-                    self.startConversation(url: "http://neurores.ucsd.edu:3000/start_conversation", info: user_ids as! [Int])
+                    self.startConversation(url: "https://neurores.ucsd.edu/start_conversation", info: user_ids as! [Int])
                 }
             }else{
-                startConversation(url: "http://neurores.ucsd.edu:3000/start_conversation", info: user_ids as! [Int])
+                startConversation(url: "https://neurores.ucsd.edu/start_conversation", info: user_ids as! [Int])
             }
         }
         
@@ -128,6 +131,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // Used to go to the bottom of tableview
     func scrollToBottom(){
+        if(self.messages.count <= 0){
+            return
+        }
+        
         let indexPath = IndexPath(row: self.messages.count-1, section: 0)
         self.chatContainer.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
@@ -312,7 +319,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         task.resume()
         tokenGroup.wait()
         DispatchQueue.main.async {
-            self.getMessages(url: "http://neurores.ucsd.edu:3000/get_messages", info: String(self.convID))
+            self.getMessages(url: "https://neurores.ucsd.edu/get_messages", info: String(self.convID))
             
             
             
@@ -378,7 +385,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
      */
     func getIDs(name:String) -> Int{
         let id = users[selected]
-        return id as! Int
+        return id!
     
     }
 
@@ -386,9 +393,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
      * Function to create a dictionary to get usernames from ids
      */
     func createLookUpTable() {
+        print(users)
         for (key, value) in users {
-            let id = value as? Int
-            userLookup[id!] = key
+            userLookup[value] = key
         
         }
         
