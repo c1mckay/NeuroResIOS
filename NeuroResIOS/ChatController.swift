@@ -353,27 +353,53 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print("error \(error)")
         }
         ws.event.message = { myString in
-            do {
-                let json = JSON.init(parseJSON : myString as! String)
-                if (json["userStatusUpdate"].exists()){
-                    print("status update!!")
-                }else{
-                    let userIdInt = json["from"].int
-                    let mText = json["text"].string
-                    let userName = self.getUserName(id: userIdInt!)
-                    let text = [userName, mText]
-
-                    self.messages.append(text as! [String])
-                
-                    self.chatContainer.reloadData()
-                    self.scrollToBottom()
+            let json = JSON.init(parseJSON : myString as! String)
+            if (json["userStatusUpdate"].exists()){
+                if(json["activeUsers"].exists()){
+                    self.saveUsers(json: json);
                 }
-                
-            }catch let error{
-                print(error)
-            }
+                if(json["onlineUser"].exists()){
+                    self.addOnlineUser(json: json);
+                }
+                if(json["offlineUser"].exists()){
+                    self.removeOnlineUser(json: json);
+                }
+            }else{
+                let userIdInt = json["from"].int
+                let mText = json["text"].string
+                let userName = self.getUserName(id: userIdInt!)
+                let text = [userName, mText]
 
+                self.messages.append(text as! [String])
+                
+                self.chatContainer.reloadData()
+                self.scrollToBottom()
+            }
         }
+    }
+    
+    func saveUsers(json : JSON){
+        let array = json["activeUsers"].arrayValue.map({$0["name"].stringValue})
+        let defaults = UserDefaults.standard
+        defaults.set(array, forKey: "onlineUsers")
+    }
+    
+    func removeOnlineUser(json : JSON){
+        let offline = json["offlineUser"].int! as Int
+        var onlineUsers = (UserDefaults.standard.array(forKey: "conversationMembers")!).map { Int($0 as! String)!}
+        onlineUsers = onlineUsers.filter(){$0 != offline}
+        
+        let defaults = UserDefaults.standard
+        defaults.set(onlineUsers, forKey: "onlineUsers")
+    }
+    
+    func addOnlineUser(json : JSON){
+        let offline = json["offlineUser"].int! as Int
+        var onlineUsers = (UserDefaults.standard.array(forKey: "conversationMembers")!).map { Int($0 as! String)!}
+        onlineUsers.append(offline)
+        
+        let defaults = UserDefaults.standard
+        defaults.set(onlineUsers, forKey: "onlineUsers")
     }
     
 

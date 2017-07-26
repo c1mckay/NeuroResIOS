@@ -444,7 +444,9 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }else if(staffNameCell(indexPath: indexPath)){
             let cell = tableView.dequeueReusableCell(withIdentifier: "StaffNameDescripCell", for: indexPath) as! StaffNameDescripCell
             cell.name.text = getStaffTextName(indexPath: indexPath)
-            
+            if(isOffline(name: cell.name.text!)){
+                cell.statusico.image = UIImage(named: "offline")
+            }
             
             return cell
         }else if(usersHeader(indexPath: indexPath)){
@@ -566,13 +568,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func setConversationMembers(name: String){
-        print("entering")
-        print(usersIDs)
-        print("exiting")
-        
-        print([usersIDs[name]!])
         UserDefaults.standard.set([usersIDs[name]!], forKey: "conversationMembers")
-        print(UserDefaults.standard.array(forKey: "conversationMembers")!)
     }
     
     func uicolorFromHex(rgbValue:UInt32)->UIColor{
@@ -584,7 +580,15 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     
-    
+    func isOffline(name : String) -> Bool{
+        let onlineUsers = (UserDefaults.standard.array(forKey: "conversationMembers")!).map { Int($0 as! String)!}
+        let userID_s = usersIDs[name]
+        if(userID_s == nil){
+            return true
+        }
+        
+        return !onlineUsers.contains(Int(userID_s as! String)!)
+    }
     
     
 }

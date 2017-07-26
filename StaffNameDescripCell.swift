@@ -10,6 +10,7 @@ import UIKit
 
 class StaffNameDescripCell: UITableViewCell {
 
+    @IBOutlet weak var statusico: UIImageView!
     @IBOutlet weak var name: UILabel!
     let defautls = UserDefaults.standard
     override func awakeFromNib() {
