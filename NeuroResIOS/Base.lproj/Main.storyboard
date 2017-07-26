@@ -579,6 +579,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="name" destination="LL4-m8-h04" id="Wzw-KE-oiy"/>
+                                            <outlet property="statusIco" destination="JQd-Ie-a9a" id="f42-3O-fgE"/>
                                             <outlet property="unreadCount" destination="iwt-Qb-qUJ" id="T3I-B9-nE1"/>
                                             <segue destination="1Rd-iz-8DA" kind="show" identifier="directNameSelect" animates="NO" id="Ds2-K2-70J"/>
                                         </connections>

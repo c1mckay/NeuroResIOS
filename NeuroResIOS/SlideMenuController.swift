@@ -460,7 +460,10 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             return tableView.dequeueReusableCell(withIdentifier: "MoreDescripCell", for: indexPath) as! MoreDescripCell        
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatDescripCell", for: indexPath) as! ChatDescripCell
-        
+            
+            if(isOffline(name: cell.name.text!)){
+                cell.statusIco.image = UIImage(named: "offline")
+            }
             cell.name.text = getDirectUserName(indexPath: indexPath)
             cell.unreadCount.isHidden = true
         

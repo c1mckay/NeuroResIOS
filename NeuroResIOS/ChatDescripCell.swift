@@ -10,6 +10,7 @@ import UIKit
 
 class ChatDescripCell: UITableViewCell {
 
+    @IBOutlet weak var statusIco: UIImageView!
     @IBOutlet weak var unreadCount: UILabel!
     @IBOutlet weak var name: UILabel!
     override func awakeFromNib() {
