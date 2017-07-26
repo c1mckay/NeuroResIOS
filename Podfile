@@ -8,6 +8,7 @@ target 'NeuroResIOS' do
   # Pods for NeuroResIOS
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
+  pod 'SwiftyJSON', :git =>'https://github.com/SwiftyJSON/SwiftyJSON.git'
   target 'NeuroResIOSTests' do
     inherit! :search_paths
     # Pods for testing

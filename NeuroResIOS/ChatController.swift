@@ -6,6 +6,7 @@
 //  Copyright © 2017 Charles McKay. All rights reserved.
 //
 
+import SwiftyJSON
 import UIKit
 import os.log
 import Foundation
@@ -68,9 +69,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if(UserDefaults.standard.array(forKey: "conversationMembers") != nil){
             let user_ids = (UserDefaults.standard.array(forKey: "conversationMembers")!).map { Int($0 as! String)!}
-            print("woww")
-            print(user_ids)
-            print("whoa")
             if(users.isEmpty){
                 SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [[String]], userIDs_ret: NSMutableDictionary, staff_ret: [String:[String]]) in
                    // users = userIDs_ret as Dictionary<String,Any>
@@ -78,10 +76,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         self.users[key as! String] = Int(item as! String)
                     }
                     self.createLookUpTable()
-                    self.startConversation(url: "https://neurores.ucsd.edu/start_conversation", info: user_ids as! [Int])
+                    self.startConversation(url: "https://neurores.ucsd.edu/start_conversation", info: user_ids)
                 }
             }else{
-                startConversation(url: "https://neurores.ucsd.edu/start_conversation", info: user_ids as! [Int])
+                startConversation(url: "https://neurores.ucsd.edu/start_conversation", info: user_ids)
             }
         }
         
@@ -221,9 +219,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if !(parsedData?.isEmpty)! {
                     for i in 0 ... ((parsedData?.count))! - 1 {
                         
-                        let json = parsedData![i] as? [String:Any]
-                        let userid = json!["sender"] as? String
-                        let text = json!["text"] as? String
+                        let json = parsedData![i] as [String:Any]
+                        let userid = json["sender"] as? String
+                        let text = json["text"] as? String
                         let userIdInt = Int(userid!)
                         let userName = self.getUserName(id: userIdInt!)
                         let message = [userName, text]
@@ -306,8 +304,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 let parsedData = try JSONSerialization.jsonObject(with: data) as? [String:Any]
                 let key = Array(parsedData!.keys)
-                let conv = key[0] as? String
-                let val = parsedData?[conv!] as? Int
+                let conv = key[0]
+                let val = parsedData?[conv] as? Int
                 self.convID = val!
 
             } catch let error as NSError {
@@ -342,7 +340,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let dictAsString = self.asString(jsonDictionary: dict)
             self.ws.send(dictAsString)
             
-            let testMessage: [String : Any] = ["text": "want some gib", "conv_id" : self.convID]
+            let testMessage: [String : Any] = ["text": "incoming message", "conv_id" : self.convID]
             let testMessageString = self.asString(jsonDictionary: testMessage)
             self.ws.send(testMessageString)
 
@@ -356,21 +354,22 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         ws.event.message = { myString in
             do {
-                
-                let myNSString = myString as! String
-                let myNSData = myNSString.data(using: String.Encoding.utf8)
-                let json = try JSONSerialization.jsonObject(with: myNSData!, options: []) as? [String:Any]
-                let userIdInt = json?["from"] as? Int
-                let mText = json?["text"] as? String
-                let userName = self.getUserName(id: userIdInt!)
-                let text = [userName, mText]
+                let json = JSON.init(parseJSON : myString as! String)
+                if (json["userStatusUpdate"].exists()){
+                    print("status update!!")
+                }else{
+                    let userIdInt = json["from"].int
+                    let mText = json["text"].string
+                    let userName = self.getUserName(id: userIdInt!)
+                    let text = [userName, mText]
 
-                self.messages.append(text as! [String])
+                    self.messages.append(text as! [String])
                 
-                self.chatContainer.reloadData()
-                self.scrollToBottom()
+                    self.chatContainer.reloadData()
+                    self.scrollToBottom()
+                }
                 
-            }catch let error as NSError {
+            }catch let error{
                 print(error)
             }
 

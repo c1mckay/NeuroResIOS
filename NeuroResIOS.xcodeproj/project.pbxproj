@@ -17,6 +17,7 @@
 		F68439BC1E5F92C90027802C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F68439BA1E5F92C90027802C /* LaunchScreen.storyboard */; };
 		F68439C71E5F92C90027802C /* NeuroResIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68439C61E5F92C90027802C /* NeuroResIOSTests.swift */; };
 		F68DE08C1F216AAD00B1B401 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F68DE08B1F216AAD00B1B401 /* GoogleService-Info.plist */; };
+		F6AD37711F293FF300786F5C /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6AD37701F293FF300786F5C /* SwiftyJSON.framework */; };
 		F6E309321E64D527007EE749 /* ChatTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E309311E64D527007EE749 /* ChatTableCell.swift */; };
 		F6E309341E67B1CB007EE749 /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E309331E67B1CB007EE749 /* SlideMenuController.swift */; };
 		F6F7DE3C1E67CD6700F79E6D /* ChatDescripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */; };
@@ -60,6 +61,7 @@
 		F68439C61E5F92C90027802C /* NeuroResIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuroResIOSTests.swift; sourceTree = "<group>"; };
 		F68439C81E5F92C90027802C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F68DE08B1F216AAD00B1B401 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		F6AD37701F293FF300786F5C /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../Library/Developer/Xcode/DerivedData/NeuroResIOS-aqybawcqrqvwmzfdekxgcqjzxaol/Build/Products/Debug-iphonesimulator/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		F6E309311E64D527007EE749 /* ChatTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatTableCell.swift; path = ../ChatTableCell.swift; sourceTree = "<group>"; };
 		F6E309331E67B1CB007EE749 /* SlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuController.swift; sourceTree = "<group>"; };
 		F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDescripCell.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6AD37711F293FF300786F5C /* SwiftyJSON.framework in Frameworks */,
 				F6FA9C731EC0E59300939202 /* libz.dylib in Frameworks */,
 				05E4EB68D3C96F103FE68C70 /* Pods_NeuroResIOS.framework in Frameworks */,
 			);
@@ -178,6 +181,7 @@
 		F6FA9C711EC0E59300939202 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F6AD37701F293FF300786F5C /* SwiftyJSON.framework */,
 				F6FA9C721EC0E59300939202 /* libz.dylib */,
 				756B45D4CFFF372622C3BC66 /* Pods_NeuroResIOS.framework */,
 				2C28B93A23E58D932BD1C5E1 /* Pods_NeuroResIOSTests.framework */,
