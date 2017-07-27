@@ -77,6 +77,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="content" destination="hXA-Vf-Y3h" id="xea-LD-ILW"/>
+                                            <outlet property="date" destination="4Eh-Qq-1Po" id="QmB-FF-of0"/>
                                             <outlet property="username" destination="TIY-Qu-t5e" id="ncT-BX-2gD"/>
                                         </connections>
                                     </tableViewCell>

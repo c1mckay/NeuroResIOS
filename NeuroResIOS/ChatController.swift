@@ -119,7 +119,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let username = messages[row][0]
         let text = messages[row][1]
         cell.username.text = username
-        //cell.date.text = "date"
+        cell.date.text = messages[row][2]
         cell.content.text = text
         
         return cell
@@ -223,7 +223,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         let text = json["text"] as? String
                         let userIdInt = Int(userid!)
                         let userName = self.getUserName(id: userIdInt!)
-                        let message = [userName, text]
+                        let date = json["date"] as! String
+                        let dateShow = self.convertFromJSONDate(date)
+                        let message = [userName, text, dateShow]
                         self.pushMessage(message: message as! [String])
                         
                     }
@@ -243,8 +245,22 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.chatTable.reloadData()
             self.scrollToBottom()
         }
+    }
+    
+    func convertFromJSONDate(_ date_s: String ) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'.000Z'"
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+        let date = dateFormatter.date(from : date_s)
         
-        
+        return getTimeString(date!)
+    }
+    
+    func getTimeString(_ date: Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
+        return dateFormatter.string(from: date)
     }
     
     func asString(jsonDictionary: [String : Any]) -> String {
@@ -264,7 +280,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let lastSender = messages[self.messages.count - 1][0]
         if(lastSender == message[0]){
-            self.messages[self.messages.count - 1][1] += message[1]
+            self.messages[self.messages.count - 1][1] += "\n" + message[1]
         }else{
             self.messages.append(message)
         }
@@ -381,9 +397,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let userIdInt = json["from"].int
                 let mText = json["text"].string
                 let userName = self.getUserName(id: userIdInt!)
-                let text = [userName, mText]
+                let date = Date()
+                
+                let date_s = self.getTimeString(date)
+                
+                let text = [userName, mText, date_s]
 
-                self.messages.append(text as! [String])
+                self.pushMessage(message: text)
                 
                 self.chatContainer.reloadData()
                 self.scrollToBottom()
