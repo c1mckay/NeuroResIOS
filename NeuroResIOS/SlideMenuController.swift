@@ -45,7 +45,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var unread_showing = true
     var staff_showing = true
-    var users_showing = false
+    var users_showing = 0
     var staff_type_hiding:[String] = []
     
     
@@ -229,10 +229,13 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return getRowCount()
+    }
+    func getRowCount() -> Int{
         var unread_section = unread.count
         if(unread.count > 0){
             unread_section += 1
-            if(!users_showing){
+            if(users_showing == 0){
                 unread_section -= unread.count
             }
         }
@@ -246,8 +249,8 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         row_count += 1 //for users 'big' header
-        if(users_showing){
-            row_count += users.count
+        if(users_showing != 0){
+            row_count += users_showing
             row_count += 1 //for the last row of label 'more'
         }
         
@@ -364,7 +367,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     
     //the ... show more people button
     func moreCell(indexPath: IndexPath) -> Bool{
-        if(!users_showing){
+        if(users_showing == 0){
             return false
         }
         var unread_section = unread.count
@@ -382,9 +385,9 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         total_count += 1 //for users big header
-        if(users_showing){
-            total_count += users.count
-        }
+        
+        total_count += users_showing
+        
         
         return total_count == indexPath.row
     }
@@ -453,7 +456,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
             
             cell.titleText.text = "Private"
-            cell.expander.image = getExpanderImage(status: users_showing)
+            cell.expander.image = getExpanderImage(status: users_showing == 0)
             
             return cell
         }else if(moreCell(indexPath: indexPath)){
@@ -509,20 +512,40 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                     staffCell -= (staff[staffKeys[i]]?.count)!
                 }
             }
-        }else if(usersHeader(indexPath: indexPath)){
-            users_showing = !users_showing
+        }else if(usersHeader(indexPath: indexPath)){ //clicking on private header
+            if(users_showing == 0){
+                users_showing = 5
+            }else{
+                users_showing = 0
+            }
         }else if(staffNameCell(indexPath: indexPath)){
             setConversationMembers(name: getStaffTextName(indexPath: indexPath))
             print("clicking on staff name")
+        }else if(moreCell(indexPath: indexPath)){
+            users_showing = min(users_showing + 5, users.count)
+            tableView.reloadData()
+            scrollToBottom()
+            return
         }else if(!moreCell(indexPath: indexPath) && !unreadCell(indexPath: indexPath)){
             setConversationMembers(name: getDirectUserName(indexPath: indexPath))
             print(getDirectUserName(indexPath: indexPath))
             print("clicking on direct name")
         }else{
+            
             return
         }
         
         tableView.reloadData()
+        
+        //push to bottom
+        
+    }
+    
+    func scrollToBottom(){
+        DispatchQueue.global(qos: .background).async {
+            let indexPath = IndexPath(row: self.getRowCount()-1, section: 0)
+            self.userTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
     }
     
     func getStaffTextName(indexPath: IndexPath) -> String{
