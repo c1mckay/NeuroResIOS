@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "522880685.704837"
+            timestampString = "522880800.549991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "405"
-            endingLineNumber = "405"
+            startingLineNumber = "406"
+            endingLineNumber = "406"
             landmarkName = "connectSocket()"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "522880685.704837"
+            timestampString = "522880800.549991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "405"
-            endingLineNumber = "405"
+            startingLineNumber = "406"
+            endingLineNumber = "406"
             landmarkName = "connectSocket()"
             landmarkType = "7">
          </BreakpointContent>

@@ -368,11 +368,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let dict: [String : Any] = ["greeting": self.getToken()]
             let dictAsString = self.asString(jsonDictionary: dict)
             self.ws.send(dictAsString)
-            
-            let testMessage: [String : Any] = ["text": "incoming message", "conv_id" : self.convID]
-            let testMessageString = self.asString(jsonDictionary: testMessage)
-            self.ws.send(testMessageString)
-
         }
         ws.event.close = { code, reason, clean in
             print("close")
@@ -403,7 +398,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 let text = [userName, mText, date_s]
 
-                self.pushMessage(message: text)
+                self.pushMessage(message: text as! [String])
                 
                 self.chatContainer.reloadData()
                 self.scrollToBottom()
