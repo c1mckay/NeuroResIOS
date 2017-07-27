@@ -122,7 +122,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //cell.date.text = "date"
         cell.content.text = text
         
-        
         return cell
     }
     
@@ -225,7 +224,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         let userIdInt = Int(userid!)
                         let userName = self.getUserName(id: userIdInt!)
                         let message = [userName, text]
-                        self.messages.append(message as! [String])
+                        self.pushMessage(message: message as! [String])
                         
                     }
                 }
@@ -254,6 +253,20 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return String(data: data, encoding: String.Encoding.utf8) ?? ""
         } catch {
             return ""
+        }
+    }
+    
+    func pushMessage(message: [String]){
+        if(self.messages.isEmpty){
+            self.messages.append(message)
+            return
+        }
+        
+        let lastSender = messages[self.messages.count - 1][0]
+        if(lastSender == message[0]){
+            self.messages[self.messages.count - 1][1] += message[1]
+        }else{
+            self.messages.append(message)
         }
     }
     
