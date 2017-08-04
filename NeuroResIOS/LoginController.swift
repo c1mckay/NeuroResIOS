@@ -96,7 +96,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
         //request.addValue(email.text!, forHTTPHeaderField: "auth")
-        request.addValue(email.text!, forHTTPHeaderField: "auth") // change later
+        request.addValue(email.text! + ":" + password.text!, forHTTPHeaderField: "auth") // change later
         tokenGroup.enter()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
