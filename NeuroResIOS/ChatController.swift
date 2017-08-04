@@ -35,6 +35,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         
         if(UserDefaults.standard.string(forKey: "user_auth_token") == nil){
+            print("not found")
             performSegue(withIdentifier: "noLoginTokenSegue", sender: nil)
             return
         }
@@ -68,12 +69,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         createLookUpTable()
         
         if(UserDefaults.standard.array(forKey: "conversationMembers") != nil){
-            let user_ids = (UserDefaults.standard.array(forKey: "conversationMembers")!).map { Int($0 as! String)!}
+            let user_ids = (UserDefaults.standard.array(forKey: "conversationMembers")!).map {$0} as! [Int]
             if(users.isEmpty){
-                SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [[String]], userIDs_ret: NSMutableDictionary, staff_ret: [String:[String]]) in
+                SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [[String]], userIDs_ret: [String:Int], staff_ret: [String:[String]]) in
                    // users = userIDs_ret as Dictionary<String,Any>
                     for (key, item) in userIDs_ret{
-                        self.users[key as! String] = Int(item as! String)
+                        self.users[key] = item
                     }
                     self.createLookUpTable()
                     self.startConversation(url: "https://neurores.ucsd.edu/start_conversation", info: user_ids)
@@ -363,7 +364,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func connectSocket(){
         
-        
         ws.event.open = {
             let dict: [String : Any] = ["greeting": self.getToken()]
             let dictAsString = self.asString(jsonDictionary: dict)
@@ -371,9 +371,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         ws.event.close = { code, reason, clean in
             print("close")
+            print(reason)
+            print(code)
         }
         ws.event.error = { error in
-            print("whoa error")
+            print("whoa, error in websocket")
             print("error \(error)")
         }
         ws.event.message = { myString in
@@ -407,14 +409,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func saveUsers(json : JSON){
-        let array = json["activeUsers"].arrayValue.map({$0["name"].stringValue})
+        let array = json["activeUsers"].arrayValue.map({$0.stringValue})
         let defaults = UserDefaults.standard
         defaults.set(array, forKey: "onlineUsers")
     }
     
     func removeOnlineUser(json : JSON){
-        let offline = json["offlineUser"].int! as Int
-        var onlineUsers = (UserDefaults.standard.array(forKey: "conversationMembers")!).map { Int($0 as! String)!}
+        let offline = String(describing: json["offlineUser"].int! as Int)
+        var onlineUsers = (UserDefaults.standard.array(forKey: "onlineUsers")!).map { $0 as! String }
         onlineUsers = onlineUsers.filter(){$0 != offline}
         
         let defaults = UserDefaults.standard
@@ -422,8 +424,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func addOnlineUser(json : JSON){
-        let offline = json["offlineUser"].int! as Int
-        var onlineUsers = (UserDefaults.standard.array(forKey: "conversationMembers")!).map { Int($0 as! String)!}
+        print(json)
+        let offline = String(describing: json["onlineUser"].int! as Int)
+        var onlineUsers = (UserDefaults.standard.array(forKey: "onlineUsers")!).map { $0 as! String }
         onlineUsers.append(offline)
         
         let defaults = UserDefaults.standard
@@ -446,7 +449,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
      * Function to create a dictionary to get usernames from ids
      */
     func createLookUpTable() {
-        print(users)
         for (key, value) in users {
             userLookup[value] = key
         

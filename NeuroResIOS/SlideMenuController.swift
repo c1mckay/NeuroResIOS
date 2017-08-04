@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 protocol SlideMenuDelegate{
     func slideMenuItemSelectedAtIndex(_ index: Int32)
@@ -62,10 +63,10 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
      * Function to get list of users
      * Parameters: url:String - address of endpoint for API call
      */
-    static func getUsers(token: String, myName: String, completion: @escaping (_ : [[String]], _ : NSMutableDictionary, _ : [String:[String]]) -> Void ) {
+    static func getUsers(token: String, myName: String, completion: @escaping (_ : [[String]], _ : [String:Int], _ : [String:[String]]) -> Void ) {
         
         var users:[[String]] = []
-        let usersIDs:NSMutableDictionary = [:]
+        var emailToId:[String:Int] = [:]
         var staff:[String:[String]] = [:]
         
         let userGroup = DispatchGroup()
@@ -95,9 +96,10 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                     if(name == myName){
                         continue
                     }
-                    let id = json["user_id"]!
+                    let id_s = json["user_id"]!
+                    let id = Int(id_s as! String)
                     users.append([name!])
-                    usersIDs[name!] = id
+                    emailToId[name!] = (id! as Int)
                     let userType = json["user_type"] as? String
                     if staff[userType!] != nil {
                         staff[userType!]!.append(name!)
@@ -114,18 +116,64 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         task.resume()
         userGroup.wait()
         DispatchQueue.main.async {
-            completion(users, usersIDs, staff)
+            completion(users, emailToId, staff)
         }
+    }
     
-    
+    static func getUnread(token: String, myName: String, _ lookup :[Int:String], completion: @escaping (_ : [Int:Int]) -> Void ) {
+        
+        var unreads:[Int:Int] = [:]
+        
+        let userGroup = DispatchGroup()
+        var request = URLRequest(url: URL(string: "https://neurores.ucsd.edu/conversation_data")!)
+        request.httpMethod = "POST"
+        request.addValue(token, forHTTPHeaderField: "auth")
+        userGroup.enter()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print("error=\(error)")
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(response)")
+            }
+            
+            let jsonString = String(data: data, encoding: String.Encoding.utf8) as String!
+            let json = JSON.init(parseJSON : jsonString! as String)
+                
+            for(_, detail) in json{
+                if(detail["last_seen"] != JSON.null){
+                    for user_id in detail["members"].array!{
+                        if(lookup[user_id.int!] == nil){
+                            continue
+                        }
+                        if(lookup[user_id.int!]?.uppercased() != myName.uppercased()){
+                            unreads[user_id.int!] = detail["unseen_count"].int!
+                        }
+                    }
+                }
+            }
+            userGroup.leave()
+        }
+        task.resume()
+        userGroup.wait()
+        DispatchQueue.main.async {
+            completion(unreads)
+        }
+        
+        
     }
     
     
     
-    var usersIDs:NSMutableDictionary = [:]
+    var emailToId:[String:Int] = [:]
+    var idToEmail:[Int:String] = [:]
     var users:[[String]] = []
     var staff:[String:[String]] = [:]
     var unread:[String] = []
+    var unreadCount:[String:Int] = [:]
     var staffKeys:[String] = []
     
     @IBOutlet weak var userTableView: UITableView!
@@ -140,10 +188,14 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         usernameLabel.text = getName()
         
         // Get users
-        SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [[String]], userIDs_ret: NSMutableDictionary, staff_ret: [String:[String]]) in
+        SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [[String]], userIDs_ret: [String:Int], staff_ret: [String:[String]]) in
             self.users = users_ret
             self.staff = staff_ret
-            self.usersIDs = userIDs_ret
+            self.emailToId = userIDs_ret
+            
+            for(email, id) in userIDs_ret{
+                self.idToEmail[id] = email
+            }
             
             self.staffKeys = Array(self.staff.keys)
             
@@ -151,8 +203,17 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             for staff_type_name in self.staffKeys{
                 self.staff_type_hiding.append(staff_type_name)
             }
-            
-            self.userTableView.reloadData()
+            SlideMenuController.getUnread(token: self.getToken(), myName: self.getName(), self.idToEmail) { (unreads_ret : [Int:Int]) in
+                print(unreads_ret)
+                print(self.idToEmail)
+                for(user_id, unread_count) in unreads_ret{
+                    let email = self.idToEmail[user_id]!
+                    self.unread.append(email)
+                    self.unreadCount[email] = unread_count
+                }
+                self.userTableView.reloadData()
+            }
+
         }
         
     }
@@ -235,24 +296,28 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         var unread_section = unread.count
         if(unread.count > 0){
             unread_section += 1
-            if(users_showing == 0){
+            if(!unread_showing){
                 unread_section -= unread.count
             }
         }
         var row_count = 0;
         
-        row_count += unread_section
-        row_count += 1 //for staff 'big' header
+        //row_count += unread_section
+        var staff_section = 1 //for staff 'big' header
         if(staff_showing){
-            row_count += staff.count // keys of the staff. i dont add these because the headers are also 'hidden'
-            row_count += getStaffCount()
+            staff_section += staff.count // keys of the staff. i dont add these because the headers are also 'hidden'
+            staff_section += getStaffCount()
         }
         
-        row_count += 1 //for users 'big' header
+        var private_count = 1 //for users 'big' header
         if(users_showing != 0){
-            row_count += users_showing
-            row_count += 1 //for the last row of label 'more'
+            private_count += users_showing
+            private_count += 1 //for the last row of label 'more'
         }
+        
+        row_count += unread_section
+        row_count += staff_section
+        row_count += private_count
         
         return row_count
     }
@@ -275,7 +340,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func unreadCell(indexPath: IndexPath) -> Bool{
-        if(unread.count == 0 || !unread_showing){
+        if(!unread_showing){
             return false
         }
         return indexPath.row - 1 < unread.count
@@ -285,6 +350,8 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         let row = indexPath.row
         if(unread.count == 0){
             return row == 0
+        }else if(!unread_showing){
+            return row == 1
         }
         return row == unread.count + 1;
     }
@@ -292,8 +359,12 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     func usersHeader(indexPath: IndexPath) -> Bool{
         var row = indexPath.row
         if(unread.count != 0){
-            row -= (unread.count + 1)
+            row -= 1 // for the 'Not Read' header
+            if(unread_showing){
+                row -= (unread.count)
+            }
         }
+        
         row -= 1 //for the staff 'big' header
         if(staff_showing){
             row -= (staff.count)
@@ -308,8 +379,12 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         var row = indexPath.row
         if(unread.count != 0){
-            row -= (unread.count + 1)
+            row -= 1 // for the 'Not Read' header
+            if(unread_showing){
+                row -= (unread.count)
+            }
         }
+
         row -= 1 //for Staff entirety section
         
         if(staff.count > 0){
@@ -332,8 +407,12 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         var row = indexPath.row
         if(unread.count != 0){
-            row -= (unread.count + 1)
+            row -= 1 // for the 'Not Read' header
+            if(unread_showing){
+                row -= (unread.count)
+            }
         }
+
         
         row -= 1
         
@@ -370,10 +449,14 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         if(users_showing == 0){
             return false
         }
-        var unread_section = unread.count
-        if(unread.count > 0){
-            unread_section += 1
+        var unread_section = 0
+        if(unread.count != 0){
+            unread_section += 1 // for the 'Not Read' header
+            if(unread_showing){
+                unread_section += (unread.count)
+            }
         }
+
         
         var total_count = 0
         
@@ -412,7 +495,11 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatDescripCell", for: indexPath) as! ChatDescripCell
             
             cell.name.text = unread[indexPath.row - 1]
-            
+            if(isOffline(name: cell.name.text!)){
+                cell.statusIco.image = UIImage(named: "offline")
+            }
+            let unreadCount_s = self.unreadCount[cell.name.text!]!
+            cell.unreadCount.text = String(describing: unreadCount_s)Z
             return cell
         }else if(staffHeader(indexPath: indexPath)){
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
@@ -450,7 +537,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             if(isOffline(name: cell.name.text!)){
                 cell.statusico.image = UIImage(named: "offline")
             }
-            
             return cell
         }else if(usersHeader(indexPath: indexPath)){
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
@@ -488,7 +574,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             unread_showing = !unread_showing
         }else if(staffHeader(indexPath: indexPath)){
             staff_showing = !staff_showing
-            print(staff)
         }else if(staffTypeCell(indexPath: indexPath)){
             var staffCell = indexPath.row
             if(unread.count > 0){
@@ -520,7 +605,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }else if(staffNameCell(indexPath: indexPath)){
             setConversationMembers(name: getStaffTextName(indexPath: indexPath))
-            print("clicking on staff name")
         }else if(moreCell(indexPath: indexPath)){
             users_showing = min(users_showing + 5, users.count)
             tableView.reloadData()
@@ -529,7 +613,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }else if(!moreCell(indexPath: indexPath) && !unreadCell(indexPath: indexPath)){
             setConversationMembers(name: getDirectUserName(indexPath: indexPath))
             print(getDirectUserName(indexPath: indexPath))
-            print("clicking on direct name")
         }else{
             
             return
@@ -551,7 +634,10 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     func getStaffTextName(indexPath: IndexPath) -> String{
         var row = indexPath.row
         if(unread.count != 0){
-            row -= (unread.count + 1)
+            row -= 1 // for the 'Not Read' header
+            if(unread_showing){
+                row -= (unread.count)
+            }
         }
         
         row -= 1 //big staff header
@@ -575,14 +661,16 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func getDirectUserName(indexPath: IndexPath) -> String{
-        var row = indexPath.row
+        var row = indexPath.row//for the 'Not
         
-        if(unread.count > 0){
-            row -= 1
+        if(unread.count != 0){
+            row -= 1 // for the 'Not Read' header
             if(unread_showing){
-                row -= (unread.count)//for title text
+                row -= (unread.count)
             }
         }
+        
+        
         row -= 2 //for users and staff 'big' headers
         if(staff_showing){
             row -= (staff.count) //for staff section
@@ -594,7 +682,9 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func setConversationMembers(name: String){
-        UserDefaults.standard.set([usersIDs[name]!], forKey: "conversationMembers")
+        print("setting conversation")
+        print(name)
+        UserDefaults.standard.set([emailToId[name]!], forKey: "conversationMembers")
     }
     
     func uicolorFromHex(rgbValue:UInt32)->UIColor{
@@ -607,13 +697,17 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     func isOffline(name : String) -> Bool{
-        let onlineUsers = (UserDefaults.standard.array(forKey: "conversationMembers")!).map { Int($0 as! String)!}
-        let userID_s = usersIDs[name]
-        if(userID_s == nil){
+        let foundUsers = UserDefaults.standard.array(forKey: "onlineUsers")
+        if(foundUsers == nil){
+            return true
+        }
+        let onlineUsers = (foundUsers!).map { Int($0 as! String)! }
+        let userID_i = emailToId[name]
+        if(userID_i == nil){
             return true
         }
         
-        return !onlineUsers.contains(Int(userID_s as! String)!)
+        return !onlineUsers.contains(userID_i!)
     }
     
     
