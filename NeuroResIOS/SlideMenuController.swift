@@ -204,8 +204,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.staff_type_hiding.append(staff_type_name)
             }
             SlideMenuController.getUnread(token: self.getToken(), myName: self.getName(), self.idToEmail) { (unreads_ret : [Int:Int]) in
-                print(unreads_ret)
-                print(self.idToEmail)
+                
                 for(user_id, unread_count) in unreads_ret{
                     let email = self.idToEmail[user_id]!
                     self.unread.append(email)
@@ -340,7 +339,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func unreadCell(indexPath: IndexPath) -> Bool{
-        if(!unread_showing){
+        if(!unread_showing || unreadCount.count == 0){
             return false
         }
         return indexPath.row - 1 < unread.count
@@ -499,7 +498,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.statusIco.image = UIImage(named: "offline")
             }
             let unreadCount_s = self.unreadCount[cell.name.text!]!
-            cell.unreadCount.text = String(describing: unreadCount_s)Z
+            cell.unreadCount.text = String(describing: unreadCount_s)
             return cell
         }else if(staffHeader(indexPath: indexPath)){
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
@@ -612,7 +611,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             return
         }else if(!moreCell(indexPath: indexPath) && !unreadCell(indexPath: indexPath)){
             setConversationMembers(name: getDirectUserName(indexPath: indexPath))
-            print(getDirectUserName(indexPath: indexPath))
         }else{
             
             return
@@ -682,8 +680,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func setConversationMembers(name: String){
-        print("setting conversation")
-        print(name)
         UserDefaults.standard.set([emailToId[name]!], forKey: "conversationMembers")
     }
     
