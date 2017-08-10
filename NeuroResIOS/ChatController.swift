@@ -47,8 +47,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Do any additional setup after loading the view, typically from a nib.
         
         if self.revealViewController() != nil {
-            usersButton.target = self.revealViewController()
-            usersButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            usersButton.target = self//.revealViewController()
+            //usersButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            usersButton.action = #selector(ChatController.menuClick(_:))
             //self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
@@ -86,6 +87,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
 
+    func menuClick(_ sender : Any){
+        self.dismissKeyboard()
+        let controller = self.revealViewController()
+        controller?.revealToggle(controller)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -424,7 +431,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func addOnlineUser(json : JSON){
-        print(json)
         let offline = String(describing: json["onlineUser"].int! as Int)
         var onlineUsers = (UserDefaults.standard.array(forKey: "onlineUsers")!).map { $0 as! String }
         onlineUsers.append(offline)
