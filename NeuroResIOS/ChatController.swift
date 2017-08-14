@@ -20,6 +20,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var messageInput: UITextField!
     @IBOutlet weak var usersButton: UIBarButtonItem!
     
+    static var MENU_MODE = 4
     
     var selected = "" // Which user is been selected
     var users = [String:Int]() // dictionary key: usernameand and val: id
@@ -40,6 +41,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return
         }
         
+        refreshInputUp()
         
         chatContainer.estimatedRowHeight = 68.0
         chatContainer.rowHeight = UITableViewAutomaticDimension
@@ -48,9 +50,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if self.revealViewController() != nil {
             usersButton.target = self//.revealViewController()
-            //usersButton.action = #selector(SWRevealViewController.revealToggle(_:))
             usersButton.action = #selector(ChatController.menuClick(_:))
-            //self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
         
@@ -64,8 +64,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         // For dismissing keyboard by tapping
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginController.dismissKeyboard))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChatController.onConversationPaneClick))
         self.view.addGestureRecognizer(tap)
+        
         
         createLookUpTable()
         
@@ -84,13 +85,30 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 startConversation(url: "https://neurores.ucsd.edu/start_conversation", info: user_ids)
             }
         }
-        
+    }
+    
+    func onConversationPaneClick(_ sender: Any){
+        let controller = self.revealViewController()
+        if(slideMenuShowing()){
+            controller?.revealToggle(controller)
+        }
+        refreshInputUp()
+        self.dismissKeyboard()
     }
 
     func menuClick(_ sender : Any){
         self.dismissKeyboard()
         let controller = self.revealViewController()
         controller?.revealToggle(controller)
+        refreshInputUp()
+    }
+    
+    func slideMenuShowing() -> Bool {
+        return self.revealViewController().frontViewPosition.rawValue == ChatController.MENU_MODE;
+    }
+    
+    func refreshInputUp(){
+        messageInput.isUserInteractionEnabled = !slideMenuShowing()
     }
     
     override func didReceiveMemoryWarning() {
@@ -141,7 +159,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         let indexPath = IndexPath(row: self.messages.count-1, section: 0)
-        self.chatContainer.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        self.chatContainer.scrollToRow(at: indexPath, at: .bottom, animated: false)
     }
     
     //TODO: Replace staticmessages and "User". Add code to send message to server later

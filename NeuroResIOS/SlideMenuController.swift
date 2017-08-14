@@ -120,6 +120,8 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
+    
+    
     static func getUnread(token: String, myName: String, _ lookup :[Int:String], completion: @escaping (_ : [Int:Int]) -> Void ) {
         
         var unreads:[Int:Int] = [:]
@@ -185,6 +187,9 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             return
         }
         
+        //let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SlideMenuController.dismissKeyboard))
+        //self.view.addGestureRecognizer(tap)
+        
         usernameLabel.text = getName()
         
         // Get users
@@ -203,6 +208,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             for staff_type_name in self.staffKeys{
                 self.staff_type_hiding.append(staff_type_name)
             }
+            
             SlideMenuController.getUnread(token: self.getToken(), myName: self.getName(), self.idToEmail) { (unreads_ret : [Int:Int]) in
                 
                 for(user_id, unread_count) in unreads_ret{
@@ -217,7 +223,9 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         
     }
     
-    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
