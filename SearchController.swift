@@ -69,7 +69,6 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func filterContentForSearchText(_ searchText_cased: String) {
-        print("firing")
         let searchText = searchText_cased.lowercased()
         
         visibleUsers.removeAll()
@@ -135,23 +134,23 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResult", for: indexPath) as! SearchResult
-        var text = ""//searchController.searchBar.text
+        var text = searchController.searchBar.text
+        
         
         let row = indexPath.row
         let email = visibleUsers[row]
         let searchText = email + " (" + userToStaff[email]! + ")"
         
-        var start = 0
-        var length = 0
-        
-        if(text != nil && false){
-            if let range = searchText.range(of: text) {
-                start = searchText.distance(from: searchText.startIndex, to: range.lowerBound)
-                length = (text.characters.count)
-            }
+        if let range = searchText.lowercased().range(of: text!.lowercased()) {
+            let start = searchText.distance(from: searchText.startIndex, to: range.lowerBound)
+            let length = (text?.characters.count)!
+            cell.resultText.attributedText = attributedString(from: searchText, nonBoldRange: NSMakeRange(start,length))
         }
-        
-        cell.resultText.attributedText = attributedString(from: searchText, nonBoldRange: NSMakeRange(start,length))
+        else{
+            let start = 0
+            let length = 0
+            cell.resultText.attributedText = attributedString(from: searchText, nonBoldRange: NSMakeRange(start,length))
+        }
         
         
         return cell
@@ -162,7 +161,6 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
 extension SearchController: UISearchResultsUpdating {
     // MARK: - UISearchResultsUpdating Delegate
     func updateSearchResults(for searchController: UISearchController) {
-        print("firing")
         filterContentForSearchText(searchController.searchBar.text!)
     }
 }

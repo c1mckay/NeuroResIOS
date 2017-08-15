@@ -171,7 +171,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fqy-zy-yKW">
-                                <rect key="frame" x="0.0" y="108" width="320" height="372"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResult" rowHeight="50" id="Tal-vg-0IV" customClass="SearchResult" customModule="NeuroResIOS">
@@ -216,7 +216,7 @@
                             <constraint firstItem="oGa-fX-yrB" firstAttribute="bottom" secondItem="Kp9-lh-zLT" secondAttribute="top" id="0cM-Sn-yZ7"/>
                             <constraint firstItem="fqy-zy-yKW" firstAttribute="width" secondItem="0RX-XM-6i2" secondAttribute="width" id="AbD-PL-Joe"/>
                             <constraint firstItem="fqy-zy-yKW" firstAttribute="leading" secondItem="Kp9-lh-zLT" secondAttribute="leading" id="ZBF-n6-SZL"/>
-                            <constraint firstItem="fqy-zy-yKW" firstAttribute="top" secondItem="Kp9-lh-zLT" secondAttribute="bottom" id="f1c-z7-pdF"/>
+                            <constraint firstItem="fqy-zy-yKW" firstAttribute="top" secondItem="Kp9-lh-zLT" secondAttribute="top" id="f1c-z7-pdF"/>
                             <constraint firstItem="Kp9-lh-zLT" firstAttribute="centerX" secondItem="0RX-XM-6i2" secondAttribute="centerX" id="hiL-7i-CSp"/>
                             <constraint firstItem="Kp9-lh-zLT" firstAttribute="width" secondItem="0RX-XM-6i2" secondAttribute="width" id="lPm-Yr-tQO"/>
                             <constraint firstAttribute="bottom" secondItem="fqy-zy-yKW" secondAttribute="bottom" id="zyB-Ls-T56"/>
