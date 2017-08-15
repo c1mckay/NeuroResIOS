@@ -166,7 +166,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="YMO-zz-3SF">
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Kp9-lh-zLT">
                                 <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -213,12 +213,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="oGa-fX-yrB" firstAttribute="bottom" secondItem="YMO-zz-3SF" secondAttribute="top" id="1hW-NM-ebx"/>
+                            <constraint firstItem="oGa-fX-yrB" firstAttribute="bottom" secondItem="Kp9-lh-zLT" secondAttribute="top" id="0cM-Sn-yZ7"/>
                             <constraint firstItem="fqy-zy-yKW" firstAttribute="width" secondItem="0RX-XM-6i2" secondAttribute="width" id="AbD-PL-Joe"/>
-                            <constraint firstItem="YMO-zz-3SF" firstAttribute="width" secondItem="0RX-XM-6i2" secondAttribute="width" id="cam-PZ-TAL"/>
-                            <constraint firstItem="fqy-zy-yKW" firstAttribute="leading" secondItem="YMO-zz-3SF" secondAttribute="leading" id="kpS-UU-XPy"/>
-                            <constraint firstItem="fqy-zy-yKW" firstAttribute="top" secondItem="YMO-zz-3SF" secondAttribute="bottom" id="vbx-RL-Fw9"/>
-                            <constraint firstItem="YMO-zz-3SF" firstAttribute="centerX" secondItem="0RX-XM-6i2" secondAttribute="centerX" id="wlj-EC-lIq"/>
+                            <constraint firstItem="fqy-zy-yKW" firstAttribute="leading" secondItem="Kp9-lh-zLT" secondAttribute="leading" id="ZBF-n6-SZL"/>
+                            <constraint firstItem="fqy-zy-yKW" firstAttribute="top" secondItem="Kp9-lh-zLT" secondAttribute="bottom" id="f1c-z7-pdF"/>
+                            <constraint firstItem="Kp9-lh-zLT" firstAttribute="centerX" secondItem="0RX-XM-6i2" secondAttribute="centerX" id="hiL-7i-CSp"/>
+                            <constraint firstItem="Kp9-lh-zLT" firstAttribute="width" secondItem="0RX-XM-6i2" secondAttribute="width" id="lPm-Yr-tQO"/>
                             <constraint firstAttribute="bottom" secondItem="fqy-zy-yKW" secondAttribute="bottom" id="zyB-Ls-T56"/>
                         </constraints>
                     </view>
@@ -227,7 +227,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="pOC-Wk-HfI" id="Lr9-F0-UB8"/>
-                        <outlet property="searchDisplayController" destination="Fop-03-xNe" id="E4R-06-Mo1"/>
+                        <outlet property="searchDisplayController" destination="IzO-Ks-0tR" id="1rw-Kj-eUc"/>
                         <outlet property="searchResultsTable" destination="fqy-zy-yKW" id="Xle-SU-Iv9"/>
                     </connections>
                 </viewController>
@@ -246,6 +246,14 @@
                         <outlet property="searchContentsController" destination="OEI-IU-Hax" id="0XS-6B-pa6"/>
                         <outlet property="searchResultsDataSource" destination="OEI-IU-Hax" id="KO5-xG-tgH"/>
                         <outlet property="searchResultsDelegate" destination="OEI-IU-Hax" id="tJY-fO-n2n"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="IzO-Ks-0tR">
+                    <connections>
+                        <outlet property="delegate" destination="OEI-IU-Hax" id="DgZ-OF-sXa"/>
+                        <outlet property="searchContentsController" destination="OEI-IU-Hax" id="xy5-vj-nDk"/>
+                        <outlet property="searchResultsDataSource" destination="OEI-IU-Hax" id="tyt-IQ-vyH"/>
+                        <outlet property="searchResultsDelegate" destination="OEI-IU-Hax" id="UcX-nB-AK6"/>
                     </connections>
                 </searchDisplayController>
             </objects>

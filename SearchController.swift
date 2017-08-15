@@ -9,18 +9,15 @@
 import UIKit
 
 class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    //@IBOutlet weak var searchBar: UISearchBar!
 
-    var users:[String:Int] = [
-        "R. Modir (Stroke)": 3,
-        "F. Nahab (Movement)": 10,
-        "M. Shtrahman (IOM)":0,
-        "R. Kinkel (MS)":11,
-        "K. Askim (Muscular)": 11,
-        "C. Jablecki (Muscular)": 12,
-        "J. Ravits (Muscular)": 11,
-        "R. Mandeville (Muscular)": 3
-    ]
-    var resultKeys:[String] = []
+    var visibleUsers:[String] = []
+    
+    var userToId : [String:Int] = [:]
+    var userToStaff : [String: String] = [:]
+    
+    let searchController = UISearchController(searchResultsController: nil)
     
     @IBOutlet weak var searchResultsTable: UITableView!
     override func viewDidLoad() {
@@ -32,7 +29,26 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-        resultKeys = Array(users.keys)
+        
+        // Setup the Search Controller
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        searchResultsTable.tableHeaderView = searchController.searchBar
+        
+        SlideMenuController.getUsers(token: SlideMenuController.getToken(), myName: SlideMenuController.getName()) { (users_ret: [[String]], userIDs_ret: [String:Int], staff_ret: [String:[String]]) in
+            
+            self.userToId = userIDs_ret
+            for (email, users) in staff_ret{
+                for user in users{
+                    self.userToStaff[user] = email
+                    self.visibleUsers.append(user)
+                }
+            }
+            
+            self.searchResultsTable.reloadData()
+        }
+        
     }
     @IBOutlet weak var menuButton: UIBarButtonItem!
 
@@ -41,7 +57,37 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
         // Dispose of any resources that can be recreated.
     }
     
-
+    
+    
+    func searchBarIsEmpty() -> Bool {
+        // Returns true if the text is empty or nil
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
+    }
+    
+    func filterContentForSearchText(_ searchText_cased: String) {
+        print("firing")
+        let searchText = searchText_cased.lowercased()
+        
+        visibleUsers.removeAll()
+        for (user, staff) in userToStaff{
+            let testString = user + " " + staff
+            if (testString.lowercased().range(of: searchText) != nil || searchText.characters.count == 0){
+                visibleUsers.append(user)
+            }
+        }
+        
+        searchResultsTable.reloadData()
+    }
+    
+    /*func searchDisplayController(_ controller: UISearchDisplayController, shouldReloadTableForSearch searchString: String?) -> Bool {
+        self.filterContentForSearchText(searchString!)
+        return true
+    }*/
+    
     /*
     // MARK: - Navigation
 
@@ -68,7 +114,7 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return visibleUsers.count
     }
     
     func attributedString(from string: String, nonBoldRange: NSRange?) -> NSAttributedString {
@@ -89,14 +135,34 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResult", for: indexPath) as! SearchResult
+        var text = ""//searchController.searchBar.text
         
         let row = indexPath.row
-        let user = resultKeys[row]
-        let start = users[user]
+        let email = visibleUsers[row]
+        let searchText = email + " (" + userToStaff[email]! + ")"
         
-        cell.resultText.attributedText = attributedString(from: user, nonBoldRange: NSMakeRange(start!,1))
+        var start = 0
+        var length = 0
+        
+        if(text != nil && false){
+            if let range = searchText.range(of: text) {
+                start = searchText.distance(from: searchText.startIndex, to: range.lowerBound)
+                length = (text.characters.count)
+            }
+        }
+        
+        cell.resultText.attributedText = attributedString(from: searchText, nonBoldRange: NSMakeRange(start,length))
         
         
         return cell
+    }
+}
+
+
+extension SearchController: UISearchResultsUpdating {
+    // MARK: - UISearchResultsUpdating Delegate
+    func updateSearchResults(for searchController: UISearchController) {
+        print("firing")
+        filterContentForSearchText(searchController.searchBar.text!)
     }
 }

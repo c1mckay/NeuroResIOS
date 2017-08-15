@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/SlideMenuController.swift"
-            timestampString = "524187427.010987"
+            timestampString = "524447689.185801"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "452"
-            endingLineNumber = "452"
-            landmarkName = "header(indexPath:)"
+            startingLineNumber = "428"
+            endingLineNumber = "428"
+            landmarkName = "staffNameCell(indexPath:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -33,6 +33,83 @@
             endingLineNumber = "11"
             landmarkName = "SearchController"
             landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NeuroResIOS.SearchController.__deallocating_deinit"
+                  moduleName = "NeuroResIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/SearchController.swift"
+                  timestampString = "524470124.962558"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NeuroResIOS.SearchController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; NeuroResIOS.SearchController"
+                  moduleName = "NeuroResIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/SearchController.swift"
+                  timestampString = "524470124.965279"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "70">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NeuroResIOS.SearchController.__allocating_init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; NeuroResIOS.SearchController"
+                  moduleName = "NeuroResIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/SearchController.swift"
+                  timestampString = "524470124.96796"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "26">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NeuroResIOS.SearchController.__allocating_init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;NeuroResIOS.SearchController&gt;"
+                  moduleName = "NeuroResIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/SearchController.swift"
+                  timestampString = "524470124.970646"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "9">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NeuroResIOS.SearchController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;NeuroResIOS.SearchController&gt;"
+                  moduleName = "NeuroResIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/SearchController.swift"
+                  timestampString = "524470124.973235"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "30">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

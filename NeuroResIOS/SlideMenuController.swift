@@ -50,11 +50,11 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     var staff_type_hiding:[String] = []
     
     
-    func getToken() -> String{
+    static func getToken() -> String{
         return UserDefaults.standard.value(forKey: "user_auth_token")! as! String;
     }
     
-    func getName() -> String{
+    static func getName() -> String{
         return UserDefaults.standard.value(forKey: "username")! as! String;
     }
     
@@ -190,10 +190,10 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         //let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SlideMenuController.dismissKeyboard))
         //self.view.addGestureRecognizer(tap)
         
-        usernameLabel.text = getName()
+        usernameLabel.text = SlideMenuController.getName()
         
         // Get users
-        SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [[String]], userIDs_ret: [String:Int], staff_ret: [String:[String]]) in
+        SlideMenuController.getUsers(token: SlideMenuController.getToken(), myName: SlideMenuController.getName()) { (users_ret: [[String]], userIDs_ret: [String:Int], staff_ret: [String:[String]]) in
             self.users = users_ret
             self.staff = staff_ret
             self.emailToId = userIDs_ret
@@ -209,7 +209,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.staff_type_hiding.append(staff_type_name)
             }
             
-            SlideMenuController.getUnread(token: self.getToken(), myName: self.getName(), self.idToEmail) { (unreads_ret : [Int:Int]) in
+            SlideMenuController.getUnread(token: SlideMenuController.getToken(), myName: SlideMenuController.getName(), self.idToEmail) { (unreads_ret : [Int:Int]) in
                 
                 for(user_id, unread_count) in unreads_ret{
                     let email = self.idToEmail[user_id]!
