@@ -70,7 +70,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         createLookUpTable()
         
-        if(conversationSelected()){
+        if(UserDefaults.standard.array(forKey: "conversationMembers") != nil){
             let user_ids = (UserDefaults.standard.array(forKey: "conversationMembers")!).map {$0} as! [Int]
             if(users.isEmpty){
                 SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [[String]], userIDs_ret: [String:Int], staff_ret: [String:[String]]) in
@@ -79,19 +79,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         self.users[key] = item
                     }
                     self.createLookUpTable()
-                    
                     self.startConversation(url: "https://neurores.ucsd.edu/start_conversation", info: user_ids)
                 }
             }else{
                 startConversation(url: "https://neurores.ucsd.edu/start_conversation", info: user_ids)
             }
-        }else{
-            showNoConversationError()
         }
-    }
-    
-    func showNoConversationError(){
-        print("No conversation error!")
     }
     
     func onConversationPaneClick(_ sender: Any){
@@ -115,15 +108,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func refreshInputUp(){
-        messageInput.isUserInteractionEnabled = !slideMenuShowing() && conversationSelected()
-    }
-    
-    func conversationSelected() -> Bool {
-        if(UserDefaults.standard.array(forKey: "conversationMembers") == nil){
-            return false
-        }
-        let user_ids = (UserDefaults.standard.array(forKey: "conversationMembers")!).map {$0} as! [Int]
-        return !user_ids.isEmpty
+        messageInput.isUserInteractionEnabled = !slideMenuShowing()
     }
     
     override func didReceiveMemoryWarning() {
@@ -179,14 +164,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //TODO: Replace staticmessages and "User". Add code to send message to server later
     @IBAction func sendMessage(_ sender: Any) {
-        print("hi")
+
         let testMessage: [String : Any] = ["text": messageInput.text ?? "", "conv_id" : self.convID]
         let testMessageString = self.asString(jsonDictionary: testMessage)
-        print(testMessageString)
         self.ws.send(testMessageString)
         
         messageInput.text = ""
         scrollToBottom()
+
     }
     
     
@@ -233,9 +218,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
      * Parameters: url:String - address of endpoint for API call
      *             info: String - Conversation ID
      */
-    func getMessages(info: String) {
+    func getMessages(url: String, info: String) {
         let tokenGroup = DispatchGroup()
-        let url = "https://neurores.ucsd.edu/get_messages"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
         request.addValue(getToken(), forHTTPHeaderField: "auth")
@@ -244,16 +228,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tokenGroup.enter()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("error=\(String(describing: error))")
+                print("error=\(error)")
                 return
             }
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
-                print("!!!!!!statusCode should be 200, but is \(httpStatus.statusCode)")
-                //print("response = \(String(describing: response))")
-                //print(String.init(describing: data))
-                tokenGroup.leave()
-                return
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(response)")
             }
             
             do {
@@ -337,15 +318,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
      *             info: String - json array of userids
      */
     func startConversation(url: String, info: [Int]) {
-        if(info.count == 0){
-            print("Trying to start conversation with no one")
-            return
-        }
-        
         var string = ""
         do{
             let data = try JSONSerialization.data(withJSONObject: info)
-            string = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
+            string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as! String
         }catch{
             print("error serializing info")
         }
@@ -361,7 +337,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             
             guard let data = data, error == nil else {
-                print("error=\(error ?? "nil")")
+                print("error=\(error)")
                 return
             }
             
@@ -396,7 +372,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         task.resume()
         tokenGroup.wait()
         DispatchQueue.main.async {
-            self.getMessages(info: String(self.convID))
+            self.getMessages(url: "https://neurores.ucsd.edu/get_messages", info: String(self.convID))
+            
+            
+            
+            
+            
+            //let testMessage: [String : Any] = ["text": "some gibberish", "conv_id" : self.convID]
+            //
 
             self.connectSocket()
         }

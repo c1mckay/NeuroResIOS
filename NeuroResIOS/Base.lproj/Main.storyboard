@@ -138,6 +138,22 @@
             </objects>
             <point key="canvasLocation" x="-1185" y="-838.75"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Sb2-V7-HtE">
+            <objects>
+                <navigationController id="m0m-Ig-r8f" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ONA-ac-292">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="OEI-IU-Hax" kind="relationship" relationship="rootViewController" id="Bya-QO-Yy8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qub-vl-X7t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1389" y="156"/>
+        </scene>
         <!--Search-->
         <scene sceneID="qlf-Xc-k3f">
             <objects>
@@ -190,7 +206,6 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="resultText" destination="Otm-GK-Nhw" id="reS-G7-hIp"/>
-                                            <segue destination="Lts-lC-nJc" kind="unwind" identifier="unwindToMenu" unwindAction="unwindToMenuWithSegue:" id="HI9-m6-Q8O"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -217,7 +232,22 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AYO-Gs-N4h" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Lts-lC-nJc" userLabel="Exit" sceneMemberID="exit"/>
+                <searchDisplayController id="0SB-Q5-lQw">
+                    <connections>
+                        <outlet property="delegate" destination="OEI-IU-Hax" id="zNG-DF-oSD"/>
+                        <outlet property="searchContentsController" destination="OEI-IU-Hax" id="Rvu-f2-0BD"/>
+                        <outlet property="searchResultsDataSource" destination="OEI-IU-Hax" id="tnY-OP-t4R"/>
+                        <outlet property="searchResultsDelegate" destination="OEI-IU-Hax" id="5lx-xP-K35"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="Fop-03-xNe">
+                    <connections>
+                        <outlet property="delegate" destination="OEI-IU-Hax" id="uqQ-he-Z6o"/>
+                        <outlet property="searchContentsController" destination="OEI-IU-Hax" id="0XS-6B-pa6"/>
+                        <outlet property="searchResultsDataSource" destination="OEI-IU-Hax" id="KO5-xG-tgH"/>
+                        <outlet property="searchResultsDelegate" destination="OEI-IU-Hax" id="tJY-fO-n2n"/>
+                    </connections>
+                </searchDisplayController>
                 <searchDisplayController id="IzO-Ks-0tR">
                     <connections>
                         <outlet property="delegate" destination="OEI-IU-Hax" id="DgZ-OF-sXa"/>
@@ -623,7 +653,7 @@
                                 <rect key="frame" x="0.0" y="68" width="290" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="OEI-IU-Hax" kind="show" id="96c-vp-PkE"/>
+                                    <segue destination="m0m-Ig-r8f" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="uJ1-XK-Fb6"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVB-b5-vpG" userLabel="banner_top">

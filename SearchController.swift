@@ -155,14 +155,6 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
         
         return cell
     }
-    
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedUser = visibleUsers[indexPath.row]
-        let user_id = userToId[selectedUser]!
-        SlideMenuController.setConversationMembers(id: user_id)
-        self.performSegue(withIdentifier: "unwindToMenu", sender: self)
-    }
 }
 
 
