@@ -20,6 +20,11 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     */
     @IBOutlet weak var usersList: UITableView!
     
+    @IBAction func unwindToMenu(segue: UIStoryboardSegue) {
+        if(self.revealViewController().frontViewPosition.rawValue == ChatController.MENU_MODE){
+            self.revealViewController().revealToggle(self)
+        }
+    }
     
     /**
     *   Transparent button to hide menu
@@ -688,7 +693,11 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func setConversationMembers(name: String){
-        UserDefaults.standard.set([emailToId[name]!], forKey: "conversationMembers")
+        SlideMenuController.setConversationMembers(id: self.emailToId[name]!)
+    }
+    
+    static func setConversationMembers(id: Int){
+        UserDefaults.standard.set([id], forKey: "conversationMembers")
     }
     
     func uicolorFromHex(rgbValue:UInt32)->UIColor{
