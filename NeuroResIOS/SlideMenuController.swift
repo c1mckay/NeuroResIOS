@@ -688,7 +688,11 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func setConversationMembers(name: String){
-        UserDefaults.standard.set([emailToId[name]!], forKey: "conversationMembers")
+        SlideMenuController.setConversationMembers(id:emailToId[name]!)
+    }
+    
+    static func setConversationMembers(id: Int){
+        UserDefaults.standard.set([id], forKey: "conversationMembers")
     }
     
     func uicolorFromHex(rgbValue:UInt32)->UIColor{
@@ -713,6 +717,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         
         return !onlineUsers.contains(userID_i!)
     }
+    
     
     
 }
