@@ -152,6 +152,10 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
             cell.resultText.attributedText = attributedString(from: searchText, nonBoldRange: NSMakeRange(start,length))
         }
         
+        let user_id_i = self.userToId[email]
+        if(user_id_i != nil && !SlideMenuController.isOffline(user_id_i!)){
+            cell.statusIco.image = UIImage(named: "online")
+        }
         
         return cell
     }
@@ -160,8 +164,6 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
         let selectedUser = visibleUsers[indexPath.row]
         let user_id = userToId[selectedUser]!
         SlideMenuController.setConversationMembers(id: user_id)
-        
-        //self.performSegue(withIdentifier: "unwindToMenu", sender: self)
     }
 }
 

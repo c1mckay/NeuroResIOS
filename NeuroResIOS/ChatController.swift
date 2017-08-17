@@ -395,8 +395,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
             self.connectSocket()
         }
-        
-        
     }
     
     func connectSocket(){
@@ -407,7 +405,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.ws.send(dictAsString)
         }
         ws.event.close = { code, reason, clean in
-            print("close")
+            print("socket close")
             print(reason)
             print(code)
         }

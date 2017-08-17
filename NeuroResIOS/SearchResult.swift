@@ -11,6 +11,7 @@ import UIKit
 class SearchResult: UITableViewCell {
 
     @IBOutlet weak var resultText: UILabel!
+    @IBOutlet weak var statusIco: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

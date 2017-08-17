@@ -152,7 +152,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qub-vl-X7t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1389" y="156"/>
+            <point key="canvasLocation" x="-1815" y="56"/>
         </scene>
         <!--Search-->
         <scene sceneID="qlf-Xc-k3f">
@@ -206,6 +206,8 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="resultText" destination="Otm-GK-Nhw" id="reS-G7-hIp"/>
+                                            <outlet property="statusIco" destination="d0B-HG-0k0" id="Z3f-vL-zIO"/>
+                                            <segue destination="Dl9-ky-Gae" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="IAR-7J-5CL"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -257,7 +259,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-619" y="113"/>
+            <point key="canvasLocation" x="-894" y="36"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="RBW-Km-K40">
@@ -653,7 +655,7 @@
                                 <rect key="frame" x="0.0" y="68" width="290" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="m0m-Ig-r8f" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="uJ1-XK-Fb6"/>
+                                    <segue destination="m0m-Ig-r8f" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="Vzd-wX-CdT"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVB-b5-vpG" userLabel="banner_top">
@@ -722,7 +724,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="78C-Zc-z2f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2198" y="-93"/>
+            <point key="canvasLocation" x="-3188" y="-883"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qJa-r2-2Ft">
@@ -740,7 +742,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EYR-QR-v8D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2434" y="-918"/>
+            <point key="canvasLocation" x="-2143" y="-883"/>
         </scene>
     </scenes>
     <resources>
@@ -754,5 +756,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="1rA-5A-m0w"/>
+        <segue reference="IAR-7J-5CL"/>
     </inferredMetricsTieBreakers>
 </document>

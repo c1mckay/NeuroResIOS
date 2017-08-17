@@ -6,6 +6,9 @@
 //  Copyright © 2017 Charles McKay. All rights reserved.
 //
 
+//documentation for slide menu
+//http://www.appcoda.com/sidebar-menu-swift/
+
 import UIKit
 import SwiftyJSON
 
@@ -502,7 +505,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatDescripCell", for: indexPath) as! ChatDescripCell
             
             cell.name.text = unread[indexPath.row - 1]
-            if(isOffline(name: cell.name.text!)){
+            if(isOffline(cell.name.text!)){
                 cell.statusIco.image = UIImage(named: "offline")
             }
             let unreadCount_s = self.unreadCount[cell.name.text!]!
@@ -541,7 +544,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }else if(staffNameCell(indexPath: indexPath)){
             let cell = tableView.dequeueReusableCell(withIdentifier: "StaffNameDescripCell", for: indexPath) as! StaffNameDescripCell
             cell.name.text = getStaffTextName(indexPath: indexPath)
-            if(isOffline(name: cell.name.text!)){
+            if(isOffline(cell.name.text!)){
                 cell.statusico.image = UIImage(named: "offline")
             }
             return cell
@@ -557,7 +560,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatDescripCell", for: indexPath) as! ChatDescripCell
             
-            if(isOffline(name: cell.name.text!)){
+            if(isOffline(cell.name.text!)){
                 cell.statusIco.image = UIImage(named: "offline")
             }
             cell.name.text = getDirectUserName(indexPath: indexPath)
@@ -703,19 +706,23 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         return UIColor(red:red, green:green, blue:blue, alpha:1.0)
     }
     
+    func isOffline(_ name: String) -> Bool{
+        let userID_i = emailToId[name]
+        if(userID_i == nil){
+            return true
+        }
+        return SlideMenuController.isOffline(userID_i!)
+    }
     
-    func isOffline(name : String) -> Bool{
+    static func isOffline(_ user_id_i: Int) -> Bool{
         let foundUsers = UserDefaults.standard.array(forKey: "onlineUsers")
         if(foundUsers == nil){
             return true
         }
         let onlineUsers = (foundUsers!).map { Int($0 as! String)! }
-        let userID_i = emailToId[name]
-        if(userID_i == nil){
-            return true
-        }
+        print(onlineUsers)
         
-        return !onlineUsers.contains(userID_i!)
+        return !onlineUsers.contains(user_id_i)
     }
     
     
