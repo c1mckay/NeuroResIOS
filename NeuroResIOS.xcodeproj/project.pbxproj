@@ -16,7 +16,6 @@
 		F68439B91E5F92C90027802C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F68439B81E5F92C90027802C /* Assets.xcassets */; };
 		F68439BC1E5F92C90027802C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F68439BA1E5F92C90027802C /* LaunchScreen.storyboard */; };
 		F68439C71E5F92C90027802C /* NeuroResIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68439C61E5F92C90027802C /* NeuroResIOSTests.swift */; };
-		F68DE08C1F216AAD00B1B401 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F68DE08B1F216AAD00B1B401 /* GoogleService-Info.plist */; };
 		F6AD37711F293FF300786F5C /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6AD37701F293FF300786F5C /* SwiftyJSON.framework */; };
 		F6E309321E64D527007EE749 /* ChatTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E309311E64D527007EE749 /* ChatTableCell.swift */; };
 		F6E309341E67B1CB007EE749 /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E309331E67B1CB007EE749 /* SlideMenuController.swift */; };
@@ -60,7 +59,6 @@
 		F68439C21E5F92C90027802C /* NeuroResIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeuroResIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F68439C61E5F92C90027802C /* NeuroResIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuroResIOSTests.swift; sourceTree = "<group>"; };
 		F68439C81E5F92C90027802C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F68DE08B1F216AAD00B1B401 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		F6AD37701F293FF300786F5C /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../Library/Developer/Xcode/DerivedData/NeuroResIOS-aqybawcqrqvwmzfdekxgcqjzxaol/Build/Products/Debug-iphonesimulator/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		F6E309311E64D527007EE749 /* ChatTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatTableCell.swift; path = ../ChatTableCell.swift; sourceTree = "<group>"; };
 		F6E309331E67B1CB007EE749 /* SlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuController.swift; sourceTree = "<group>"; };
@@ -154,7 +152,6 @@
 				F68439B81E5F92C90027802C /* Assets.xcassets */,
 				F68439BA1E5F92C90027802C /* LaunchScreen.storyboard */,
 				F68439BD1E5F92C90027802C /* Info.plist */,
-				F68DE08B1F216AAD00B1B401 /* GoogleService-Info.plist */,
 			);
 			path = NeuroResIOS;
 			sourceTree = "<group>";
@@ -281,7 +278,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F68439BC1E5F92C90027802C /* LaunchScreen.storyboard in Resources */,
-				F68DE08C1F216AAD00B1B401 /* GoogleService-Info.plist in Resources */,
 				F68439B91E5F92C90027802C /* Assets.xcassets in Resources */,
 				F68439B71E5F92C90027802C /* Main.storyboard in Resources */,
 			);

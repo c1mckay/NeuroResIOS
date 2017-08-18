@@ -10,13 +10,68 @@ import SwiftyJSON
 import UIKit
 import os.log
 import Foundation
+import JSQMessagesViewController
 
 
-class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+class ChatController: JSQMessagesViewController{
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+        let message = messages[indexPath.row]
+        let messageUserName = message.senderDisplayName!
+        return SearchController.attributedString(from: messageUserName, nonBoldRange: NSMakeRange(0, messageUserName.characters.count))
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
+        return 20
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return messages.count
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
+        return messages[indexPath.row]
+    }
+    
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource!{
+        let bubbleFactory = JSQMessagesBubbleImageFactory()
+        
+        let message = messages[indexPath.row]
+        
+        if getName() == message.senderDisplayName {
+            return bubbleFactory?.outgoingMessagesBubbleImage(with: outgoingColor())
+        }else{
+            return bubbleFactory?.incomingMessagesBubbleImage(with: incomingColor())
+        }
+    }
+    
+    func incomingColor() -> UIColor{
+        return UIColor(0, 106, 150)
+    }
+    
+    func outgoingColor() -> UIColor{
+        return UIColor(182, 177, 169)
+    }
+    
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
+        return nil
+    }
+    
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
+        print("clicked")
+        if text.characters.count == 0 {
+            return
+        }
+        let testMessage: [String : Any] = ["text": text, "conv_id" : self.convID]
+        let testMessageString = self.asString(jsonDictionary: testMessage)
+        self.ws.send(testMessageString)
+        self.finishSendingMessage()
+    }
     
     @IBOutlet weak var User: UILabel!
-    @IBOutlet weak var chatTable: UITableView!
-    @IBOutlet weak var chatContainer: UITableView!
     @IBOutlet weak var messageInput: UITextField!
     @IBOutlet weak var usersButton: UIBarButtonItem!
     
@@ -27,12 +82,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var userLookup = [Int: String]() // dictionary key: id and val: username
     var convID = Int() // Conversation Data - ID
     var convUsers = Int() // Conversation Data - UserID
-    var messages = [[String]]() // contains messages
+    var messages = [JSQMessage]() // contains messages
     
     let ws = WebSocket("wss://neurores.ucsd.edu")
     
     
     override func viewDidLoad() {
+        self.senderId = "0"
+        self.senderDisplayName = ""
         super.viewDidLoad()
         
         if(UserDefaults.standard.string(forKey: "user_auth_token") == nil){
@@ -41,12 +98,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return
         }
         
+        self.senderDisplayName = getName()
+        self.inputToolbar.contentView.leftBarButtonItem = nil
+        
+        
         refreshInputUp()
-        
-        chatContainer.estimatedRowHeight = 68.0
-        chatContainer.rowHeight = UITableViewAutomaticDimension
-        
-        // Do any additional setup after loading the view, typically from a nib.
         
         if self.revealViewController() != nil {
             usersButton.target = self//.revealViewController()
@@ -59,25 +115,32 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         // For displaying keyborad correctly
-        NotificationCenter.default.addObserver(self, selector: #selector(ChatController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ChatController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(ChatController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(ChatController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         
         // For dismissing keyboard by tapping
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChatController.onConversationPaneClick))
         self.view.addGestureRecognizer(tap)
         
+        let inputTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChatController.onInputClick))
+        self.inputView?.addGestureRecognizer(inputTap)
+        
         
         createLookUpTable()
         
         if(conversationSelected()){
+            self.inputToolbar.isHidden = false
             let user_ids = (UserDefaults.standard.array(forKey: "conversationMembers")!).map {$0} as! [Int]
             if(users.isEmpty){
-                SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [[String]], userIDs_ret: [String:Int], staff_ret: [String:[String]]) in
-                   // users = userIDs_ret as Dictionary<String,Any>
+                SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [String], userIDs_ret: [String:Int], staff_ret: [String:[String]]) in
+                    
                     for (key, item) in userIDs_ret{
                         self.users[key] = item
                     }
+                    self.senderDisplayName = self.getName()
+                    self.senderId = String(describing: self.users[self.getName()]!)
+                    
                     self.createLookUpTable()
                     self.startConversation(url: "https://neurores.ucsd.edu/start_conversation", info: user_ids)
                 }
@@ -90,16 +153,27 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func showNoConversationError(){
-        print("No conversation error!")
+        self.inputToolbar.isHidden = true
+        self.messages.append(JSQMessage(senderId: "-1", displayName: "NeuroRes", text: "Looks like you haven't started any conversations yet. Open up the menu on the left to start one."))
+        self.finishSendingMessage()
     }
     
     func onConversationPaneClick(_ sender: Any){
+        print("clicked")
         let controller = self.revealViewController()
         if(slideMenuShowing()){
             controller?.revealToggle(controller)
         }
         refreshInputUp()
         self.dismissKeyboard()
+    }
+    
+    func onInputClick(_sender: Any){
+        print("clicked!!")
+        let controller = self.revealViewController()
+        if(slideMenuShowing()){
+            controller?.revealToggle(controller)
+        }
     }
 
     func menuClick(_ sender : Any){
@@ -114,7 +188,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func refreshInputUp(){
-        messageInput.isUserInteractionEnabled = !slideMenuShowing() && conversationSelected()
+        
     }
     
     func conversationSelected() -> Bool{
@@ -132,14 +206,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     
-    var configured = false
+    /*var configured = false
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if !configured{
             chatContainer.delegate = self
             chatContainer.dataSource = self        }
         configured = true
-    }
+    }*/
     
 
     //MARK: UITableViewDelegate and Datasource Methods
@@ -152,7 +226,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    /*func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatTableCell", for: indexPath) as! ChatTableCell
         
         let row = indexPath.row
@@ -164,7 +238,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.content.text = text
         
         return cell
-    }
+    }*/
     
     
     // Used to go to the bottom of tableview
@@ -173,16 +247,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return
         }
         
-        let indexPath = IndexPath(row: self.messages.count-1, section: 0)
-        self.chatContainer.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        //let indexPath = IndexPath(row: self.messages.count-1, section: 0)
+        //self.chatContainer.scrollToRow(at: indexPath, at: .bottom, animated: false)
     }
     
-    //TODO: Replace staticmessages and "User". Add code to send message to server later
     @IBAction func sendMessage(_ sender: Any) {
 
-        let testMessage: [String : Any] = ["text": messageInput.text ?? "", "conv_id" : self.convID]
-        let testMessageString = self.asString(jsonDictionary: testMessage)
-        self.ws.send(testMessageString)
+        
         
         messageInput.text = ""
         scrollToBottom()
@@ -262,12 +333,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         let json = parsedData![i] as [String:Any]
                         let userid = json["sender"] as? String
                         let text = json["text"] as? String
-                        let userIdInt = Int(userid!)
-                        let userName = self.getUserName(id: userIdInt!)
-                        let date = json["date"] as! String
-                        let dateShow = self.convertFromJSONDate(date)
-                        let message = [userName, text, dateShow]
-                        self.pushMessage(message: message as! [String])
+                        let userIdInt = Int(userid!)!
+                        let date_s = json["date"] as! String
+                        
+                        let dateShow = self.convertFromJSONDate(date_s)
+                        self.pushMessage(userIdInt, text!, dateShow)
+                        
                         
                     }
                 }
@@ -283,18 +354,19 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         task.resume()
         tokenGroup.wait()
         DispatchQueue.main.async {
-            self.chatTable.reloadData()
-            self.scrollToBottom()
+            self.finishSendingMessage()
+            //self.chatContainer.reloadData()
+            //self.scrollToBottom()
         }
     }
     
-    func convertFromJSONDate(_ date_s: String ) -> String{
+    func convertFromJSONDate(_ date_s: String ) -> Date{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'.000Z'"
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-        let date = dateFormatter.date(from : date_s)
+        return dateFormatter.date(from : date_s)!
         
-        return getTimeString(date!)
+        //return getTimeString(date!)
     }
     
     func getTimeString(_ date: Date) -> String{
@@ -313,17 +385,19 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func pushMessage(message: [String]){
+    func pushMessage(_ userIdInt: Int, _ text: String, _ date: Date){
+        let userName = self.getUserName(id: userIdInt)
+        let userIdString = String(describing: userIdInt)
         if(self.messages.isEmpty){
-            self.messages.append(message)
+            self.messages.append(JSQMessage(senderId: userIdString, displayName: userName, text: text))
             return
         }
         
-        let lastSender = messages[self.messages.count - 1][0]
-        if(lastSender == message[0]){
-            self.messages[self.messages.count - 1][1] += "\n" + message[1]
+        let lastMessage = messages[self.messages.count - 1]
+        if(lastMessage.senderId == userIdString){
+            self.messages[self.messages.count - 1] = JSQMessage(senderId: userIdString, displayName: userName, text: lastMessage.text + "\n" + text)
         }else{
-            self.messages.append(message)
+            self.messages.append(JSQMessage(senderId: userIdString, displayName: userName, text: text))
         }
     }
     
@@ -374,17 +448,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 return;
             }
             
-            do {
-                
-                let parsedData = try JSONSerialization.jsonObject(with: data) as? [String:Any]
-                let key = Array(parsedData!.keys)
-                let conv = key[0]
-                let val = parsedData?[conv] as? Int
-                self.convID = val!
+            let parsedData = ChatController.dataToJSON(data)
+            self.convID = parsedData["conv_id"].int!
 
-            } catch let error as NSError {
-                print(error)
-            };
             tokenGroup.leave()
             
         }
@@ -395,6 +461,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
             self.connectSocket()
         }
+    }
+    
+    static func dataToJSON(_ data: Data) -> JSON{
+        let somedata = String(data: data, encoding: String.Encoding.utf8) as! String
+        return JSON.init(parseJSON: somedata)
     }
     
     func connectSocket(){
@@ -426,19 +497,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     self.removeOnlineUser(json: json);
                 }
             }else{
+                print("received")
                 let userIdInt = json["from"].int
                 let mText = json["text"].string
-                let userName = self.getUserName(id: userIdInt!)
+                
                 let date = Date()
-                
-                let date_s = self.getTimeString(date)
-                
-                let text = [userName, mText, date_s]
 
-                self.pushMessage(message: text as! [String])
-                
-                self.chatContainer.reloadData()
-                self.scrollToBottom()
+                self.pushMessage(userIdInt!, mText!, date)
+                self.collectionView.reloadData()
             }
         }
     }
@@ -498,8 +564,19 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
 
+
     
     
     
+}
+
+extension UIColor {
+    convenience init(_ red: Int, _ green: Int, _ blue: Int) {
+        let newRed = CGFloat(red)/255
+        let newGreen = CGFloat(green)/255
+        let newBlue = CGFloat(blue)/255
+        
+        self.init(red: newRed, green: newGreen, blue: newBlue, alpha: 1.0)
+    }
 }
 

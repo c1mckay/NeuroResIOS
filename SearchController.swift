@@ -36,7 +36,7 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
         definesPresentationContext = true
         searchResultsTable.tableHeaderView = searchController.searchBar
         
-        SlideMenuController.getUsers(token: SlideMenuController.getToken(), myName: SlideMenuController.getName()) { (users_ret: [[String]], userIDs_ret: [String:Int], staff_ret: [String:[String]]) in
+        SlideMenuController.getUsers(token: SlideMenuController.getToken(), myName: SlideMenuController.getName()) { (users_ret: [String], userIDs_ret: [String:Int], staff_ret: [String:[String]]) in
             
             self.userToId = userIDs_ret
             for (email, users) in staff_ret{
@@ -116,7 +116,7 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
         return visibleUsers.count
     }
     
-    func attributedString(from string: String, nonBoldRange: NSRange?) -> NSAttributedString {
+    static func attributedString(from string: String, nonBoldRange: NSRange?) -> NSAttributedString {
         let fontSize = UIFont.systemFontSize
         let attrs = [
             NSFontAttributeName: UIFont.systemFont(ofSize: fontSize),
@@ -144,12 +144,12 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
         if let range = searchText.lowercased().range(of: text!.lowercased()) {
             let start = searchText.distance(from: searchText.startIndex, to: range.lowerBound)
             let length = (text?.characters.count)!
-            cell.resultText.attributedText = attributedString(from: searchText, nonBoldRange: NSMakeRange(start,length))
+            cell.resultText.attributedText = SearchController.attributedString(from: searchText, nonBoldRange: NSMakeRange(start,length))
         }
         else{
             let start = 0
             let length = 0
-            cell.resultText.attributedText = attributedString(from: searchText, nonBoldRange: NSMakeRange(start,length))
+            cell.resultText.attributedText = SearchController.attributedString(from: searchText, nonBoldRange: NSMakeRange(start,length))
         }
         
         let user_id_i = self.userToId[email]

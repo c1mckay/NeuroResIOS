@@ -66,9 +66,9 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
      * Function to get list of users
      * Parameters: url:String - address of endpoint for API call
      */
-    static func getUsers(token: String, myName: String, completion: @escaping (_ : [[String]], _ : [String:Int], _ : [String:[String]]) -> Void ) {
+    static func getUsers(token: String, myName: String, completion: @escaping (_ : [String], _ : [String:Int], _ : [String:[String]]) -> Void ) {
         
-        var users:[[String]] = []
+        var users:[String] = []
         var emailToId:[String:Int] = [:]
         var staff:[String:[String]] = [:]
         
@@ -79,13 +79,13 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         userGroup.enter()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("error=\(error)")
+                print("error=\(String(describing: error))")
                 return
             }
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                print("response = \(response)")
+                print("response = \(String(describing: response))")
             }
             
             
@@ -96,12 +96,10 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                 
                     let json = parsedData![i] as [String:Any]
                     let name = json["email"] as? String
-                    if(name == myName){
-                        continue
-                    }
+                    
                     let id_s = json["user_id"]!
                     let id = Int(id_s as! String)
-                    users.append([name!])
+                    users.append(name!)
                     emailToId[name!] = (id! as Int)
                     let userType = json["user_type"] as? String
                     if staff[userType!] != nil {
@@ -136,13 +134,13 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         userGroup.enter()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("error=\(error)")
+                print("error=\(String(describing: error))")
                 return
             }
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                print("response = \(response)")
+                print("response = \(String(describing: response))")
             }
             
             let jsonString = String(data: data, encoding: String.Encoding.utf8) as String!
@@ -175,7 +173,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var emailToId:[String:Int] = [:]
     var idToEmail:[Int:String] = [:]
-    var users:[[String]] = []
+    var users:[String] = []
     var staff:[String:[String]] = [:]
     var unread:[String] = []
     var unreadCount:[String:Int] = [:]
@@ -193,12 +191,26 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         //let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SlideMenuController.dismissKeyboard))
         //self.view.addGestureRecognizer(tap)
         
-        usernameLabel.text = SlideMenuController.getName()
+        let myName = SlideMenuController.getName()
+        
+        usernameLabel.text = myName
         
         // Get users
-        SlideMenuController.getUsers(token: SlideMenuController.getToken(), myName: SlideMenuController.getName()) { (users_ret: [[String]], userIDs_ret: [String:Int], staff_ret: [String:[String]]) in
-            self.users = users_ret
-            self.staff = staff_ret
+        SlideMenuController.getUsers(token: SlideMenuController.getToken(), myName: myName) { (users_ret: [String], userIDs_ret: [String:Int], staff_ret: [String:[String]]) in
+            for user in users_ret{
+                if user != myName{
+                    self.users.append(user)
+                }
+            }
+            for (staff_type, staff_list) in staff_ret {
+                var section = [String]()
+                for staff_name in staff_list{
+                    if staff_name != myName {
+                        section.append(staff_name)
+                    }
+                }
+                self.staff[staff_type] = section
+            }
             self.emailToId = userIDs_ret
             
             for(email, id) in userIDs_ret{
@@ -686,7 +698,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             row -= getStaffCount() //for all the staff
         }
         
-        return users[row][0]
+        return users[row]
 
     }
     

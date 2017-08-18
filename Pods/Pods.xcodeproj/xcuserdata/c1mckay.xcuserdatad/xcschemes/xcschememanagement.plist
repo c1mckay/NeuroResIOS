@@ -9,6 +9,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>IQKeyboardManagerSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>JSQMessagesViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>JSQSystemSoundPlayer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-NeuroResIOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,12 +52,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4B82913619CC4171EC14F34B16498E70</key>
+		<key>3BF544BF1934522124784AD2AE13B0AF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9EB54736E3DD3891AC6FA38E92A21AEC</key>
+		<key>A22CBBA51339B263D5FCE563FF9CEABC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AFEF54522F2F2C53C746E64DCB611BA8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C235F77E101E742652CCF98FFDFA5182</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,12 +82,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E4DD95323C54A78F879DAB0F1508B8E7</key>
+		<key>C7DCF2B547F7871B9BFD74DE93B0E173</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EEB6CB5EF4C4233CF87A8E4B5484363B</key>
+		<key>D0581AF7BF4A6DA140D280B19ECC7BFF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E4DD95323C54A78F879DAB0F1508B8E7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

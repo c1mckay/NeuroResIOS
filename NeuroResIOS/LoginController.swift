@@ -100,7 +100,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         tokenGroup.enter()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("error=\(error)")
+                print("error=\(String(describing: error))")
                 return
             }
             

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/SlideMenuController.swift"
-            timestampString = "524447689.185801"
+            timestampString = "524692911.11844"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "428"
-            endingLineNumber = "428"
+            startingLineNumber = "443"
+            endingLineNumber = "443"
             landmarkName = "staffNameCell(indexPath:)"
             landmarkType = "7">
          </BreakpointContent>
