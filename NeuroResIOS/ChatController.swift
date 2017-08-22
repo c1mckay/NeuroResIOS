@@ -464,7 +464,7 @@ class ChatController: JSQMessagesViewController{
     }
     
     static func dataToJSON(_ data: Data) -> JSON{
-        let somedata = String(data: data, encoding: String.Encoding.utf8) as! String
+        let somedata = String(data: data, encoding: String.Encoding.utf8)!
         return JSON.init(parseJSON: somedata)
     }
     

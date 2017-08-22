@@ -187,7 +187,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         if(UserDefaults.standard.string(forKey: "user_auth_token") == nil){
             return
         }
-        
         //let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SlideMenuController.dismissKeyboard))
         //self.view.addGestureRecognizer(tap)
         
@@ -235,6 +234,9 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             }
 
         }
+        
+        userTableView.rowHeight = UITableViewAutomaticDimension
+        userTableView.estimatedRowHeight = 300
         
     }
     
@@ -497,19 +499,19 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         return total_count == indexPath.row
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    /*func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if(header(indexPath: indexPath)){
-            return 40
+            return 50
         }else{
-            return 20
+            return 30
         }
-    }
+    }*/
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(unreadHeader(indexPath: indexPath)){
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
             
-            cell.titleText.text = "Not Read"
+            cell.titleText.text = "Unread"
             cell.expander.image = getExpanderImage(status: unread_showing)
             
             return cell
