@@ -187,8 +187,10 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         if(UserDefaults.standard.string(forKey: "user_auth_token") == nil){
             return
         }
-        //let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SlideMenuController.dismissKeyboard))
-        //self.view.addGestureRecognizer(tap)
+        
+        let swipeleft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeleft.direction = UISwipeGestureRecognizerDirection.left
+        self.userTableView.addGestureRecognizer(swipeleft)
         
         let myName = SlideMenuController.getName()
         
@@ -238,6 +240,23 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         userTableView.rowHeight = UITableViewAutomaticDimension
         userTableView.estimatedRowHeight = 300
         
+    }
+    
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.left:
+                if self.slideMenuShowing() {
+                    self.revealViewController().revealToggle(self.revealViewController())
+                }
+            default:
+                break
+            }
+        }
+    }
+    
+    func slideMenuShowing() -> Bool{
+        return self.revealViewController().frontViewPosition.rawValue == ChatController.MENU_MODE
     }
     
     func dismissKeyboard() {
