@@ -446,7 +446,7 @@
                                         <connections>
                                             <outlet property="name" destination="Lla-dC-HdL" id="5Au-PE-qfF"/>
                                             <outlet property="statusico" destination="1Rt-WB-u4i" id="q2N-nM-wTU"/>
-                                            <segue destination="1Rd-iz-8DA" kind="show" identifier="staffNameSelect" animates="NO" id="1rA-5A-m0w"/>
+                                            <segue destination="Dl9-ky-Gae" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="UXA-GI-FWI"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatDescripCell" rowHeight="10" id="HIw-6d-Ywo" customClass="ChatDescripCell" customModule="NeuroResIOS">
@@ -494,7 +494,7 @@
                                             <outlet property="name" destination="LL4-m8-h04" id="Wzw-KE-oiy"/>
                                             <outlet property="statusIco" destination="JQd-Ie-a9a" id="f42-3O-fgE"/>
                                             <outlet property="unreadCount" destination="iwt-Qb-qUJ" id="T3I-B9-nE1"/>
-                                            <segue destination="1Rd-iz-8DA" kind="show" identifier="directNameSelect" animates="NO" id="Ds2-K2-70J"/>
+                                            <segue destination="Dl9-ky-Gae" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="tx8-iJ-2r0"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MoreDescripCell" id="Mvr-Rb-Kvm" userLabel="more" customClass="MoreDescripCell" customModule="NeuroResIOS">
@@ -626,7 +626,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="78C-Zc-z2f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3189.375" y="-883.75"/>
+            <point key="canvasLocation" x="-3229" y="-1033"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qJa-r2-2Ft">
@@ -657,6 +657,5 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="IAR-7J-5CL"/>
-        <segue reference="Ds2-K2-70J"/>
     </inferredMetricsTieBreakers>
 </document>

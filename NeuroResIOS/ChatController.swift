@@ -23,7 +23,23 @@ class ChatController: JSQMessagesViewController{
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
-        return 20
+        if(indexPath.row == 0){
+            return 20
+        }
+        let prevID = messages[indexPath.row - 1].senderId
+        let curID  = messages[indexPath.row].senderId
+        
+        if(prevID == curID){
+            return 0
+        }else{
+            return 20
+        }
+        
+    }
+    
+    override func textViewDidBeginEditing(_ textView: UITextView) {
+        print("clicked")
+        hideSlideMenu()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -100,6 +116,7 @@ class ChatController: JSQMessagesViewController{
         
         self.senderDisplayName = getName()
         self.inputToolbar.contentView.leftBarButtonItem = nil
+        self.automaticallyScrollsToMostRecentMessage = true
         
         
         refreshInputUp()
@@ -123,9 +140,17 @@ class ChatController: JSQMessagesViewController{
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChatController.onConversationPaneClick))
         self.view.addGestureRecognizer(tap)
         
-        let inputTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChatController.onInputClick))
-        self.inputView?.addGestureRecognizer(inputTap)
+        let directions: [UISwipeGestureRecognizerDirection] = [.right, .left, .up, .down]
+        for direction in directions {
+            let gesture = UISwipeGestureRecognizer(target: self, action: #selector(ChatController.handleSwipe))
+            gesture.direction = direction
+            self.view.addGestureRecognizer(gesture)
+        }
         
+        //let swiperight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        //swiperight.direction = UISwipeGestureRecognizerDirection.right
+        //self.view.addGestureRecognizer(swipeleft)
+
         
         createLookUpTable()
         
@@ -142,6 +167,14 @@ class ChatController: JSQMessagesViewController{
                     self.senderId = String(describing: self.users[self.getName()]!)
                     
                     self.createLookUpTable()
+                    
+                    let leftItem = UIBarButtonItem(title: self.userLookup[user_ids[0]],
+                                                   style: UIBarButtonItemStyle.plain,
+                                                   target: nil,
+                                                   action: nil)
+                    leftItem.isEnabled = false
+                    self.navigationItem.rightBarButtonItem = leftItem
+                    
                     self.startConversation(url: "https://neurores.ucsd.edu/start_conversation", info: user_ids)
                 }
             }else{
@@ -152,6 +185,8 @@ class ChatController: JSQMessagesViewController{
         }
     }
     
+    func handleSwipe(sender: UISwipeGestureRecognizer) {
+        case UISwipeGestureRecognizerDirection.right:
     func showNoConversationError(){
         self.inputToolbar.isHidden = true
         self.messages.append(JSQMessage(senderId: "-1", displayName: "NeuroRes", text: "Looks like you haven't started any conversations yet. Open up the menu on the left to start one."))
@@ -159,18 +194,10 @@ class ChatController: JSQMessagesViewController{
     }
     
     func onConversationPaneClick(_ sender: Any){
-        print("clicked")
-        let controller = self.revealViewController()
-        if(slideMenuShowing()){
-            controller?.revealToggle(controller)
-        }
         refreshInputUp()
         self.dismissKeyboard()
     }
     
-    func onInputClick(_sender: Any){
-        print("clicked!!")
-        let controller = self.revealViewController()
         if(slideMenuShowing()){
             controller?.revealToggle(controller)
         }
@@ -326,7 +353,6 @@ class ChatController: JSQMessagesViewController{
             do {
                 
                 let parsedData = try JSONSerialization.jsonObject(with: data) as? [[String:Any]]
-                
                 if !(parsedData?.isEmpty)! {
                     for i in 0 ... ((parsedData?.count))! - 1 {
                         
@@ -386,20 +412,7 @@ class ChatController: JSQMessagesViewController{
     }
     
     func pushMessage(_ userIdInt: Int, _ text: String, _ date: Date){
-        let userName = self.getUserName(id: userIdInt)
         let userIdString = String(describing: userIdInt)
-        if(self.messages.isEmpty){
-            self.messages.append(JSQMessage(senderId: userIdString, displayName: userName, text: text))
-            return
-        }
-        
-        let lastMessage = messages[self.messages.count - 1]
-        if(lastMessage.senderId == userIdString){
-            self.messages[self.messages.count - 1] = JSQMessage(senderId: userIdString, displayName: userName, text: lastMessage.text + "\n" + text)
-        }else{
-            self.messages.append(JSQMessage(senderId: userIdString, displayName: userName, text: text))
-        }
-    }
     
     /**
      * Function get and start conversation
@@ -448,7 +461,6 @@ class ChatController: JSQMessagesViewController{
                 return;
             }
             
-            let parsedData = ChatController.dataToJSON(data)
             self.convID = parsedData["conv_id"].int!
 
             tokenGroup.leave()
