@@ -186,7 +186,21 @@ class ChatController: JSQMessagesViewController{
     }
     
     func handleSwipe(sender: UISwipeGestureRecognizer) {
+        switch sender.direction {
         case UISwipeGestureRecognizerDirection.right:
+            if !self.slideMenuShowing() {
+                self.revealViewController().revealToggle(self.revealViewController())
+            }
+        case UISwipeGestureRecognizerDirection.left:
+            if self.slideMenuShowing() {
+                self.revealViewController().revealToggle(self.revealViewController())
+            }
+        default:
+            break
+        }
+
+    }
+    
     func showNoConversationError(){
         self.inputToolbar.isHidden = true
         self.messages.append(JSQMessage(senderId: "-1", displayName: "NeuroRes", text: "Looks like you haven't started any conversations yet. Open up the menu on the left to start one."))
@@ -194,11 +208,15 @@ class ChatController: JSQMessagesViewController{
     }
     
     func onConversationPaneClick(_ sender: Any){
+        hideSlideMenu()
         refreshInputUp()
         self.dismissKeyboard()
     }
+   
     
+    func hideSlideMenu(){
         if(slideMenuShowing()){
+            let controller = self.revealViewController()
             controller?.revealToggle(controller)
         }
     }
@@ -353,6 +371,7 @@ class ChatController: JSQMessagesViewController{
             do {
                 
                 let parsedData = try JSONSerialization.jsonObject(with: data) as? [[String:Any]]
+                print(parsedData)
                 if !(parsedData?.isEmpty)! {
                     for i in 0 ... ((parsedData?.count))! - 1 {
                         
@@ -413,6 +432,16 @@ class ChatController: JSQMessagesViewController{
     
     func pushMessage(_ userIdInt: Int, _ text: String, _ date: Date){
         let userIdString = String(describing: userIdInt)
+        let displayName = self.getUserName(id: userIdInt)
+
+        /*if(!self.messages.isEmpty){
+            let lastMessage = messages[self.messages.count - 1]
+            if(lastMessage.senderId == userIdString){
+                displayName = ""
+            }
+        }*/
+        let jqMessage = JSQMessage(senderId: userIdString, displayName: displayName, text: text)
+        self.messages.append(jqMessage!)    }
     
     /**
      * Function get and start conversation
@@ -461,6 +490,7 @@ class ChatController: JSQMessagesViewController{
                 return;
             }
             
+            let parsedData = ChatController.dataToJSON(data)	
             self.convID = parsedData["conv_id"].int!
 
             tokenGroup.leave()
@@ -517,6 +547,7 @@ class ChatController: JSQMessagesViewController{
 
                 self.pushMessage(userIdInt!, mText!, date)
                 self.collectionView.reloadData()
+                self.scrollToBottom(animated: true)
             }
         }
     }
