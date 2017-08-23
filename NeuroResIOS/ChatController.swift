@@ -38,7 +38,6 @@ class ChatController: JSQMessagesViewController{
     }
     
     override func textViewDidBeginEditing(_ textView: UITextView) {
-        print("clicked")
         hideSlideMenu()
     }
     
@@ -77,8 +76,8 @@ class ChatController: JSQMessagesViewController{
     }
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
-        print("clicked")
         if text.characters.count == 0 {
+            self.finishSendingMessage()
             return
         }
         let testMessage: [String : Any] = ["text": text, "conv_id" : self.convID]
@@ -208,6 +207,7 @@ class ChatController: JSQMessagesViewController{
     }
     
     func onConversationPaneClick(_ sender: Any){
+        print("conversation pane clicked")
         hideSlideMenu()
         refreshInputUp()
         self.dismissKeyboard()
@@ -500,9 +500,45 @@ class ChatController: JSQMessagesViewController{
         tokenGroup.wait()
         DispatchQueue.main.async {
             self.getMessages(url: "https://neurores.ucsd.edu/get_messages", info: String(self.convID))
-
+            self.setUnread()
             self.connectSocket()
         }
+    }
+    
+    func setUnread(){
+        var request = URLRequest(url: URL(string: "https://neurores.ucsd.edu/mark_seen")!)
+        request.httpMethod = "POST"
+        request.addValue(getToken(), forHTTPHeaderField: "auth")
+        request.httpBody = String(describing: self.convID).data(using: String.Encoding.utf8)
+        
+        let tokenGroup = DispatchGroup()
+        tokenGroup.enter()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print("error=\(String(describing: error))")
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                if(httpStatus.statusCode == 401){//unauthorized, send back to Login
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "noLoginTokenSegue", sender: nil)
+                    }
+                    tokenGroup.leave()
+                    return
+                }
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(String(describing: response))")
+                tokenGroup.leave()
+                return;
+            }
+            
+            tokenGroup.leave()
+            
+        }
+        task.resume()
+        tokenGroup.wait()
+        DispatchQueue.main.async {}
     }
     
     static func dataToJSON(_ data: Data) -> JSON{
@@ -510,13 +546,15 @@ class ChatController: JSQMessagesViewController{
         return JSON.init(parseJSON: somedata)
     }
     
+    func sendGreeting(){
+        let dict: [String : Any] = ["greeting": self.getToken()]
+        let dictAsString = self.asString(jsonDictionary: dict)
+        self.ws.send(dictAsString)
+    }
+    
     func connectSocket(){
         
-        ws.event.open = {
-            let dict: [String : Any] = ["greeting": self.getToken()]
-            let dictAsString = self.asString(jsonDictionary: dict)
-            self.ws.send(dictAsString)
-        }
+        ws.event.open = sendGreeting
         ws.event.close = { code, reason, clean in
             print("socket close")
             print(reason)
@@ -539,7 +577,9 @@ class ChatController: JSQMessagesViewController{
                     self.removeOnlineUser(json: json);
                 }
             }else{
-                print("received")
+                if json["conv_id"].int != self.convID{
+                    return
+                }
                 let userIdInt = json["from"].int
                 let mText = json["text"].string
                 
@@ -550,6 +590,8 @@ class ChatController: JSQMessagesViewController{
                 self.scrollToBottom(animated: true)
             }
         }
+        
+        sendGreeting()
     }
     
     func saveUsers(json : JSON){

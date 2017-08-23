@@ -653,7 +653,12 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             tableView.reloadData()
             scrollToBottom()
             return
-        }else if(!moreCell(indexPath: indexPath) && !unreadCell(indexPath: indexPath)){
+        }else if(unreadCell(indexPath: indexPath)){
+            let clickedUnread = unread[indexPath.row - 1]
+            self.unread.remove(at: indexPath.row - 1)
+            self.unreadCount[clickedUnread] = nil
+            setConversationMembers(name: clickedUnread)
+        }else if(!moreCell(indexPath: indexPath)){
             setConversationMembers(name: getDirectUserName(indexPath: indexPath))
         }else{
             

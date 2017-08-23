@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525118413.70678"
+            timestampString = "525135524.717444"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "583"
-            endingLineNumber = "583"
+            startingLineNumber = "601"
+            endingLineNumber = "601"
             landmarkName = "saveUsers(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525118413.70678"
+            timestampString = "525135524.717444"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "583"
-            endingLineNumber = "583"
+            startingLineNumber = "601"
+            endingLineNumber = "601"
             landmarkName = "saveUsers(json:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525118413.70678"
+            timestampString = "525119249.807966"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "469"
-            endingLineNumber = "469"
+            startingLineNumber = "445"
+            endingLineNumber = "445"
             landmarkName = "ChatController"
             landmarkType = "3">
          </BreakpointContent>
@@ -153,28 +153,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525118413.70678"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "392"
-            endingLineNumber = "392"
-            landmarkName = "getMessages(url:info:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/SlideMenuController.swift"
-            timestampString = "525069710.261962"
+            timestampString = "525137248.871039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "756"
-            endingLineNumber = "756"
+            startingLineNumber = "761"
+            endingLineNumber = "761"
             landmarkName = "isOffline(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525068706.039862"
+            timestampString = "525119929.954103"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "collectionView(_:messageBubbleImageDataForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -250,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525069865.760412"
+            timestampString = "525119929.954103"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -266,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525118413.70678"
+            timestampString = "525119249.807966"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "458"
-            endingLineNumber = "458"
+            startingLineNumber = "434"
+            endingLineNumber = "434"
             landmarkName = "pushMessage(_:_:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -330,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525068706.039862"
+            timestampString = "525119929.954103"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -346,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525070697.406404"
+            timestampString = "525119929.954103"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -362,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525070697.406404"
+            timestampString = "525119929.954103"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -378,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525118413.70678"
+            timestampString = "525119249.807966"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "476"
-            endingLineNumber = "476"
+            startingLineNumber = "452"
+            endingLineNumber = "452"
             landmarkName = "startConversation(url:info:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -394,11 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525118413.70678"
+            timestampString = "525119249.807966"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "526"
-            endingLineNumber = "526"
+            startingLineNumber = "502"
+            endingLineNumber = "502"
             landmarkName = "startConversation(url:info:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -410,59 +394,59 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525118413.70678"
+            timestampString = "525119249.807966"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "397"
-            endingLineNumber = "397"
-            landmarkName = "getMessages(url:info:)"
+            startingLineNumber = "494"
+            endingLineNumber = "494"
+            landmarkName = "startConversation(url:info:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525118413.70678"
+            timestampString = "525119249.807966"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "400"
-            endingLineNumber = "400"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
             landmarkName = "getMessages(url:info:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  shouldBeEnabled = "No"
+                  shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "NeuroResIOS.ChatController.(getMessages (url : Swift.String, info : Swift.String) -&gt; ()).(closure #1)"
                   moduleName = "NeuroResIOS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/ChatController.swift"
-                  timestampString = "525067196.617698"
+                  timestampString = "525135524.957635"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "349"
-                  endingLineNumber = "349"
-                  offsetFromSymbolStart = "1664">
+                  startingLineNumber = "375"
+                  endingLineNumber = "375"
+                  offsetFromSymbolStart = "2010">
                </Location>
                <Location
-                  shouldBeEnabled = "No"
+                  shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "NeuroResIOS.ChatController.(getMessages (url : Swift.String, info : Swift.String) -&gt; ()).(closure #1)"
                   moduleName = "NeuroResIOS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/ChatController.swift"
-                  timestampString = "525067196.619141"
+                  timestampString = "525135524.960243"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "349"
-                  endingLineNumber = "349"
-                  offsetFromSymbolStart = "4512">
+                  startingLineNumber = "375"
+                  endingLineNumber = "375"
+                  offsetFromSymbolStart = "6191">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -474,12 +458,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525118413.70678"
+            timestampString = "525120087.184316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
-            landmarkName = "getMessages(url:info:)"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "didPressSend(_:withMessageText:senderId:senderDisplayName:date:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/ChatController.swift"
+            timestampString = "525135524.717444"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "580"
+            endingLineNumber = "580"
+            landmarkName = "connectSocket()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -490,11 +490,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525118413.70678"
+            timestampString = "525135524.717444"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "386"
-            endingLineNumber = "386"
+            startingLineNumber = "568"
+            endingLineNumber = "568"
+            landmarkName = "connectSocket()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/ChatController.swift"
+            timestampString = "525121132.356012"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/ChatController.swift"
+            timestampString = "525123069.529764"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
             landmarkName = "getMessages(url:info:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -506,12 +538,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525118413.70678"
+            timestampString = "525135370.020329"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
-            landmarkName = "getMessages(url:info:)"
+            startingLineNumber = "509"
+            endingLineNumber = "509"
+            landmarkName = "setUnread()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -522,13 +554,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525118413.70678"
+            timestampString = "525135452.461824"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "518"
-            endingLineNumber = "518"
-            landmarkName = "startConversation(url:info:)"
+            startingLineNumber = "361"
+            endingLineNumber = "361"
+            landmarkName = "getMessages(url:info:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NeuroResIOS.ChatController.(getMessages (url : Swift.String, info : Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "NeuroResIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/ChatController.swift"
+                  timestampString = "525135524.981875"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "361"
+                  endingLineNumber = "361"
+                  offsetFromSymbolStart = "31">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NeuroResIOS.ChatController.(getMessages (url : Swift.String, info : Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "NeuroResIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/ChatController.swift"
+                  timestampString = "525135524.983312"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "361"
+                  endingLineNumber = "361"
+                  offsetFromSymbolStart = "100">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -538,12 +602,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "525118413.70678"
+            timestampString = "525135524.717444"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "399"
-            endingLineNumber = "399"
-            landmarkName = "getMessages(url:info:)"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
+            landmarkName = "setUnread()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
