@@ -130,7 +130,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="MIU-O8-ti0">
-                        <barButtonItem key="leftBarButtonItem" image="menu" id="pOC-Wk-HfI"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="menu" id="pOC-Wk-HfI"/>
                         <barButtonItem key="rightBarButtonItem" title="PDF" id="fY2-Xl-VqO">
                             <connections>
                                 <segue destination="Xj7-eD-jE3" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="JN3-sy-Lgm"/>
@@ -184,11 +184,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="efM-C2-LxR"/>
+                    <navigationItem key="navigationItem" id="efM-C2-LxR">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="45i-cA-pgV"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="menuButton" destination="45i-cA-pgV" id="xnI-sm-zn5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jz3-k8-384" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1185" y="936"/>
+            <point key="canvasLocation" x="-1185" y="960"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="RBW-Km-K40">
@@ -704,6 +709,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="IAR-7J-5CL"/>
-        <segue reference="fpu-GW-stb"/>
+        <segue reference="JN3-sy-Lgm"/>
     </inferredMetricsTieBreakers>
 </document>

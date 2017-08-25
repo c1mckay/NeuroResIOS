@@ -10,6 +10,8 @@ import UIKit
 
 class PDFController: UIViewController {
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,5 +21,14 @@ class PDFController: UIViewController {
         webView.loadRequest(req as URLRequest)
         self.view.addSubview(webView)
         
+        if self.revealViewController() != nil {
+            menuButton.target = self//.revealViewController()
+            menuButton.action = #selector(PDFController.menuClick(_:))
+        }
+    }
+    
+    func menuClick(_ sender : Any){
+        let controller = self.revealViewController()
+        controller?.revealToggle(controller)
     }
 }
