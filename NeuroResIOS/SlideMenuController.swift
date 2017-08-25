@@ -656,7 +656,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }else if(unreadCell(indexPath: indexPath)){
             let clickedUnread = unread[indexPath.row - 1]
             self.unread.remove(at: indexPath.row - 1)
-            self.unreadCount[clickedUnread] = nil
+            self.unreadCount.removeValue(forKey: clickedUnread)
             setConversationMembers(name: clickedUnread)
         }else if(!moreCell(indexPath: indexPath)){
             setConversationMembers(name: getDirectUserName(indexPath: indexPath))
