@@ -172,7 +172,7 @@ class ChatController: JSQMessagesViewController{
                                                    target: nil,
                                                    action: nil)
                     leftItem.isEnabled = false
-                    self.navigationItem.rightBarButtonItem = leftItem
+                    self.navigationItem.title = self.userLookup[user_ids[0]]
                     
                     self.startConversation(url: "https://neurores.ucsd.edu/start_conversation", info: user_ids)
                 }
@@ -371,7 +371,6 @@ class ChatController: JSQMessagesViewController{
             do {
                 
                 let parsedData = try JSONSerialization.jsonObject(with: data) as? [[String:Any]]
-                print(parsedData)
                 if !(parsedData?.isEmpty)! {
                     for i in 0 ... ((parsedData?.count))! - 1 {
                         
@@ -514,7 +513,7 @@ class ChatController: JSQMessagesViewController{
         let tokenGroup = DispatchGroup()
         tokenGroup.enter()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
+            guard error == nil else {
                 print("error=\(String(describing: error))")
                 return
             }

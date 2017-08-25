@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		05E4EB68D3C96F103FE68C70 /* Pods_NeuroResIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 756B45D4CFFF372622C3BC66 /* Pods_NeuroResIOS.framework */; };
 		C8A4CD12FA7C20A752F3B75C /* Pods_NeuroResIOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C28B93A23E58D932BD1C5E1 /* Pods_NeuroResIOSTests.framework */; };
+		F648B91C1F4FDBA800D4EA8A /* PDFController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F648B91B1F4FDBA800D4EA8A /* PDFController.swift */; };
+		F648B91E1F4FEB0000D4EA8A /* reshandbook.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F648B91D1F4FEB0000D4EA8A /* reshandbook.pdf */; };
 		F68439B01E5F92C90027802C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68439AF1E5F92C90027802C /* AppDelegate.swift */; };
 		F68439B21E5F92C90027802C /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68439B11E5F92C90027802C /* LoginController.swift */; };
 		F68439B41E5F92C90027802C /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68439B31E5F92C90027802C /* ChatController.swift */; };
@@ -48,6 +50,8 @@
 		7D801B44ED7326946CB62F2F /* Pods-NeuroResIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeuroResIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-NeuroResIOS/Pods-NeuroResIOS.release.xcconfig"; sourceTree = "<group>"; };
 		861BC5C7AC3479CED20D8919 /* Pods-NeuroResIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeuroResIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NeuroResIOS/Pods-NeuroResIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		DBF5A2C984BFEADC2840AF7B /* Pods-NeuroResIOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeuroResIOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NeuroResIOSTests/Pods-NeuroResIOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F648B91B1F4FDBA800D4EA8A /* PDFController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFController.swift; sourceTree = "<group>"; };
+		F648B91D1F4FEB0000D4EA8A /* reshandbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = reshandbook.pdf; sourceTree = "<group>"; };
 		F68439AC1E5F92C90027802C /* NeuroResIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeuroResIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F68439AF1E5F92C90027802C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F68439B11E5F92C90027802C /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -113,6 +117,7 @@
 		F68439A31E5F92C90027802C = {
 			isa = PBXGroup;
 			children = (
+				F648B91D1F4FEB0000D4EA8A /* reshandbook.pdf */,
 				F68439AE1E5F92C90027802C /* NeuroResIOS */,
 				F68439C51E5F92C90027802C /* NeuroResIOSTests */,
 				F68439AD1E5F92C90027802C /* Products */,
@@ -146,6 +151,7 @@
 				F68439B11E5F92C90027802C /* LoginController.swift */,
 				F68439B31E5F92C90027802C /* ChatController.swift */,
 				F6E309311E64D527007EE749 /* ChatTableCell.swift */,
+				F648B91B1F4FDBA800D4EA8A /* PDFController.swift */,
 				F6FA9C701EC0E49300939202 /* SwiftWebSocket.h */,
 				F6FA9C6E1EC0E32500939202 /* WebSocket.swift */,
 				F68439B51E5F92C90027802C /* Main.storyboard */,
@@ -280,6 +286,7 @@
 				F68439BC1E5F92C90027802C /* LaunchScreen.storyboard in Resources */,
 				F68439B91E5F92C90027802C /* Assets.xcassets in Resources */,
 				F68439B71E5F92C90027802C /* Main.storyboard in Resources */,
+				F648B91E1F4FEB0000D4EA8A /* reshandbook.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +399,7 @@
 			files = (
 				F6F7DE4C1E6D204600F79E6D /* MoreDescripCell.swift in Sources */,
 				F68439B41E5F92C90027802C /* ChatController.swift in Sources */,
+				F648B91C1F4FDBA800D4EA8A /* PDFController.swift in Sources */,
 				F6F7DE481E6CAC1700F79E6D /* ChatHeaderCell.swift in Sources */,
 				F68439B01E5F92C90027802C /* AppDelegate.swift in Sources */,
 				F6F7DE541E736DE900F79E6D /* StaffNameDescripCell.swift in Sources */,

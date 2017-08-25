@@ -28,6 +28,11 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="qCZ-hS-C6Y">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="7QS-eI-3JU" userLabel="Menu"/>
+                        <barButtonItem key="rightBarButtonItem" title="PDF" id="z8x-XI-D0Q">
+                            <connections>
+                                <segue destination="Xj7-eD-jE3" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="fpu-GW-stb"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="usersButton" destination="7QS-eI-3JU" id="SVc-UZ-XM1"/>
@@ -126,6 +131,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="MIU-O8-ti0">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="pOC-Wk-HfI"/>
+                        <barButtonItem key="rightBarButtonItem" title="PDF" id="fY2-Xl-VqO">
+                            <connections>
+                                <segue destination="Xj7-eD-jE3" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="JN3-sy-Lgm"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="pOC-Wk-HfI" id="Lr9-F0-UB8"/>
@@ -160,6 +170,25 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="-1185" y="63"/>
+        </scene>
+        <!--Controller-->
+        <scene sceneID="uiW-Nm-drF">
+            <objects>
+                <viewController id="G1G-BQ-Ydh" customClass="PDFController" customModule="NeuroResIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ebX-MX-iF5"/>
+                        <viewControllerLayoutGuide type="bottom" id="i6a-yl-FuW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZPS-9T-cdU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="efM-C2-LxR"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jz3-k8-384" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1185" y="936"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="RBW-Km-K40">
@@ -646,6 +675,24 @@
             </objects>
             <point key="canvasLocation" x="-2143" y="-884"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="XLY-x7-9xI">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Xj7-eD-jE3" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UTz-jY-uhw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="G1G-BQ-Ydh" kind="relationship" relationship="rootViewController" id="Vva-UY-ioU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4zc-ik-u5Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2188" y="960"/>
+        </scene>
     </scenes>
     <resources>
         <image name="expand" width="256" height="256"/>
@@ -657,5 +704,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="IAR-7J-5CL"/>
+        <segue reference="fpu-GW-stb"/>
     </inferredMetricsTieBreakers>
 </document>
