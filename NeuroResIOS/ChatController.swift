@@ -99,7 +99,7 @@ class ChatController: JSQMessagesViewController{
     var convUsers = Int() // Conversation Data - UserID
     var messages = [JSQMessage]() // contains messages
     
-    let ws = WebSocket("wss://neurores.ucsd.edu")
+    var ws = WebSocket("wss://neurores.ucsd.edu")
     
     
     override func viewDidLoad() {
@@ -153,6 +153,22 @@ class ChatController: JSQMessagesViewController{
         
         createLookUpTable()
         
+        let app = UIApplication.shared
+        
+        //Register for the applicationWillResignActive anywhere in your app.
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatController.applicationWillResignActive(notification:)), name: NSNotification.Name.UIApplicationWillResignActive, object: app)
+        loadMessagesAndConnect()
+        
+        let nc = NotificationCenter.default // Note that default is now a property, not a method call
+        nc.addObserver(self, selector: #selector(self.applicationWillResignActive), name:Notification.Name("MY_NAME_NOTIFICATION"), object: nil)
+        
+    }
+    
+    func applicationWillResignActive(notification: NSNotification) {
+        loadMessagesAndConnect()
+    }
+    
+    func loadMessagesAndConnect(){
         if(conversationSelected()){
             self.inputToolbar.isHidden = false
             let user_ids = (UserDefaults.standard.array(forKey: "conversationMembers")!).map {$0} as! [Int]
@@ -183,6 +199,7 @@ class ChatController: JSQMessagesViewController{
             showNoConversationError()
         }
     }
+    
     
     func handleSwipe(sender: UISwipeGestureRecognizer) {
         switch sender.direction {
@@ -219,7 +236,7 @@ class ChatController: JSQMessagesViewController{
             let controller = self.revealViewController()
             controller?.revealToggle(controller)
         }
-    }
+    }    
 
     func menuClick(_ sender : Any){
         self.dismissKeyboard()
@@ -552,7 +569,8 @@ class ChatController: JSQMessagesViewController{
     }
     
     func connectSocket(){
-        
+        ws.close()
+        ws = WebSocket("wss://neurores.ucsd.edu")
         ws.event.open = sendGreeting
         ws.event.close = { code, reason, clean in
             print("socket close")
