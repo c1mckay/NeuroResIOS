@@ -609,7 +609,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             imageName = "expand"
         }
         return UIImage(named: imageName)!
-        //return UIImageView(image: image!)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -674,7 +673,9 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     func scrollToBottom(){
         DispatchQueue.global(qos: .background).async {
             let indexPath = IndexPath(row: self.getRowCount()-1, section: 0)
-            self.userTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            DispatchQueue.main.async(){
+                self.userTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
         }
     }
     
@@ -758,7 +759,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             return true
         }
         let onlineUsers = (foundUsers!).map { Int($0 as! String)! }
-        print(onlineUsers)
         
         return !onlineUsers.contains(user_id_i)
     }
