@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F8CC9F6B82C6414E71873D3EB1238D6C"
-               BuildableName = "Pods_NeuroResIOS.framework"
-               BlueprintName = "Pods-NeuroResIOS"
+               BlueprintIdentifier = "160F84EABC9446C73D8C76E9654CB8E4"
+               BuildableName = "Toast_Swift.framework"
+               BlueprintName = "Toast-Swift"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F8CC9F6B82C6414E71873D3EB1238D6C"
-            BuildableName = "Pods_NeuroResIOS.framework"
-            BlueprintName = "Pods-NeuroResIOS"
+            BlueprintIdentifier = "160F84EABC9446C73D8C76E9654CB8E4"
+            BuildableName = "Toast_Swift.framework"
+            BlueprintName = "Toast-Swift"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

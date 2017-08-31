@@ -4,16 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>GoogleToolboxForMac.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>IQKeyboardManagerSwift.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>JSQMessagesViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -34,17 +24,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Protobuf.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>nanopb.xcscheme</key>
+		<key>Toast-Swift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -52,27 +37,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3BF544BF1934522124784AD2AE13B0AF</key>
+		<key>160F84EABC9446C73D8C76E9654CB8E4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A22CBBA51339B263D5FCE563FF9CEABC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AFEF54522F2F2C53C746E64DCB611BA8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C235F77E101E742652CCF98FFDFA5182</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C5B80060FE8C664DF08841000F41D515</key>
+		<key>C2A2405DDC7590F46B34027EC58784D8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,7 +62,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E4DD95323C54A78F879DAB0F1508B8E7</key>
+		<key>F8CC9F6B82C6414E71873D3EB1238D6C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

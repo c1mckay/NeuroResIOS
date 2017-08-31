@@ -11,6 +11,7 @@ import UIKit
 import os.log
 import Foundation
 import JSQMessagesViewController
+import Toast_Swift
 
 
 
@@ -161,6 +162,8 @@ class ChatController: JSQMessagesViewController{
         
         let nc = NotificationCenter.default // Note that default is now a property, not a method call
         nc.addObserver(self, selector: #selector(self.applicationWillResignActive), name:Notification.Name("MY_NAME_NOTIFICATION"), object: nil)
+        
+        self.view.makeToast("This is a piece of toast", duration: 3.0, position: .top)
         
     }
     
