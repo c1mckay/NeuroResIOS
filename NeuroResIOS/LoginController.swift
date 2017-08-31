@@ -8,6 +8,7 @@
 //  ViewController for Login Page
 
 import UIKit
+import Toast_Swift
 
 class LoginController: UIViewController, UITextFieldDelegate {
 
@@ -28,6 +29,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginController.dismissKeyboard))
         self.view.addGestureRecognizer(tap)
 
+        
+        self.view.makeToast("This app is not HIPPA compliant!", duration: 6.0, position: .top)
 
         // Do any additional setup after loading the view, typically from a nib.
     }
