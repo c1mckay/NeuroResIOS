@@ -25,10 +25,52 @@ class PDFController: UIViewController {
             menuButton.target = self//.revealViewController()
             menuButton.action = #selector(PDFController.menuClick(_:))
         }
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChatController.onConversationPaneClick))
+        self.view.addGestureRecognizer(tap)
+        
+        let directions: [UISwipeGestureRecognizerDirection] = [.right, .left, .up, .down]
+        for direction in directions {
+            let gesture = UISwipeGestureRecognizer(target: self, action: #selector(ChatController.handleSwipe))
+            gesture.direction = direction
+            self.view.addGestureRecognizer(gesture)
+        }
     }
     
     func menuClick(_ sender : Any){
         let controller = self.revealViewController()
         controller?.revealToggle(controller)
+    }
+    
+    func onConversationPaneClick(_ sender: Any){
+        print("conversation pane clicked")
+        hideSlideMenu()
+    }
+    
+    func hideSlideMenu(){
+        if(slideMenuShowing()){
+            let controller = self.revealViewController()
+            controller?.revealToggle(controller)
+        }
+    }
+    
+    func slideMenuShowing() -> Bool {
+        return self.revealViewController().frontViewPosition.rawValue == ChatController.MENU_MODE;
+    }
+    
+    func handleSwipe(sender: UISwipeGestureRecognizer) {
+        switch sender.direction {
+        case UISwipeGestureRecognizerDirection.right:
+            if !self.slideMenuShowing() {
+                self.revealViewController().revealToggle(self.revealViewController())
+            }
+        case UISwipeGestureRecognizerDirection.left:
+            if self.slideMenuShowing() {
+                self.revealViewController().revealToggle(self.revealViewController())
+            }
+        default:
+            break
+        }
+        
     }
 }
