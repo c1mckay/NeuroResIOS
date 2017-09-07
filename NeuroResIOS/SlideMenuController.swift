@@ -540,6 +540,8 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.name.text = unread[indexPath.row - 1]
             if(isOffline(cell.name.text!)){
                 cell.statusIco.image = UIImage(named: "offline")
+            }else{
+                cell.statusIco.image = UIImage(named: "online")
             }
             let unreadCount_s = self.unreadCount[cell.name.text!]!
             cell.unreadCount.text = String(describing: unreadCount_s)
@@ -579,6 +581,8 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.name.text = getStaffTextName(indexPath: indexPath)
             if(isOffline(cell.name.text!)){
                 cell.statusico.image = UIImage(named: "offline")
+            }else{
+                cell.statusico.image = UIImage(named: "online")
             }
             return cell
         }else if(usersHeader(indexPath: indexPath)){
@@ -593,10 +597,12 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatDescripCell", for: indexPath) as! ChatDescripCell
             
+            cell.name.text = getDirectUserName(indexPath: indexPath)
             if(isOffline(cell.name.text!)){
                 cell.statusIco.image = UIImage(named: "offline")
+            }else{
+                cell.statusIco.image = UIImage(named: "online")
             }
-            cell.name.text = getDirectUserName(indexPath: indexPath)
             cell.unreadCount.isHidden = true
         
             return cell
