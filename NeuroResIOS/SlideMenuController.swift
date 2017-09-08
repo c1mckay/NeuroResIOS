@@ -588,7 +588,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }else if(usersHeader(indexPath: indexPath)){
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
             
-            cell.titleText.text = "Private"
+            cell.titleText.text = "Recents"
             cell.expander.image = getExpanderImage(status: users_showing == 0)
             
             return cell
