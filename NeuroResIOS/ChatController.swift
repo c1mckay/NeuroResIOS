@@ -16,6 +16,8 @@ import JSQMessagesViewController
 
 class ChatController: JSQMessagesViewController{
     
+    static let MAX_CHARACTERS = 375
+    
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
         let message = messages[indexPath.row]
         let messageUserName = message.senderDisplayName!
@@ -35,6 +37,18 @@ class ChatController: JSQMessagesViewController{
             return 20
         }
         
+    }
+    
+    override func textViewDidChange(_ textView: UITextView) {
+        super.textViewDidChange(textView)
+        
+        let text = textView.text!
+        let newTextLength = text.characters.count - ChatController.MAX_CHARACTERS
+        if(newTextLength > 0){
+            let offset = 0 - newTextLength
+            let index = text.index(text.endIndex, offsetBy: offset)
+            textView.text = text.substring(to: index)
+        }
     }
     
     override func textViewDidBeginEditing(_ textView: UITextView) {
@@ -150,7 +164,6 @@ class ChatController: JSQMessagesViewController{
         //swiperight.direction = UISwipeGestureRecognizerDirection.right
         //self.view.addGestureRecognizer(swipeleft)
 
-        
         createLookUpTable()
         
         let app = UIApplication.shared
