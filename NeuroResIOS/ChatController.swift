@@ -729,7 +729,7 @@ class ChatController: JSQMessagesViewController{
             }else if(json["wipeThread"].exists()){
                 //to test
                 self.messages = []
-                ChatController.CacheConvo(String(describing: self.convID), "[]")
+                ChatController.CacheConvo(String(json["convID"].int!), "[]")
             }else{
                 if json["conv_id"].int != self.convID{
                     return
