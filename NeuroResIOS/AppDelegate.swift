@@ -11,7 +11,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    static let BASE_URL = "https://neurores.ucsd.edu:3000/"
+    static let BASE_URL = "https://neurores.ucsd.edu/"
     static let NONE = 0
     static let NO_INTERNET = 1
     static let AUTHENTICATION = 2

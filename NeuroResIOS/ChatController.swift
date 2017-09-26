@@ -115,6 +115,8 @@ class ChatController: JSQMessagesViewController{
     @IBOutlet weak var messageInput: UITextField!
     @IBOutlet weak var usersButton: UIBarButtonItem!
     
+    @IBOutlet weak var trash: UIBarButtonItem!
+    
     static var MENU_MODE = 4
     
     var selected = "" // Which user is been selected
@@ -149,6 +151,9 @@ class ChatController: JSQMessagesViewController{
             usersButton.target = self//.revealViewController()
             usersButton.action = #selector(ChatController.menuClick(_:))
         }
+        
+        trash.target = self
+        trash.action = #selector(ChatController.wipeThreadPrompt(_:))
         
         
         
@@ -262,7 +267,6 @@ class ChatController: JSQMessagesViewController{
     }
     
     func onConversationPaneClick(_ sender: Any){
-        print("conversation pane clicked")
         hideSlideMenu()
         refreshInputUp()
         self.dismissKeyboard()
@@ -276,8 +280,26 @@ class ChatController: JSQMessagesViewController{
         }
     }    
 
+    func wipeThreadPrompt(_ sender: Any){
+        let refreshAlert = UIAlertController(title: "Wipe Messages", message: "All messages will be deleted.", preferredStyle: UIAlertControllerStyle.alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            self.wipeThread()
+        }))
+        
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            
+        }))
+        
+        present(refreshAlert, animated: true, completion: nil)
+    }
+    
+    func wipeThread(){
+        //todo
+        print("wiped")
+    }
+    
     func menuClick(_ sender : Any){
-        print("clicked")
         self.dismissKeyboard()
         let controller = self.revealViewController()
         controller?.revealToggle(controller)
@@ -704,6 +726,10 @@ class ChatController: JSQMessagesViewController{
                 if(json["offlineUser"].exists()){
                     self.removeOnlineUser(json: json);
                 }
+            }else if(json["wipeThread"].exists()){
+                //to test
+                self.messages = []
+                ChatController.CacheConvo(String(describing: self.convID), "[]")
             }else{
                 if json["conv_id"].int != self.convID{
                     return
