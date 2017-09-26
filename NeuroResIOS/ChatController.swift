@@ -18,6 +18,10 @@ class ChatController: JSQMessagesViewController{
     
     static let MAX_CHARACTERS = 375
     
+    let BASE_URL = AppDelegate.BASE_URL
+    let ERROR_ID = "-2"
+    
+    
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
         let message = messages[indexPath.row]
         let messageUserName = message.senderDisplayName!
@@ -71,6 +75,8 @@ class ChatController: JSQMessagesViewController{
         
         if getName() == message.senderDisplayName {
             return bubbleFactory?.outgoingMessagesBubbleImage(with: outgoingColor())
+        }else if message.senderId == ERROR_ID{
+            return bubbleFactory?.incomingMessagesBubbleImage(with: errorColor())
         }else{
             return bubbleFactory?.incomingMessagesBubbleImage(with: incomingColor())
         }
@@ -83,6 +89,11 @@ class ChatController: JSQMessagesViewController{
     func outgoingColor() -> UIColor{
         return UIColor(182, 177, 169)
     }
+    
+    func errorColor() -> UIColor{
+        return UIColor(255, 99, 71)
+    }
+    
     
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
@@ -188,7 +199,6 @@ class ChatController: JSQMessagesViewController{
             let user_ids = (UserDefaults.standard.array(forKey: "conversationMembers")!).map {$0} as! [Int]
             if(users.isEmpty){
                 SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [String], userIDs_ret: [String:Int], staff_ret: [String:[String]]) in
-                    
                     for (key, item) in userIDs_ret{
                         self.users[key] = item
                     }
@@ -204,10 +214,10 @@ class ChatController: JSQMessagesViewController{
                     leftItem.isEnabled = false
                     self.navigationItem.title = self.userLookup[user_ids[0]]
                     
-                    self.startConversation(url: "https://neurores.ucsd.edu/start_conversation", info: user_ids)
+                    self.startConversation(info: user_ids)
                 }
             }else{
-                startConversation(url: "https://neurores.ucsd.edu/start_conversation", info: user_ids)
+                startConversation(info: user_ids)
             }
         }else{
             showNoConversationError()
@@ -232,8 +242,22 @@ class ChatController: JSQMessagesViewController{
     }
     
     func showNoConversationError(){
+        conversationError("Looks like you haven't started any conversations yet. Open up the menu on the left to start one.")    }
+    
+    func conversationError(_ textToDisplay: String){
         self.inputToolbar.isHidden = true
-        self.messages.append(JSQMessage(senderId: "-1", displayName: "NeuroRes", text: "Looks like you haven't started any conversations yet. Open up the menu on the left to start one."))
+        
+        let newMessage = JSQMessage(senderId: ERROR_ID, displayName: "NeuroRes", text: textToDisplay)
+        for index in 0 ..< messages.count{
+            let x = messages[index]
+            if x.senderId == ERROR_ID {
+                messages[index] = newMessage!
+                self.finishSendingMessage()
+                return
+            }
+        }
+        
+        self.messages.append(newMessage!)
         self.finishSendingMessage()
     }
     
@@ -253,6 +277,7 @@ class ChatController: JSQMessagesViewController{
     }    
 
     func menuClick(_ sender : Any){
+        print("clicked")
         self.dismissKeyboard()
         let controller = self.revealViewController()
         controller?.revealToggle(controller)
@@ -376,21 +401,23 @@ class ChatController: JSQMessagesViewController{
   
     
     /**
-     * Function to get messages
+     * Function to get messages (loadMessage)
      * Parameters: url:String - address of endpoint for API call
      *             info: String - Conversation ID
      */
-    func getMessages(url: String, info: String) {
+    func getMessages(_ convID: String) {
         let tokenGroup = DispatchGroup()
-        var request = URLRequest(url: URL(string: url)!)
+        var request = URLRequest(url: URL(string: BASE_URL + "get_messages")!)
         request.httpMethod = "POST"
         request.addValue(getToken(), forHTTPHeaderField: "auth")
-        request.httpBody = info.data(using: String.Encoding.utf8)
+        request.httpBody = convID.data(using: String.Encoding.utf8)
 
         tokenGroup.enter()
+        var array = [(Int, String, Date)]()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 print("error=\(String(describing: error))")
+                tokenGroup.leave()
                 return
             }
             
@@ -399,29 +426,14 @@ class ChatController: JSQMessagesViewController{
                 print("response = \(String(describing: response))")
             }
             
-            do {
-                
-                let parsedData = try JSONSerialization.jsonObject(with: data) as? [[String:Any]]
-                if !(parsedData?.isEmpty)! {
-                    for i in 0 ... ((parsedData?.count))! - 1 {
-                        
-                        let json = parsedData![i] as [String:Any]
-                        let userid = json["sender"] as? String
-                        let text = json["text"] as? String
-                        let userIdInt = Int(userid!)!
-                        let date_s = json["date"] as! String
-                        
-                        let dateShow = self.convertFromJSONDate(date_s)
-                        self.pushMessage(userIdInt, text!, dateShow)
-                        
-                        
-                    }
-                }
-                
-
-            } catch let error as NSError {
-                print(error)
-            }
+            self.messages.removeAll()
+            let parsedData = ChatController.dataToJSON(data)
+            ChatController.CacheConvo(convID, parsedData.rawString()!)
+            
+            array = self.parseJSONToConvData(parsedData)
+            
+            
+            
 
             tokenGroup.leave()
             
@@ -429,6 +441,20 @@ class ChatController: JSQMessagesViewController{
         task.resume()
         tokenGroup.wait()
         DispatchQueue.main.async {
+            let hadMessage = !self.messages.isEmpty
+            if array.count == 0{
+                array = self.loadConvDataCache(convID)
+            }
+            
+            
+            for (userID, text, date) in array{
+                self.pushMessage(userID, text, date)
+            }
+            
+            if hadMessage{
+                let pop = self.messages.remove(at: 0)
+                self.messages.append(pop)
+            }
             self.finishSendingMessage()
             //self.chatContainer.reloadData()
             //self.scrollToBottom()
@@ -442,6 +468,41 @@ class ChatController: JSQMessagesViewController{
         return dateFormatter.date(from : date_s)!
         
         //return getTimeString(date!)
+    }
+    
+    static func CacheConvo(_ convID_s: String, _ stringEncoding: String){
+        UserDefaults.standard.set(stringEncoding, forKey: AppDelegate.CACHE_CONV + convID_s)
+    }
+    
+    func loadJSONConvoData(_ convID: String) -> JSON{
+        let userCacheStringVal = UserDefaults.standard.value(forKey: AppDelegate.CACHE_CONV + convID)
+        if userCacheStringVal == nil{
+            return JSON.init("[]")
+        }else{
+            return JSON.init(parseJSON: userCacheStringVal as! String)
+        }
+    }
+    
+    func loadConvDataCache(_ convID: String) -> [(Int, String, Date)]{
+        let parsedJson = loadJSONConvoData(convID)
+        
+        return parseJSONToConvData(parsedJson)
+    }
+    
+    func parseJSONToConvData(_ parsedData: JSON) -> [(Int, String, Date)]{
+        var array = [(Int, String, Date)]()
+        
+        for json in parsedData.array! {
+            let userid = json["sender"].string
+            let text = json["text"].string
+            let userIdInt = Int(userid!)!
+            let date_s = json["date"].string
+            
+            let dateShow = self.convertFromJSONDate(date_s!)
+            array.append((userIdInt, text!, dateShow))
+        }
+        
+        return array
     }
     
     func getTimeString(_ date: Date) -> String{
@@ -478,7 +539,7 @@ class ChatController: JSQMessagesViewController{
      * Parameters: url:String - address of endpoint for API call
      *             info: String - json array of userids
      */
-    func startConversation(url: String, info: [Int]) {
+    func startConversation(info: [Int]) {
         if(info.isEmpty){
             print("Trying to start a conversation with no one")
             return
@@ -492,7 +553,7 @@ class ChatController: JSQMessagesViewController{
         }
         
         let tokenGroup = DispatchGroup()
-        var request = URLRequest(url: URL(string: url)!)
+        var request = URLRequest(url: URL(string: BASE_URL + "start_conversation")!)
         request.httpMethod = "POST"
         request.addValue(getToken(), forHTTPHeaderField: "auth")
         request.httpBody = string.data(using: String.Encoding.utf8)
@@ -503,6 +564,7 @@ class ChatController: JSQMessagesViewController{
             
             guard let data = data, error == nil else {
                 print("error=\(String(describing: error))")
+                tokenGroup.leave()
                 return
             }
             
@@ -522,6 +584,7 @@ class ChatController: JSQMessagesViewController{
             
             let parsedData = ChatController.dataToJSON(data)	
             self.convID = parsedData["conv_id"].int!
+            self.saveConvIDCache(info, self.convID)
 
             tokenGroup.leave()
             
@@ -529,14 +592,47 @@ class ChatController: JSQMessagesViewController{
         task.resume()
         tokenGroup.wait()
         DispatchQueue.main.async {
-            self.getMessages(url: "https://neurores.ucsd.edu/get_messages", info: String(self.convID))
+            if self.convID == 0 {
+                let foundID = self.loadConvIDCache(info)
+                if foundID != 0{
+                    self.getMessages(String(foundID))
+                }
+                self.conversationError("You are not connected to NeuroRes, and therefore unable to send messages.")
+                return
+            }
+            self.getMessages(String(self.convID))
             self.setUnread()
             self.connectSocket()
         }
     }
     
+    func saveConvIDCache(_ usersInput: [Int], _ convID: Int){
+        let encoding = getEncoding(usersInput)
+        UserDefaults.standard.set(convID, forKey: encoding)
+    }
+    
+    func getEncoding(_ usersInput: [Int]) -> String{
+        var encoding = ""
+        let users = usersInput.sorted()
+        for x in users{
+            encoding += (String(describing: x) + ",")
+        }
+        return AppDelegate.CACHE_CONV_PHONEBOOK + encoding
+    }
+    
+    func loadConvIDCache(_ users: [Int]) -> Int{
+        let userEncoding = getEncoding(users)
+        
+        let convID = UserDefaults.standard.value(forKey: userEncoding)
+        if convID == nil{
+            return 0
+        }
+        
+        return convID as! Int!
+    }
+    
     func setUnread(){
-        var request = URLRequest(url: URL(string: "https://neurores.ucsd.edu/mark_seen")!)
+        var request = URLRequest(url: URL(string: BASE_URL + "mark_seen")!)
         request.httpMethod = "POST"
         request.addValue(getToken(), forHTTPHeaderField: "auth")
         request.httpBody = String(describing: self.convID).data(using: String.Encoding.utf8)
@@ -546,6 +642,7 @@ class ChatController: JSQMessagesViewController{
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
                 print("error=\(String(describing: error))")
+                tokenGroup.leave()
                 return
             }
             
@@ -616,6 +713,8 @@ class ChatController: JSQMessagesViewController{
                 
                 let date = Date()
 
+                self.updateCache(userIdInt!, mText!, date)
+                
                 self.pushMessage(userIdInt!, mText!, date)
                 self.collectionView.reloadData()
                 self.scrollToBottom(animated: true)
@@ -623,6 +722,26 @@ class ChatController: JSQMessagesViewController{
         }
         
         sendGreeting()
+    }
+    
+    func updateCache(_ userIdInt : Int, _ text : String, _ date: Date){
+        
+        var jo = JSON.init(parseJSON: "{}")
+        
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'.000Z'"
+        jo["sender"].string = String(describing: userIdInt)
+        jo["text"].string = text
+        jo["date"].string = df.string(from: date)
+        
+        
+        
+        var convCache = self.loadJSONConvoData(String(describing: self.convID))
+        convCache.appendIfArray(json: jo)
+        
+        ChatController.CacheConvo(String(describing: self.convID), convCache.rawString()!)
+        
+        
     }
     
     func saveUsers(json : JSON){
@@ -693,6 +812,22 @@ extension UIColor {
         let newBlue = CGFloat(blue)/255
         
         self.init(red: newRed, green: newGreen, blue: newBlue, alpha: 1.0)
+    }
+}
+
+extension JSON{
+    mutating func appendIfArray(json:JSON){
+        if var arr = self.array{
+            arr.append(json)
+            self = JSON(arr);
+        }
+    }
+    
+    mutating func appendIfDictionary(key:String,json:JSON){
+        if var dict = self.dictionary{
+            dict[key] = json;
+            self = JSON(dict);
+        }
     }
 }
 

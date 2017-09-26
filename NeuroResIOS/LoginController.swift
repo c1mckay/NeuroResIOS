@@ -130,6 +130,4 @@ class LoginController: UIViewController, UITextFieldDelegate {
     }
     
     
-    
-    
 }

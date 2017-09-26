@@ -11,6 +11,16 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    static let BASE_URL = "https://neurores.ucsd.edu:3000/"
+    static let NONE = 0
+    static let NO_INTERNET = 1
+    static let AUTHENTICATION = 2
+    
+    static let CACHE_USERS_LIST     = "USERS_LIST"
+    static let CACHE_CONV           = "CONV"
+    static let CACHE_CONV_PHONEBOOK = "PHONEBOOK"
+    
+    
     var window: UIWindow?
 
 

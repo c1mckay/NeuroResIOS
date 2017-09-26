@@ -18,6 +18,8 @@ protocol SlideMenuDelegate{
 
 class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
+    let BASE_URL = AppDelegate.BASE_URL
+    
     /**
     *   Array to display menu options
     */
@@ -73,54 +75,82 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         var staff:[String:[String]] = [:]
         
         let userGroup = DispatchGroup()
-        var request = URLRequest(url: URL(string: "https://neurores.ucsd.edu/users_list")!)
+        var request = URLRequest(url: URL(string: AppDelegate.BASE_URL + "users_list")!)
         request.httpMethod = "POST"
         request.addValue(token, forHTTPHeaderField: "auth")
         userGroup.enter()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 print("error=\(String(describing: error))")
+                userGroup.leave()
                 return
             }
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
                 print("response = \(String(describing: response))")
+                userGroup.leave()
+                return
             }
             
             
-            do {
-                let parsedData = try JSONSerialization.jsonObject(with: data) as? [[String:Any]]
+            
+            let parsedData = ChatController.dataToJSON(data)
+            SlideMenuController.CacheUsers(parsedData.rawString()!)
+            
+            (users, emailToId, staff) = parseJSONToInfo(parsedData)
                 
-                for i in 0 ... ((parsedData?.count))! - 1 {
-                
-                    let json = parsedData![i] as [String:Any]
-                    let name = json["email"] as? String
-                    
-                    let id_s = json["user_id"]!
-                    let id = Int(id_s as! String)
-                    users.append(name!)
-                    emailToId[name!] = (id! as Int)
-                    let userType = json["user_type"] as? String
-                    if staff[userType!] != nil {
-                        staff[userType!]!.append(name!)
-                    }
-                    else{
-                        staff[userType!] = [name!]
-                    }
-                }
-            } catch let error as NSError {
-                print(error)
-            }
+            
+           
             userGroup.leave()
         }
         task.resume()
         userGroup.wait()
         DispatchQueue.main.async {
+            if users.isEmpty{
+                (users, emailToId, staff) = LoadUserCache()
+            }
             completion(users, emailToId, staff)
         }
     }
     
+    static func CacheUsers(_ stringEncoding: String){
+        UserDefaults.standard.set(stringEncoding, forKey: AppDelegate.CACHE_USERS_LIST)
+    }
+    
+    static func LoadUserCache() -> ([String], [String:Int], [String:[String]]){
+        let userCacheString = UserDefaults.standard.value(forKey: AppDelegate.CACHE_USERS_LIST)! as! String;
+        let parsedJson = JSON.init(parseJSON: userCacheString)
+        
+        return parseJSONToInfo(parsedJson)
+    }
+    
+    static func parseJSONToInfo(_ parsedData : JSON) -> ([String], [String:Int], [String:[String]]){
+        
+        var users:[String] = []
+        var emailToId:[String:Int] = [:]
+        var staff:[String:[String]] = [:]
+        
+        for i in 0 ... (parsedData.array?.count)! - 1 {
+            
+            let json = parsedData.array?[i]
+            let name = json?["email"].string
+            
+            let id_s = json?["user_id"].string
+            let id = Int(id_s!)
+            users.append(name!)
+            emailToId[name!] = (id! as Int)
+            let userType = json?["user_type"].string
+            if staff[userType!] != nil {
+                staff[userType!]!.append(name!)
+            }
+            else{
+                staff[userType!] = [name!]
+            }
+        }
+        
+        return (users, emailToId, staff)
+    }
     
     
     static func getUnread(token: String, myName: String, _ lookup :[Int:String], completion: @escaping (_ : [Int:Int]) -> Void ) {
@@ -128,19 +158,22 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         var unreads:[Int:Int] = [:]
         
         let userGroup = DispatchGroup()
-        var request = URLRequest(url: URL(string: "https://neurores.ucsd.edu/conversation_data")!)
+        var request = URLRequest(url: URL(string: AppDelegate.BASE_URL + "conversation_data")!)
         request.httpMethod = "POST"
         request.addValue(token, forHTTPHeaderField: "auth")
         userGroup.enter()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 print("error=\(String(describing: error))")
+                userGroup.leave()
                 return
             }
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
                 print("response = \(String(describing: response))")
+                userGroup.leave()
+                return
             }
             
             let jsonString = String(data: data, encoding: String.Encoding.utf8) as String!
