@@ -295,8 +295,46 @@ class ChatController: JSQMessagesViewController{
     }
     
     func wipeThread(){
-        //todo
-        print("wiped")
+        self.messages = []
+        
+        let tokenGroup = DispatchGroup()
+        var request = URLRequest(url: URL(string: BASE_URL + "wipe_conversation")!)
+        request.httpMethod = "POST"
+        request.addValue(getToken(), forHTTPHeaderField: "auth")
+        request.httpBody = String(describing: self.convID).data(using: String.Encoding.utf8)
+        
+        tokenGroup.enter()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            
+            guard let _ = data, error == nil else {
+                print("error=\(String(describing: error))")
+                tokenGroup.leave()
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                if(httpStatus.statusCode == 401){//unauthorized, send back to Login
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "noLoginTokenSegue", sender: nil)
+                    }
+                    tokenGroup.leave()
+                    return
+                }
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(String(describing: response))")
+                tokenGroup.leave()
+                return;
+            }
+            
+            tokenGroup.leave()
+            
+        }
+        task.resume()
+        tokenGroup.wait()
+        DispatchQueue.main.async {
+            self.getMessages(String(self.convID))
+        }
     }
     
     func menuClick(_ sender : Any){
