@@ -194,7 +194,7 @@ class ChatController: JSQMessagesViewController{
         
     }
     
-    func applicationWillResignActive(notification: NSNotification) {
+    @objc func applicationWillResignActive(notification: NSNotification) {
         loadMessagesAndConnect()
     }
     
@@ -230,7 +230,7 @@ class ChatController: JSQMessagesViewController{
     }
     
     
-    func handleSwipe(sender: UISwipeGestureRecognizer) {
+    @objc func handleSwipe(sender: UISwipeGestureRecognizer) {
         switch sender.direction {
         case UISwipeGestureRecognizerDirection.right:
             if !self.slideMenuShowing() {
@@ -266,7 +266,7 @@ class ChatController: JSQMessagesViewController{
         self.finishSendingMessage()
     }
     
-    func onConversationPaneClick(_ sender: Any){
+    @objc func onConversationPaneClick(_ sender: Any){
         hideSlideMenu()
         refreshInputUp()
         self.dismissKeyboard()
@@ -280,7 +280,7 @@ class ChatController: JSQMessagesViewController{
         }
     }    
 
-    func wipeThreadPrompt(_ sender: Any){
+    @objc func wipeThreadPrompt(_ sender: Any){
         let refreshAlert = UIAlertController(title: "Wipe Messages", message: "All messages will be deleted.", preferredStyle: UIAlertControllerStyle.alert)
         
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
@@ -337,7 +337,7 @@ class ChatController: JSQMessagesViewController{
         }
     }
     
-    func menuClick(_ sender : Any){
+    @objc func menuClick(_ sender : Any){
         self.dismissKeyboard()
         let controller = self.revealViewController()
         controller?.revealToggle(controller)
@@ -773,6 +773,7 @@ class ChatController: JSQMessagesViewController{
                     return
                 }
                 let userIdInt = json["from"].int
+                //let userIdString = json["from"}.]
                 let mText = json["text"].string
                 
                 let date = Date()

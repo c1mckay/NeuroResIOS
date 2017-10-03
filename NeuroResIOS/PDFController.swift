@@ -37,7 +37,7 @@ class PDFController: UIViewController {
         }
     }
     
-    func menuClick(_ sender : Any){
+    @objc func menuClick(_ sender : Any){
         let controller = self.revealViewController()
         controller?.revealToggle(controller)
     }

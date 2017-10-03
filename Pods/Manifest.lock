@@ -2,7 +2,7 @@ PODS:
   - JSQMessagesViewController (7.3.5):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
-  - SwiftyJSON (3.1.4)
+  - SwiftyJSON (4.0.0-alpha.1)
   - Toast-Swift (2.0.0)
 
 DEPENDENCIES:
@@ -16,13 +16,13 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SwiftyJSON:
-    :commit: ebc305b69ecca005b636f20e0db4d07d19d333fa
+    :commit: e1b9090415109b61b6f16b97c75399ed1bec5e62
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
   JSQMessagesViewController: 6587f56aedbcb150a8ba1d968e1ef58b1bc758b7
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
-  SwiftyJSON: 05cf0e98a950e2ba343735264f5a96b81e755d00
+  SwiftyJSON: c4d27c2ca659d5c91460cd17cc60fd212b26074d
   Toast-Swift: 5b2f8f720f7e78e48511f693df1f9c9a6e38a25a
 
 PODFILE CHECKSUM: 62081c6234e6fe5ec6f4ba397d17a5039e555d0d

@@ -119,11 +119,11 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
     static func attributedString(from string: String, nonBoldRange: NSRange?) -> NSAttributedString {
         let fontSize = UIFont.systemFontSize
         let attrs = [
-            NSFontAttributeName: UIFont.systemFont(ofSize: fontSize),
+            NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize),
         ]
         let nonBoldAttribute = [
-            NSFontAttributeName: UIFont.boldSystemFont(ofSize: fontSize),
-            NSForegroundColorAttributeName: UIColor.black
+            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: fontSize),
+            NSAttributedStringKey.foregroundColor: UIColor.black
         ]
         let attrStr = NSMutableAttributedString(string: string, attributes: attrs)
         if let range = nonBoldRange {
