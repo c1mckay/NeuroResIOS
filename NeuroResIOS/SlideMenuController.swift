@@ -87,7 +87,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
-                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("statusCode should be 200, but is \(httpStatus.statusCode) in getting users")
                 print("response = \(String(describing: response))")
                 userGroup.leave()
                 return
