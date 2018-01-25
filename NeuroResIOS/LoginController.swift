@@ -9,32 +9,48 @@
 
 import UIKit
 import Toast_Swift
+import WebKit
 
-class LoginController: UIViewController, UITextFieldDelegate {
-
-    @IBOutlet weak var email: UITextField!
-
-    @IBOutlet weak var password: UITextField!
-    
-    @IBOutlet weak var ErrorMessage: UILabel!
-    
-    @IBOutlet weak var loginButton: UIButton!
+class LoginController: UIViewController, UITextFieldDelegate{
     
     
     let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginController.dismissKeyboard))
-        self.view.addGestureRecognizer(tap)
-
         
-        self.view.makeToast("This app is not HIPPA compliant!", duration: 6.0, position: .top)
-
+        if(firstTime){
+            self.view.makeToast("This app is not HIPPA compliant!", duration: 6.0, position: .top)
+        }
         // Do any additional setup after loading the view, typically from a nib.
+        
+        print("login controller loading")
+        if(UserDefaults.standard.string(forKey: "user_auth_token") == nil){
+            
+        }
+        
+    }
+    
+    var firstTime = true
+    override func viewDidAppear(_ animated: Bool) {
+        if(!firstTime){
+            if(UserDefaults.standard.string(forKey: "user_auth_token") == nil){
+                self.view.makeToast("You aren't allowed to use NeuroRes!", duration: 6.0, position: .top)
+            }else{
+                self.performSegue(withIdentifier: "successfulLogin", sender: nil)
+            }
+        }
+        firstTime = false
     }
 
+    var webView: WKWebView!
+    override func loadView(){
+        super.loadView()
+        
+        /**/
+    }
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -51,83 +67,23 @@ class LoginController: UIViewController, UITextFieldDelegate {
     }
     
     
-    
-    
-    // Move views when keyboard is present
-    @objc func keyboardWillShow(notification: NSNotification) {
-        let offset = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue.size
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                if keyboardSize.height == offset.height {
-                    UIView.animate(withDuration: 0.1, animations: { () -> Void in
-                        self.view.frame.origin.y -= keyboardSize.height
-                    })
-                } else {
-                    UIView.animate(withDuration: 0.1, animations: { () -> Void in
-                        self.view.frame.origin.y += keyboardSize.height - offset.height
-                    })
-                }
-            }
-        }
-        
-        
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        self.view.frame.origin.y = 0
-    }
-    
-
-    @IBAction func login(_ sender: Any) {
-    }
 
     // TODO: Change email/password verification
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if(!(email.text ?? "").isEmpty){
-            get_login("https://neurores.ucsd.edu/login")
-        }
-        return false
+        print("should perform segue")
+        return true
     }
-    
     
     /**
      * Function to get user auth token
      * Parameters: url:String - address of endpoint for API call
      */
     func get_login(_ url: String) {
-        let tokenGroup = DispatchGroup()
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "POST"
-        //request.addValue(email.text!, forHTTPHeaderField: "auth")
-        request.addValue(email.text! + ":" + password.text!, forHTTPHeaderField: "auth") // change later
-        tokenGroup.enter()
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                print("error=\(String(describing: error))")
-                return
-            }
-            
-            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
-                DispatchQueue.main.async {
-                    self.ErrorMessage.text = "Invalid credentials"
-                    self.ErrorMessage.textColor = UIColor.red
-                }
-            }else{
-                DispatchQueue.main.async {
-                    let responseString = String(data: data, encoding: .utf8) ?? ""
-                    UserDefaults.standard.set(responseString, forKey: "user_auth_token")
-                    UserDefaults.standard.set(self.email.text!, forKey: "username")
-                    self.performSegue(withIdentifier: "successfulLogin", sender: nil)
-                }
-            }
-            tokenGroup.leave()
-            
-        }
-        task.resume()
-        tokenGroup.wait()
-        DispatchQueue.main.async {
-        }
+        
+        
     }
+    
+    
     
     
 }

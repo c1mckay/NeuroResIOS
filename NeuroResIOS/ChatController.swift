@@ -6,11 +6,11 @@
 //  Copyright © 2017 Charles McKay. All rights reserved.
 //
 
+import JSQMessagesViewController
 import SwiftyJSON
 import UIKit
 import os.log
 import Foundation
-import JSQMessagesViewController
 
 
 
@@ -204,6 +204,8 @@ class ChatController: JSQMessagesViewController{
             let user_ids = (UserDefaults.standard.array(forKey: "conversationMembers")!).map {$0} as! [Int]
             if(users.isEmpty){
                 SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [String], userIDs_ret: [String:Int], staff_ret: [String:[String]]) in
+                    print("finished loading users")
+                    print(userIDs_ret)
                     for (key, item) in userIDs_ret{
                         self.users[key] = item
                     }
@@ -629,7 +631,7 @@ class ChatController: JSQMessagesViewController{
             }
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
-                if(httpStatus.statusCode == 401){//unauthorized, send back to Login
+                if(httpStatus.statusCode == 401 || httpStatus.statusCode == 403){//unauthorized, send back to Login
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "noLoginTokenSegue", sender: nil)
                     }
