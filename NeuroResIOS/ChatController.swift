@@ -126,7 +126,7 @@ class ChatController: JSQMessagesViewController{
     var convUsers = Int() // Conversation Data - UserID
     var messages = [JSQMessage]() // contains messages
     
-    var ws = WebSocket("wss://neurores.ucsd.edu")
+    var ws = WebSocket(AppDelegate.SOCKET_URL)
     
     
     override func viewDidLoad() {
@@ -486,6 +486,8 @@ class ChatController: JSQMessagesViewController{
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
                 print("response = \(String(describing: response))")
+                tokenGroup.leave()
+                return;
             }
             
             self.messages.removeAll()
@@ -594,7 +596,9 @@ class ChatController: JSQMessagesViewController{
             }
         }*/
         let jqMessage = JSQMessage(senderId: userIdString, displayName: displayName, text: text)
-        self.messages.append(jqMessage!)    }
+        self.messages.append(jqMessage!)
+        
+    }
     
     /**
      * Function get and start conversation
@@ -743,7 +747,7 @@ class ChatController: JSQMessagesViewController{
     
     func connectSocket(){
         ws.close()
-        ws = WebSocket("wss://neurores.ucsd.edu")
+        ws = WebSocket(AppDelegate.SOCKET_URL)
         ws.event.open = sendGreeting
         ws.event.close = { code, reason, clean in
             print("socket close")
@@ -787,8 +791,6 @@ class ChatController: JSQMessagesViewController{
                 self.scrollToBottom(animated: true)
             }
         }
-        
-        sendGreeting()
     }
     
     func updateCache(_ userIdInt : Int, _ text : String, _ date: Date){

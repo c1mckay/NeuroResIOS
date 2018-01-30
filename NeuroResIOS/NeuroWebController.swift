@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import SwiftyJSON
 
 class NeuroWebController: UIViewController, WKNavigationDelegate{
     
@@ -46,7 +47,7 @@ class NeuroWebController: UIViewController, WKNavigationDelegate{
         var erroredOut = false
         let userGroup = DispatchGroup()
         var request = URLRequest(url: URL(string: AppDelegate.BASE_URL + "get_user_name")!)
-        request.httpMethod = "POST"
+        request.httpMethod = "post"
         request.addValue(token, forHTTPHeaderField: "auth")
         userGroup.enter()
         
@@ -59,13 +60,14 @@ class NeuroWebController: UIViewController, WKNavigationDelegate{
             }
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
-                print("statusCode should be 200, but is \(httpStatus.statusCode) in getting users")
+                print("statusCode should be 200, but is \(httpStatus.statusCode) in getting user name")
                 print("response = \(String(describing: response))")
                 erroredOut = true
                 userGroup.leave()
                 return
             }
-            let somedata = String(data: data, encoding: String.Encoding.utf8)!
+            var somedata = String(data: data, encoding: String.Encoding.utf8)!
+            somedata = somedata.replacingOccurrences(of: "\"", with: "")
             UserDefaults.standard.set(token, forKey: "user_auth_token")
             UserDefaults.standard.set(somedata, forKey: "username")
             
