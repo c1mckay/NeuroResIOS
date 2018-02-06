@@ -33,6 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.tintColor = uicolorFromHex(rgbValue: 0xffffff)
         navigationBarAppearace.barTintColor = uicolorFromHex(rgbValue: 0x182b49)
         
+        DispatchQueue.main.async {
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+        
         return true
     }
     
@@ -67,7 +71,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    // Handle remote notification registration.
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        // Forward the token to your provider, using a custom method.
+        //self.enableRemoteNotificationFeatures()
+        print("this hit")
+        print(deviceToken)
+        
+        //throw MyError.RuntimeError("hi")
+        //self.forwardTokenToServer(token: deviceToken)
+    }
+    
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        // The token is not currently available.
+        print("Remote notification support is unavailable due to error: \(error.localizedDescription)")
+        //self.disableRemoteNotificationFeatures()
+    }
 
-
+    
+    
 }
 

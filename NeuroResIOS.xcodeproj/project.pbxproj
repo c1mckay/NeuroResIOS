@@ -65,6 +65,7 @@
 		F68439C61E5F92C90027802C /* NeuroResIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuroResIOSTests.swift; sourceTree = "<group>"; };
 		F68439C81E5F92C90027802C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6AD37701F293FF300786F5C /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../Library/Developer/Xcode/DerivedData/NeuroResIOS-aqybawcqrqvwmzfdekxgcqjzxaol/Build/Products/Debug-iphonesimulator/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
+		F6B948CF2023E86800704B53 /* NeuroResIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NeuroResIOS.entitlements; sourceTree = "<group>"; };
 		F6E309311E64D527007EE749 /* ChatTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatTableCell.swift; path = ../ChatTableCell.swift; sourceTree = "<group>"; };
 		F6E309331E67B1CB007EE749 /* SlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuController.swift; sourceTree = "<group>"; };
 		F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDescripCell.swift; sourceTree = "<group>"; };
@@ -140,6 +141,7 @@
 		F68439AE1E5F92C90027802C /* NeuroResIOS */ = {
 			isa = PBXGroup;
 			children = (
+				F6B948CF2023E86800704B53 /* NeuroResIOS.entitlements */,
 				F6F7DE421E69005500F79E6D /* SWRevealViewController */,
 				F68439AF1E5F92C90027802C /* AppDelegate.swift */,
 				F6F7DE4F1E6DF50A00F79E6D /* SearchController.swift */,
@@ -251,9 +253,14 @@
 				TargetAttributes = {
 					F68439AB1E5F92C90027802C = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 4A76EF3JV4;
+						DevelopmentTeam = G789749RTK;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					F68439C11E5F92C90027802C = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -584,11 +591,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 4A76EF3JV4;
+				CODE_SIGN_ENTITLEMENTS = NeuroResIOS/NeuroResIOS.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = G789749RTK;
 				INFOPLIST_FILE = NeuroResIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.ucsd.NeuroResIOS;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.ucsd.NeuroRes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "3a20b674-127f-4a22-acbf-7bd399e221cc";
+				PROVISIONING_PROFILE_SPECIFIER = NeuroDevProvisioning;
 				SWIFT_OBJC_BRIDGING_HEADER = "NeuroResIOS/NeuroResIOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -602,11 +614,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 4A76EF3JV4;
+				CODE_SIGN_ENTITLEMENTS = NeuroResIOS/NeuroResIOS.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = G789749RTK;
 				INFOPLIST_FILE = NeuroResIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.ucsd.NeuroResIOS;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.ucsd.NeuroRes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c0b32ec1-8d19-43b9-a4aa-054ad697d8b4";
+				PROVISIONING_PROFILE_SPECIFIER = NeuroRes;
 				SWIFT_OBJC_BRIDGING_HEADER = "NeuroResIOS/NeuroResIOS-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;

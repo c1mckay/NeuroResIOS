@@ -144,6 +144,7 @@ class ChatController: JSQMessagesViewController{
         self.inputToolbar.contentView.leftBarButtonItem = nil
         self.automaticallyScrollsToMostRecentMessage = true
         
+        UIApplication.shared.registerForRemoteNotifications()
         
         refreshInputUp()
         
@@ -868,6 +869,7 @@ class ChatController: JSQMessagesViewController{
     }
     
 
+    
 
     
     
