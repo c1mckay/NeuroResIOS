@@ -869,7 +869,22 @@ class ChatController: JSQMessagesViewController{
     }
     
 
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        // Forward the token to your provider, using a custom method.
+        //self.enableRemoteNotificationFeatures()
+        print("this hit")
+        print(deviceToken)
+        
+        //throw MyError.RuntimeError("hi")
+        //self.forwardTokenToServer(token: deviceToken)
+    }
     
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        // The token is not currently available.
+        print("Remote notification support is unavailable due to error: \(error.localizedDescription)")
+        //self.disableRemoteNotificationFeatures()
+    }
 
     
     

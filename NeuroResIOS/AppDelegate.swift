@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DispatchQueue.main.async {
             UIApplication.shared.registerForRemoteNotifications()
         }
+        UIApplication.shared.registerForRemoteNotifications()
         
         return true
     }
@@ -78,6 +80,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //self.enableRemoteNotificationFeatures()
         print("this hit")
         print(deviceToken)
+        
+        let q = !JSON.init(parseJSON : "").bool!
         
         //throw MyError.RuntimeError("hi")
         //self.forwardTokenToServer(token: deviceToken)
