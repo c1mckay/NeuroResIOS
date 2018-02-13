@@ -243,9 +243,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <segue destination="Twd-xO-SvJ" kind="popoverPresentation" popoverAnchorView="mOy-mW-IGB" id="kFF-Ev-0OL">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                            </segue>
+                                            <segue destination="Twd-xO-SvJ" kind="presentation" id="kFF-Ev-0OL"/>
                                         </connections>
                                     </button>
                                 </subviews>
