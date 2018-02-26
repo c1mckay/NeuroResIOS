@@ -12,7 +12,7 @@ import SwiftyJSON
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    static let BASE_URL = "https://neurores.ucsd.edu/static/"
+    static let BASE_URL = "https://neurores.ucsd.edu/"
     static let SOCKET_URL = "wss://neurores.ucsd.edu:3001"
     static let NONE = 0
     static let NO_INTERNET = 1
