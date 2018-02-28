@@ -9,6 +9,7 @@
 import UIKit
 import WebKit
 import SwiftyJSON
+import Firebase
 
 class NeuroWebController: UIViewController, WKNavigationDelegate{
     
@@ -36,7 +37,6 @@ class NeuroWebController: UIViewController, WKNavigationDelegate{
         var url = webView.url?.absoluteString
         if(url!.contains("https://neurores.ucsd.edu/key/")){
             url = url?.replacingOccurrences(of: "https://neurores.ucsd.edu/key/", with: "")
-            print(url)
             getUserName(url!)
         }else if(url!.contains("https://neurores.ucsd.edu/token/unathorized")){
             dismiss(animated: true, completion: nil)
@@ -78,7 +78,41 @@ class NeuroWebController: UIViewController, WKNavigationDelegate{
         DispatchQueue.main.async {
             if(erroredOut){
                 UserDefaults.standard.removeObject(forKey: "user_auth_token")
+                self.dismiss(animated: true, completion: nil)
+            }else{
+                self.registerNotifToken()
             }
+        }
+    }
+    
+    func registerNotifToken(){
+        let userGroup = DispatchGroup()
+        var request = URLRequest(url: URL(string: AppDelegate.BASE_URL + "firebase_notif")!)
+        request.httpMethod = "post"
+        request.addValue(SlideMenuController.getToken(), forHTTPHeaderField: "auth")
+        print(Messaging.messaging().fcmToken)
+        request.httpBody = String(describing: Messaging.messaging().fcmToken!).data(using: String.Encoding.utf8)
+        userGroup.enter()
+        
+        let task = URLSession.shared.dataTask(with:request){ data, response, error in
+            guard let _ = data, error == nil else {
+                print("error=\(String(describing: error))")
+                userGroup.leave()
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                print("statusCode should be 200, but is \(httpStatus.statusCode) in submitting registration token")
+                print("response = \(String(describing: response))")
+                userGroup.leave()
+                return
+            }
+            
+            userGroup.leave()
+        }
+        task.resume()
+        userGroup.wait()
+        DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)
         }
     }

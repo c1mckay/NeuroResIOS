@@ -21,13 +21,6 @@ class LoginController: UIViewController, UITextFieldDelegate{
         if(firstTime){
             self.view.makeToast("This app is not HIPPA compliant!", duration: 6.0, position: .top)
         }
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        print("login controller loading")
-        if(UserDefaults.standard.string(forKey: "user_auth_token") == nil){
-            
-        }
-        
     }
     
     var firstTime = true

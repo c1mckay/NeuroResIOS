@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0920"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F8CC9F6B82C6414E71873D3EB1238D6C"
+               BlueprintIdentifier = "3DB93D0ABF145F1A75A724DFA0EFDCB0"
                BuildableName = "Pods_NeuroResIOS.framework"
                BlueprintName = "Pods-NeuroResIOS"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F8CC9F6B82C6414E71873D3EB1238D6C"
+            BlueprintIdentifier = "3DB93D0ABF145F1A75A724DFA0EFDCB0"
             BuildableName = "Pods_NeuroResIOS.framework"
             BlueprintName = "Pods-NeuroResIOS"
             ReferencedContainer = "container:Pods.xcodeproj">

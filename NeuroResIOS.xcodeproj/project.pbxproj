@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9058909F376F34B426C675A5 /* Pods_NeuroResIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E043790C1EE47E51CED1A280 /* Pods_NeuroResIOS.framework */; };
 		9D446BA986CE7AE8A613BB63 /* Pods_NeuroResIOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 275D1990D53D2794E1A5ED96 /* Pods_NeuroResIOSTests.framework */; };
+		F60EC96C2046340A006EB7AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F60EC96B20463401006EB7AA /* GoogleService-Info.plist */; };
 		F648B91C1F4FDBA800D4EA8A /* PDFController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F648B91B1F4FDBA800D4EA8A /* PDFController.swift */; };
 		F648B91E1F4FEB0000D4EA8A /* reshandbook.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F648B91D1F4FEB0000D4EA8A /* reshandbook.pdf */; };
 		F6635BC92019407C007E2FD8 /* NeuroWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6635BC82019407C007E2FD8 /* NeuroWebController.swift */; };
@@ -50,6 +51,7 @@
 		E043790C1EE47E51CED1A280 /* Pods_NeuroResIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NeuroResIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E40395F156FBF17065CBC364 /* Pods-NeuroResIOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeuroResIOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NeuroResIOSTests/Pods-NeuroResIOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E5D5B770D8D2776C798B4835 /* Pods-NeuroResIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeuroResIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-NeuroResIOS/Pods-NeuroResIOS.release.xcconfig"; sourceTree = "<group>"; };
+		F60EC96B20463401006EB7AA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "/Users/c1mckay/Documents/NeuroResIOS/GoogleService-Info.plist"; sourceTree = "<absolute>"; };
 		F648B91B1F4FDBA800D4EA8A /* PDFController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFController.swift; sourceTree = "<group>"; };
 		F648B91D1F4FEB0000D4EA8A /* reshandbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = reshandbook.pdf; sourceTree = "<group>"; };
 		F6635BC82019407C007E2FD8 /* NeuroWebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuroWebController.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 		F68439A31E5F92C90027802C = {
 			isa = PBXGroup;
 			children = (
+				F60EC96B20463401006EB7AA /* GoogleService-Info.plist */,
 				F648B91D1F4FEB0000D4EA8A /* reshandbook.pdf */,
 				F68439AE1E5F92C90027802C /* NeuroResIOS */,
 				F68439C51E5F92C90027802C /* NeuroResIOSTests */,
@@ -294,6 +297,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F60EC96C2046340A006EB7AA /* GoogleService-Info.plist in Resources */,
 				F68439BC1E5F92C90027802C /* LaunchScreen.storyboard in Resources */,
 				F68439B91E5F92C90027802C /* Assets.xcassets in Resources */,
 				F68439B71E5F92C90027802C /* Main.storyboard in Resources */,
@@ -381,17 +385,23 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-NeuroResIOS/Pods-NeuroResIOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

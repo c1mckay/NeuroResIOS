@@ -135,7 +135,6 @@ class ChatController: JSQMessagesViewController{
         super.viewDidLoad()
         
         if(UserDefaults.standard.string(forKey: "user_auth_token") == nil){
-            print("not found")
             performSegue(withIdentifier: "noLoginTokenSegue", sender: nil)
             return
         }
