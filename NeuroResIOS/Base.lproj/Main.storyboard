@@ -321,8 +321,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Handbook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CiS-lP-LVZ" userLabel="Handbook">
-                                <rect key="frame" x="16" y="124" width="290" height="56"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="handbook" translatesAutoresizingMaskIntoConstraints="NO" id="180-Hi-iIz" userLabel="handbookPic">
+                                <rect key="frame" x="10" y="133.5" width="37" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="180-Hi-iIz" secondAttribute="height" multiplier="1:1" id="ZMU-iw-ofc"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Handbook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CiS-lP-LVZ" userLabel="Handbook">
+                                <rect key="frame" x="57" y="124" width="233" height="56"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" link="YES" staticText="YES"/>
                                 </accessibility>
@@ -330,8 +336,8 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKi-ZL-Vxf" userLabel="Handbook Segue Handler">
-                                <rect key="frame" x="137" y="124" width="46" height="56"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKi-ZL-Vxf" userLabel="Handbook Segue Handler">
+                                <rect key="frame" x="10" y="124" width="280" height="56"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <segue destination="Xj7-eD-jE3" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="cZB-G9-0iS"/>
@@ -615,12 +621,14 @@
                             <constraint firstItem="VNa-uU-0sF" firstAttribute="leading" secondItem="l6l-ds-eth" secondAttribute="leading" id="3AL-xK-pzs"/>
                             <constraint firstItem="fLD-96-vdb" firstAttribute="top" secondItem="VNa-uU-0sF" secondAttribute="top" constant="10" id="3Qu-C6-5xF"/>
                             <constraint firstItem="hKi-ZL-Vxf" firstAttribute="bottom" secondItem="CiS-lP-LVZ" secondAttribute="bottom" id="3hv-ve-dUT"/>
+                            <constraint firstItem="CiS-lP-LVZ" firstAttribute="leading" secondItem="180-Hi-iIz" secondAttribute="trailing" constant="10" id="5Hk-p4-aqf"/>
                             <constraint firstItem="7dh-3B-MET" firstAttribute="top" secondItem="0Xl-bP-y3C" secondAttribute="top" id="76z-q4-nss"/>
                             <constraint firstAttribute="bottom" secondItem="5l3-IW-1bE" secondAttribute="bottom" id="Agq-eR-lQP"/>
                             <constraint firstItem="0Xl-bP-y3C" firstAttribute="top" secondItem="VNa-uU-0sF" secondAttribute="bottom" id="C3B-4d-J5C"/>
                             <constraint firstItem="CVB-b5-vpG" firstAttribute="top" secondItem="VNa-uU-0sF" secondAttribute="top" id="G3a-QQ-ZKT"/>
                             <constraint firstItem="hKi-ZL-Vxf" firstAttribute="top" secondItem="CiS-lP-LVZ" secondAttribute="top" id="GYw-PI-GCJ"/>
-                            <constraint firstItem="hKi-ZL-Vxf" firstAttribute="width" secondItem="CiS-lP-LVZ" secondAttribute="width" id="RL1-fA-Ca0"/>
+                            <constraint firstItem="180-Hi-iIz" firstAttribute="leading" secondItem="l6l-ds-eth" secondAttribute="leading" constant="10" id="Ora-pq-SuW"/>
+                            <constraint firstItem="hKi-ZL-Vxf" firstAttribute="leading" secondItem="180-Hi-iIz" secondAttribute="leading" id="P72-mF-AvA"/>
                             <constraint firstItem="CVB-b5-vpG" firstAttribute="leading" secondItem="VNa-uU-0sF" secondAttribute="leading" id="Ssy-Qs-eL8"/>
                             <constraint firstItem="VNa-uU-0sF" firstAttribute="bottom" secondItem="DG7-fH-exn" secondAttribute="bottom" constant="7" id="Ta6-MC-vUr"/>
                             <constraint firstItem="0Xl-bP-y3C" firstAttribute="leading" secondItem="VNa-uU-0sF" secondAttribute="leading" id="VT5-WT-d0k"/>
@@ -628,18 +636,20 @@
                             <constraint firstItem="7dh-3B-MET" firstAttribute="bottom" secondItem="0Xl-bP-y3C" secondAttribute="bottom" id="Yid-7Z-HHV"/>
                             <constraint firstItem="7dh-3B-MET" firstAttribute="trailing" secondItem="0Xl-bP-y3C" secondAttribute="trailing" id="Z71-TG-v4H"/>
                             <constraint firstItem="5l3-IW-1bE" firstAttribute="leading" secondItem="l6l-ds-eth" secondAttribute="leading" id="ZLa-ji-vO8"/>
-                            <constraint firstItem="CiS-lP-LVZ" firstAttribute="leading" secondItem="l6l-ds-eth" secondAttribute="leadingMargin" id="ZY4-v7-KTT"/>
                             <constraint firstItem="5l3-IW-1bE" firstAttribute="top" secondItem="CiS-lP-LVZ" secondAttribute="bottom" id="aw5-53-4f2"/>
                             <constraint firstItem="0Xl-bP-y3C" firstAttribute="width" secondItem="5l3-IW-1bE" secondAttribute="width" id="btj-pX-enf"/>
+                            <constraint firstItem="hKi-ZL-Vxf" firstAttribute="trailing" secondItem="CiS-lP-LVZ" secondAttribute="trailing" id="ccC-oL-5Q5"/>
+                            <constraint firstItem="CiS-lP-LVZ" firstAttribute="trailing" secondItem="0Xl-bP-y3C" secondAttribute="trailing" id="dGn-9X-iXa"/>
                             <constraint firstItem="CVB-b5-vpG" firstAttribute="width" secondItem="VNa-uU-0sF" secondAttribute="width" id="fG8-Bl-C4D"/>
                             <constraint firstItem="VNa-uU-0sF" firstAttribute="top" secondItem="0PN-oC-5V6" secondAttribute="bottom" id="fyY-qA-pHs"/>
                             <constraint firstItem="DG7-fH-exn" firstAttribute="top" secondItem="VNa-uU-0sF" secondAttribute="top" constant="7" id="hfs-i6-ZYS"/>
                             <constraint firstItem="CVB-b5-vpG" firstAttribute="height" secondItem="VNa-uU-0sF" secondAttribute="height" multiplier="0.5" id="jr7-iu-uAK"/>
                             <constraint firstItem="CiS-lP-LVZ" firstAttribute="top" secondItem="0Xl-bP-y3C" secondAttribute="bottom" id="lZU-mP-oQa"/>
                             <constraint firstItem="hKi-ZL-Vxf" firstAttribute="height" secondItem="CiS-lP-LVZ" secondAttribute="height" id="m7I-ow-17V"/>
+                            <constraint firstItem="CiS-lP-LVZ" firstAttribute="height" secondItem="180-Hi-iIz" secondAttribute="height" multiplier="1.5" id="mNz-e7-LLS"/>
                             <constraint firstItem="fLD-96-vdb" firstAttribute="trailing" secondItem="5l3-IW-1bE" secondAttribute="trailing" constant="-10" id="nce-jq-ESo"/>
                             <constraint firstItem="DG7-fH-exn" firstAttribute="leading" secondItem="l6l-ds-eth" secondAttribute="leading" constant="7" id="nks-hv-d0D"/>
-                            <constraint firstItem="CiS-lP-LVZ" firstAttribute="width" secondItem="0Xl-bP-y3C" secondAttribute="width" id="oPS-wy-y4p"/>
+                            <constraint firstItem="180-Hi-iIz" firstAttribute="centerY" secondItem="CiS-lP-LVZ" secondAttribute="centerY" id="oGo-Rc-zu1"/>
                             <constraint firstItem="fLD-96-vdb" firstAttribute="bottom" secondItem="DG7-fH-exn" secondAttribute="bottom" id="p1M-P1-sSJ"/>
                             <constraint firstItem="CiS-lP-LVZ" firstAttribute="height" secondItem="0Xl-bP-y3C" secondAttribute="height" id="pPp-00-08l"/>
                             <constraint firstItem="q1W-Ff-BNI" firstAttribute="top" secondItem="VNa-uU-0sF" secondAttribute="top" id="qLf-Qc-IJP"/>
@@ -699,6 +709,7 @@
     </scenes>
     <resources>
         <image name="expand" width="256" height="256"/>
+        <image name="handbook" width="16" height="16"/>
         <image name="logo" width="900" height="900"/>
         <image name="menu" width="64" height="64"/>
         <image name="offline" width="126" height="125"/>
@@ -707,6 +718,6 @@
         <image name="trash" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pPR-vP-jGC"/>
+        <segue reference="tx8-iJ-2r0"/>
     </inferredMetricsTieBreakers>
 </document>
