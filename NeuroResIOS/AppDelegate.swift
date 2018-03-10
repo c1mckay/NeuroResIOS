@@ -8,9 +8,11 @@
 
 import UIKit
 import SwiftyJSON
+import Firebase
+import Toast_Swift
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate{
 
     static let BASE_URL = "https://neurores.ucsd.edu/"
     static let SOCKET_URL = "wss://neurores.ucsd.edu:3001"
@@ -27,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
         // Override point for customization after application launch.
         
         let navigationBarAppearace = UINavigationBar.appearance()
@@ -34,10 +37,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.tintColor = uicolorFromHex(rgbValue: 0xffffff)
         navigationBarAppearace.barTintColor = uicolorFromHex(rgbValue: 0x182b49)
         
-        DispatchQueue.main.async {
-            UIApplication.shared.registerForRemoteNotifications()
-        }
+        
+        let settings: UIUserNotificationSettings =
+            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
+        
         UIApplication.shared.registerForRemoteNotifications()
+        
+        
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+        
+        print(Messaging.messaging().fcmToken)
         
         return true
     }
@@ -75,13 +87,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // Handle remote notification registration.
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data){
         // Forward the token to your provider, using a custom method.
         //self.enableRemoteNotificationFeatures()
         print("this hit")
-        print(deviceToken)
-        
-        let q = !JSON.init(parseJSON : "").bool!
+        print(deviceToken )
+        print(String.init(data: deviceToken, encoding: String.Encoding.utf8))
         
         //throw MyError.RuntimeError("hi")
         //self.forwardTokenToServer(token: deviceToken)
@@ -93,8 +105,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Remote notification support is unavailable due to error: \(error.localizedDescription)")
         //self.disableRemoteNotificationFeatures()
     }
-
     
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        // If you are receiving a notification message while your app is in the background,
+        // this callback will not be fired till the user taps on the notification launching the application.
+        // TODO: Handle data of notification
+        
+        // With swizzling disabled you must let Messaging know about the message, for Analytics
+        // Messaging.messaging().appDidReceiveMessage(userInfo)
+        
+        // Print message ID.
+        //if let messageID = userInfo[gcmMessageIDKey] {
+        //    print("Message ID: \(messageID)")
+        //}
+        
+        // Print full message.
+        let c_str = userInfo["conv_memb"]!
+        let conv_mems_j = JSON.init(parseJSON: c_str as! String)
+        
+        var conv_mems = [Int]()
+        
+        for x in conv_mems_j.array! {
+            conv_mems.append(x.int!)
+        }
+        
+        
+        /*if(application.applicationState == UIApplicationState.active){
+            print("was active")
+        }else{
+            SlideMenuController.setConversationMembersGroup(id: conv_mems)
+        }*/
+        
+        completionHandler(UIBackgroundFetchResult.newData)
+    }
     
 }
 

@@ -776,6 +776,10 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         UserDefaults.standard.set([id], forKey: "conversationMembers")
     }
     
+    static func setConversationMembersGroup(id: [Int]){
+        UserDefaults.standard.set(id, forKey: "conversationMembers")
+    }
+    
     func uicolorFromHex(rgbValue:UInt32)->UIColor{
         let red = CGFloat((rgbValue & 0xFF0000) >> 16)/256.0
         let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
