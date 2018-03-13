@@ -312,7 +312,7 @@
         <!--Slide Menu-->
         <scene sceneID="vZc-Ia-azz">
             <objects>
-                <viewController storyboardIdentifier="MenuViewController" id="YjV-IK-vUz" userLabel="Slide Menu" customClass="SlideMenuController" customModule="NeuroResIOS" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MenuViewController" automaticallyAdjustsScrollViewInsets="NO" id="YjV-IK-vUz" userLabel="Slide Menu" customClass="SlideMenuController" customModule="NeuroResIOS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0PN-oC-5V6"/>
                         <viewControllerLayoutGuide type="bottom" id="TlO-NM-nbH"/>

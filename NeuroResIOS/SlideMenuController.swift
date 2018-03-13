@@ -271,7 +271,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         userTableView.rowHeight = UITableViewAutomaticDimension
-        userTableView.estimatedRowHeight = 300
+        userTableView.estimatedRowHeight = 1
         
     }
     
@@ -476,7 +476,10 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         return false
     }
-    
+    func isAtBottom(_ tableView: UITableView) -> Bool{
+        return tableView.contentOffset.y >= (tableView.contentSize.height - tableView.frame.size.height)
+    }
+        
     func staffNameCell(indexPath: IndexPath) -> Bool{
         if(!staff_showing){
             return false
@@ -560,6 +563,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }*/
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print(indexPath.row)
         if(unreadHeader(indexPath: indexPath)){
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
             
@@ -678,6 +682,13 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                     staffCell -= (staff[staffKeys[i]]?.count)!
                 }
             }
+            print(self.staff.count)
+            print(self.staff_type_hiding.count)
+            tableView.reloadData()
+            if(self.staff.count == self.staff_type_hiding.count && self.isAtBottom(tableView)){
+                scrollToTop()
+            }
+            return
         }else if(usersHeader(indexPath: indexPath)){ //clicking on private header
             if(users_showing == 0){
                 users_showing = 5
@@ -707,6 +718,15 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         
         //push to bottom
         
+    }
+    
+    func scrollToTop(){
+        DispatchQueue.global(qos: .background).async {
+            let indexPath = IndexPath(row: 0, section: 0)
+            DispatchQueue.main.async(){
+                self.userTableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+            }
+        }
     }
     
     func scrollToBottom(){
