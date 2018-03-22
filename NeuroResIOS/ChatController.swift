@@ -148,7 +148,7 @@ class ChatController: JSQMessagesViewController{
         refreshInputUp()
         
         if self.revealViewController() != nil {
-            usersButton.target = self//.revealViewController()
+            usersButton.target = self
             usersButton.action = #selector(ChatController.menuClick(_:))
         }
         
@@ -870,12 +870,6 @@ class ChatController: JSQMessagesViewController{
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         // Forward the token to your provider, using a custom method.
-        //self.enableRemoteNotificationFeatures()
-        print("this hit")
-        print(deviceToken)
-        
-        //throw MyError.RuntimeError("hi")
-        //self.forwardTokenToServer(token: deviceToken)
     }
     
     func application(_ application: UIApplication,

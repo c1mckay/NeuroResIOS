@@ -28,6 +28,7 @@ PODS:
   - JSQMessagesViewController (7.3.5):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
+  - JTAppleCalendar (7.1.5)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
@@ -41,6 +42,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Messaging
   - JSQMessagesViewController
+  - JTAppleCalendar (~> 7.0)
   - SwiftyJSON
   - Toast-Swift (~> 2.0.0)
 
@@ -53,11 +55,12 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   JSQMessagesViewController: 6587f56aedbcb150a8ba1d968e1ef58b1bc758b7
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
+  JTAppleCalendar: 2d4f974f9f3c8b4964d51ca1f6e004883c031fbe
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   Toast-Swift: 5b2f8f720f7e78e48511f693df1f9c9a6e38a25a
 
-PODFILE CHECKSUM: 1bfc105606f7a60683188a50ffb70aca86038f49
+PODFILE CHECKSUM: a59f2ce1f460ac94c87080559f90acc44ecc022d
 
 COCOAPODS: 1.4.0

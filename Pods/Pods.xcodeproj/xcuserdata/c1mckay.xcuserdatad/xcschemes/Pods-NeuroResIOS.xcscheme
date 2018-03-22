@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3DB93D0ABF145F1A75A724DFA0EFDCB0"
+               BlueprintIdentifier = "AADFCCB68B3B535494B903AF06E66384"
                BuildableName = "Pods_NeuroResIOS.framework"
                BlueprintName = "Pods-NeuroResIOS"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3DB93D0ABF145F1A75A724DFA0EFDCB0"
+            BlueprintIdentifier = "AADFCCB68B3B535494B903AF06E66384"
             BuildableName = "Pods_NeuroResIOS.framework"
             BlueprintName = "Pods-NeuroResIOS"
             ReferencedContainer = "container:Pods.xcodeproj">
