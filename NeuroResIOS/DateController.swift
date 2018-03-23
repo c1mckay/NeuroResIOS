@@ -25,8 +25,6 @@ class DateControllerViewController: UIViewController, JTAppleCalendarViewDataSou
         
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
-        
-        calendarView.date
     }
     
     func getFutureDate() -> Date{
