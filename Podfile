@@ -6,14 +6,13 @@ target 'NeuroResIOS' do
   use_frameworks!
 
   # Pods for NeuroResIOS
-  #pod 'Firebase/Core'
-  #pod 'Firebase/Messaging'
+  pod 'JTAppleCalendar', '~> 7.0'
   pod 'SwiftyJSON'
   pod 'JSQMessagesViewController'
   pod 'Toast-Swift', '~> 2.0.0'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
-  pod 'JTAppleCalendar', '~> 7.0'
+  
   target 'NeuroResIOSTests' do
     inherit! :search_paths
     # Pods for testing

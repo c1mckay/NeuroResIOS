@@ -39,7 +39,52 @@
                     <view key="view" contentMode="scaleToFill" id="npa-9R-jod">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FAU-PI-j0Z" userLabel="calendarMain" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
+                                <rect key="frame" x="0.0" y="64" width="320" height="240"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9vM-j1-xYy">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CustomDateCell" id="JEu-gT-5DY" customClass="DateCell" customModule="NeuroResIOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uze-YN-VEk">
+                                                    <rect key="frame" x="4" y="15" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="Uze-YN-VEk" firstAttribute="centerY" secondItem="JEu-gT-5DY" secondAttribute="centerY" id="0wC-4k-ovu"/>
+                                            <constraint firstItem="Uze-YN-VEk" firstAttribute="centerX" secondItem="JEu-gT-5DY" secondAttribute="centerX" id="P6B-4v-7Hv"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="Uze-YN-VEk" id="54l-ji-Cin"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="FAU-PI-j0Z" firstAttribute="height" secondItem="npa-9R-jod" secondAttribute="height" multiplier="1/2" id="8EW-iL-qKk"/>
+                            <constraint firstItem="FAU-PI-j0Z" firstAttribute="leading" secondItem="npa-9R-jod" secondAttribute="leading" id="S7N-EX-7CM"/>
+                            <constraint firstItem="FAU-PI-j0Z" firstAttribute="centerX" secondItem="npa-9R-jod" secondAttribute="centerX" id="Wjx-IT-zK3"/>
+                            <constraint firstItem="FAU-PI-j0Z" firstAttribute="width" secondItem="npa-9R-jod" secondAttribute="width" id="n9k-Ux-f56"/>
+                            <constraint firstItem="FAU-PI-j0Z" firstAttribute="top" secondItem="3DJ-Db-i8G" secondAttribute="bottom" id="thr-gv-CSZ"/>
+                            <constraint firstAttribute="trailing" secondItem="FAU-PI-j0Z" secondAttribute="trailing" id="x8h-e5-MXl"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7gM-FI-qs9">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="yeN-aK-gau">
@@ -49,13 +94,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="calendarView" destination="FAU-PI-j0Z" id="EnM-3V-rHr"/>
                         <outlet property="menuButton" destination="yeN-aK-gau" id="SaV-rN-OSw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NM7-U0-9LX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="1De-rH-b1x" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1276" y="-1679"/>
+            <point key="canvasLocation" x="-1276.875" y="-1680"/>
         </scene>
         <!--Chat Controller-->
         <scene sceneID="zbX-I5-yri">

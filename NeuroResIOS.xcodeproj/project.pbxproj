@@ -11,6 +11,7 @@
 		9D446BA986CE7AE8A613BB63 /* Pods_NeuroResIOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 275D1990D53D2794E1A5ED96 /* Pods_NeuroResIOSTests.framework */; };
 		F60EC96C2046340A006EB7AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F60EC96B20463401006EB7AA /* GoogleService-Info.plist */; };
 		F619407C20643C1C00472FFB /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F619407B20643C1C00472FFB /* DateController.swift */; };
+		F619407E2064413C00472FFB /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F619407D2064413C00472FFB /* DateCell.swift */; };
 		F648B91C1F4FDBA800D4EA8A /* PDFController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F648B91B1F4FDBA800D4EA8A /* PDFController.swift */; };
 		F648B91E1F4FEB0000D4EA8A /* reshandbook.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F648B91D1F4FEB0000D4EA8A /* reshandbook.pdf */; };
 		F6635BC92019407C007E2FD8 /* NeuroWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6635BC82019407C007E2FD8 /* NeuroWebController.swift */; };
@@ -54,6 +55,7 @@
 		E5D5B770D8D2776C798B4835 /* Pods-NeuroResIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeuroResIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-NeuroResIOS/Pods-NeuroResIOS.release.xcconfig"; sourceTree = "<group>"; };
 		F60EC96B20463401006EB7AA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "/Users/c1mckay/Documents/NeuroResIOS/GoogleService-Info.plist"; sourceTree = "<absolute>"; };
 		F619407B20643C1C00472FFB /* DateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateController.swift; sourceTree = "<group>"; };
+		F619407D2064413C00472FFB /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		F648B91B1F4FDBA800D4EA8A /* PDFController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFController.swift; sourceTree = "<group>"; };
 		F648B91D1F4FEB0000D4EA8A /* reshandbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = reshandbook.pdf; sourceTree = "<group>"; };
 		F6635BC82019407C007E2FD8 /* NeuroWebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuroWebController.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				F6FA9C701EC0E49300939202 /* SwiftWebSocket.h */,
 				F6FA9C6E1EC0E32500939202 /* WebSocket.swift */,
 				F619407B20643C1C00472FFB /* DateController.swift */,
+				F619407D2064413C00472FFB /* DateCell.swift */,
 				F68439B51E5F92C90027802C /* Main.storyboard */,
 				F68439B81E5F92C90027802C /* Assets.xcassets */,
 				F68439BA1E5F92C90027802C /* LaunchScreen.storyboard */,
@@ -454,6 +457,7 @@
 				F6F7DE4A1E6D186D00F79E6D /* StaffDescripCell.swift in Sources */,
 				F6E309321E64D527007EE749 /* ChatTableCell.swift in Sources */,
 				F6F7DE501E6DF50A00F79E6D /* SearchController.swift in Sources */,
+				F619407E2064413C00472FFB /* DateCell.swift in Sources */,
 				F68439B21E5F92C90027802C /* LoginController.swift in Sources */,
 				F6E309341E67B1CB007EE749 /* SlideMenuController.swift in Sources */,
 				F6FA9C6F1EC0E32500939202 /* WebSocket.swift in Sources */,

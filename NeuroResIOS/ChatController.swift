@@ -25,7 +25,7 @@ class ChatController: JSQMessagesViewController{
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
         let message = messages[indexPath.row]
         let messageUserName = message.senderDisplayName!
-        return SearchController.attributedString(from: messageUserName, nonBoldRange: NSMakeRange(0, messageUserName.characters.count))
+        return SearchController.attributedString(from: messageUserName, nonBoldRange: NSMakeRange(0, messageUserName.count))
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
@@ -47,7 +47,7 @@ class ChatController: JSQMessagesViewController{
         super.textViewDidChange(textView)
         
         let text = textView.text!
-        let newTextLength = text.characters.count - ChatController.MAX_CHARACTERS
+        let newTextLength = text.count - ChatController.MAX_CHARACTERS
         if(newTextLength > 0){
             let offset = 0 - newTextLength
             let index = text.index(text.endIndex, offsetBy: offset)
@@ -101,7 +101,7 @@ class ChatController: JSQMessagesViewController{
     }
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
-        if text.characters.count == 0 {
+        if text.count == 0 {
             self.finishSendingMessage()
             return
         }

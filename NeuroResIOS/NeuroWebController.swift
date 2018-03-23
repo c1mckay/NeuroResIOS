@@ -90,7 +90,7 @@ class NeuroWebController: UIViewController, WKNavigationDelegate{
         var request = URLRequest(url: URL(string: AppDelegate.BASE_URL + "firebase_notif")!)
         request.httpMethod = "post"
         request.addValue(SlideMenuController.getToken(), forHTTPHeaderField: "auth")
-        print(Messaging.messaging().fcmToken)
+        print(Messaging.messaging().fcmToken!)
         request.httpBody = String(describing: Messaging.messaging().fcmToken!).data(using: String.Encoding.utf8)
         userGroup.enter()
         

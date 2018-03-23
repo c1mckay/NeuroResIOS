@@ -74,7 +74,7 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
         visibleUsers.removeAll()
         for (user, staff) in userToStaff{
             let testString = user + " " + staff
-            if (testString.lowercased().range(of: searchText) != nil || searchText.characters.count == 0){
+            if (testString.lowercased().range(of: searchText) != nil || searchText.count == 0){
                 visibleUsers.append(user)
             }
         }
@@ -134,7 +134,7 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResult", for: indexPath) as! SearchResult
-        var text = searchController.searchBar.text
+        let text = searchController.searchBar.text
         
         
         let row = indexPath.row
@@ -143,10 +143,9 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
         
         if let range = searchText.lowercased().range(of: text!.lowercased()) {
             let start = searchText.distance(from: searchText.startIndex, to: range.lowerBound)
-            let length = (text?.characters.count)!
-            cell.resultText.attributedText = SearchController.attributedString(from: searchText, nonBoldRange: NSMakeRange(start,length))
-        }
-        else{
+            let length = text?.count
+            cell.resultText.attributedText = SearchController.attributedString(from: searchText, nonBoldRange: NSMakeRange(start,length!))
+        }else{
             let start = 0
             let length = 0
             cell.resultText.attributedText = SearchController.attributedString(from: searchText, nonBoldRange: NSMakeRange(start,length))

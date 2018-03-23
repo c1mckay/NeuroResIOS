@@ -49,7 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate{
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
         
-        print(Messaging.messaging().fcmToken)
         
         return true
     }
@@ -91,9 +90,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate{
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data){
         // Forward the token to your provider, using a custom method.
         //self.enableRemoteNotificationFeatures()
-        print("this hit")
-        print(deviceToken )
-        print(String.init(data: deviceToken, encoding: String.Encoding.utf8))
         
         //throw MyError.RuntimeError("hi")
         //self.forwardTokenToServer(token: deviceToken)
