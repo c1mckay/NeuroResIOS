@@ -12,6 +12,7 @@
 		F60EC96C2046340A006EB7AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F60EC96B20463401006EB7AA /* GoogleService-Info.plist */; };
 		F619407C20643C1C00472FFB /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F619407B20643C1C00472FFB /* DateController.swift */; };
 		F619407E2064413C00472FFB /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F619407D2064413C00472FFB /* DateCell.swift */; };
+		F634DC7B20699F2E00217350 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F634DC7A20699F2E00217350 /* EventCell.swift */; };
 		F648B91C1F4FDBA800D4EA8A /* PDFController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F648B91B1F4FDBA800D4EA8A /* PDFController.swift */; };
 		F648B91E1F4FEB0000D4EA8A /* reshandbook.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F648B91D1F4FEB0000D4EA8A /* reshandbook.pdf */; };
 		F6635BC92019407C007E2FD8 /* NeuroWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6635BC82019407C007E2FD8 /* NeuroWebController.swift */; };
@@ -56,6 +57,7 @@
 		F60EC96B20463401006EB7AA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "/Users/c1mckay/Documents/NeuroResIOS/GoogleService-Info.plist"; sourceTree = "<absolute>"; };
 		F619407B20643C1C00472FFB /* DateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateController.swift; sourceTree = "<group>"; };
 		F619407D2064413C00472FFB /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
+		F634DC7A20699F2E00217350 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		F648B91B1F4FDBA800D4EA8A /* PDFController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFController.swift; sourceTree = "<group>"; };
 		F648B91D1F4FEB0000D4EA8A /* reshandbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = reshandbook.pdf; sourceTree = "<group>"; };
 		F6635BC82019407C007E2FD8 /* NeuroWebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuroWebController.swift; sourceTree = "<group>"; };
@@ -166,8 +168,9 @@
 				F648B91B1F4FDBA800D4EA8A /* PDFController.swift */,
 				F6FA9C701EC0E49300939202 /* SwiftWebSocket.h */,
 				F6FA9C6E1EC0E32500939202 /* WebSocket.swift */,
-				F619407B20643C1C00472FFB /* DateController.swift */,
 				F619407D2064413C00472FFB /* DateCell.swift */,
+				F634DC7A20699F2E00217350 /* EventCell.swift */,
+				F619407B20643C1C00472FFB /* DateController.swift */,
 				F68439B51E5F92C90027802C /* Main.storyboard */,
 				F68439B81E5F92C90027802C /* Assets.xcassets */,
 				F68439BA1E5F92C90027802C /* LaunchScreen.storyboard */,
@@ -452,6 +455,7 @@
 				F68439B01E5F92C90027802C /* AppDelegate.swift in Sources */,
 				F6F7DE541E736DE900F79E6D /* StaffNameDescripCell.swift in Sources */,
 				F6F7DE3C1E67CD6700F79E6D /* ChatDescripCell.swift in Sources */,
+				F634DC7B20699F2E00217350 /* EventCell.swift in Sources */,
 				F6F7DE461E69007200F79E6D /* SWRevealViewController.m in Sources */,
 				F6F7DE561E76061700F79E6D /* SearchResult.swift in Sources */,
 				F6F7DE4A1E6D186D00F79E6D /* StaffDescripCell.swift in Sources */,

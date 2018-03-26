@@ -64,6 +64,9 @@ class ChatController: JSQMessagesViewController{
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
+        if(messages.count < indexPath.row || indexPath.row < 0){
+            return nil
+        }
         return messages[indexPath.row]
     }
     
@@ -204,8 +207,6 @@ class ChatController: JSQMessagesViewController{
             let user_ids = (UserDefaults.standard.array(forKey: "conversationMembers")!).map {$0} as! [Int]
             if(users.isEmpty){
                 SlideMenuController.getUsers(token: getToken(), myName: getName()) { (users_ret: [String], userIDs_ret: [String:Int], staff_ret: [String:[String]]) in
-                    print("finished loading users")
-                    print(userIDs_ret)
                     for (key, item) in userIDs_ret{
                         self.users[key] = item
                     }

@@ -12,4 +12,14 @@ import JTAppleCalendar
 class DateCell: JTAppleCell {
     @IBOutlet weak var dateLabel: UILabel!
     
+    @IBOutlet weak var backgroundCircle: UIView!
+    @IBOutlet weak var rDot: UIView!
+    
+    func showEvents(){
+        rDot.isHidden = false
+    }
+    
+    func hideEvents(){
+        rDot.isHidden = true
+    }
 }

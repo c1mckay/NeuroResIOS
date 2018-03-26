@@ -27,15 +27,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate{
     
     var window: UIWindow?
 
-
+    static let WHITE = AppDelegate.uicolorFromHex(rgbValue: 0xfffff2)
+    static let UCSD_BRIGHT_YELLOW = AppDelegate.uicolorFromHex(rgbValue: 0xF3E500)
+    static let UCSD_DARK_BLUE = AppDelegate.uicolorFromHex(rgbValue: 0x182B49)
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Override point for customization after application launch.
         
         let navigationBarAppearace = UINavigationBar.appearance()
         
-        navigationBarAppearace.tintColor = uicolorFromHex(rgbValue: 0xffffff)
-        navigationBarAppearace.barTintColor = uicolorFromHex(rgbValue: 0x182b49)
+        navigationBarAppearace.tintColor = AppDelegate.WHITE
+        navigationBarAppearace.barTintColor = AppDelegate.UCSD_DARK_BLUE
+        navigationBarAppearace.isTranslucent = false
+        navigationBarAppearace.titleTextAttributes = [NSAttributedStringKey.foregroundColor: AppDelegate.WHITE]
+        
         
         
         let settings: UIUserNotificationSettings =
@@ -54,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate{
     }
     
     
-    func uicolorFromHex(rgbValue:UInt32)->UIColor{
+    static func uicolorFromHex(rgbValue:UInt32)->UIColor{
         let red = CGFloat((rgbValue & 0xFF0000) >> 16)/256.0
         let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
         let blue = CGFloat(rgbValue & 0xFF)/256.0
