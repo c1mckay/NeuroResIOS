@@ -29,7 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate{
 
     static let WHITE = AppDelegate.uicolorFromHex(rgbValue: 0xfffff2)
     static let UCSD_BRIGHT_YELLOW = AppDelegate.uicolorFromHex(rgbValue: 0xF3E500)
+    static let UCSD_YELLOW_ORANGE = AppDelegate.uicolorFromHex(rgbValue: 0xFFCD00)
     static let UCSD_DARK_BLUE = AppDelegate.uicolorFromHex(rgbValue: 0x182B49)
+    static let UCSD_LIGHT_BLUE = AppDelegate.uicolorFromHex(rgbValue: 0x006A96)
+    static let UCSD_TEAL = AppDelegate.uicolorFromHex(rgbValue: 0x00C6D7)
+    static let UCSD_LIGHT_GREY = AppDelegate.uicolorFromHex(rgbValue: 0xB6B1A9)
+    static let OFFWHITE = AppDelegate.uicolorFromHex(rgbValue: 0xF5F5F5)
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         

@@ -9,10 +9,7 @@
 import UIKit
 import JTAppleCalendar
 
-class DateControllerViewController: UIViewController, JTAppleCalendarViewDataSource, JTAppleCalendarViewDelegate, UITableViewDelegate, UITableViewDataSource {
-    
-    
-    
+class DateController: UIViewController, JTAppleCalendarViewDataSource, JTAppleCalendarViewDelegate, UITableViewDelegate, UITableViewDataSource {
     
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
@@ -22,8 +19,6 @@ class DateControllerViewController: UIViewController, JTAppleCalendarViewDataSou
     
     let formatter = DateFormatter()
     
-    let UCSD_LIGHT_GREY = AppDelegate.uicolorFromHex(rgbValue: 0x0B6B1A9)
-    let UCSD_DARK_BLUE = AppDelegate.uicolorFromHex(rgbValue: 0x00465F)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +36,7 @@ class DateControllerViewController: UIViewController, JTAppleCalendarViewDataSou
         calendarView.calendarDataSource = self
         eventTable.delegate = self
         eventTable.dataSource = self
+        eventTable.backgroundColor = AppDelegate.OFFWHITE
         
         eventTable.estimatedRowHeight = 50
         eventTable.rowHeight = UITableViewAutomaticDimension
@@ -49,6 +45,7 @@ class DateControllerViewController: UIViewController, JTAppleCalendarViewDataSou
         calendarView.minimumInteritemSpacing = 0
         
         calendarView.selectDates([ Date() ])
+        calendarView.scrollToDate( Date(), animateScroll: false)
         
         calendarView.visibleDates { visibleDates in
             self.setupViewsOfCalendar(visibleDates)
@@ -69,7 +66,7 @@ class DateControllerViewController: UIViewController, JTAppleCalendarViewDataSou
         let endDate = getFutureDate()
         let parameters = ConfigurationParameters(startDate: startDate,
                                                  endDate: endDate,
-                                                 numberOfRows: 6, // Only 1, 2, 3, & 6 are allowed
+                                                 numberOfRows: 1, // Only 1, 2, 3, & 6 are allowed
             calendar: Calendar.current,
             generateInDates: .forAllMonths,
             generateOutDates: .tillEndOfRow,
@@ -85,41 +82,49 @@ class DateControllerViewController: UIViewController, JTAppleCalendarViewDataSou
         handleCellSelected(cellState, cell)
         handleCellTextColor(cellState, cell)
         
+        let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+        let myComponents = myCalendar.components(.day, from: cellState.date)
+        cell.clearEvents()
+        if(myComponents.day! > 0){
+            for i in 0 ... (2 * (myComponents.day! % 3)){
+                cell.showEvent(DateCellEvent("NeuroResMeeting" + String(i), "8:00", "9:00"))
+            }
+            cell.update()
+        }
+        
         return cell
     }
     
     func handleCellSelected(_ cellState: CellState, _ cell : JTAppleCell?){
         guard let validCell = cell as? DateCell else {return}
         
-        validCell.backgroundCircle.isHidden = !validCell.isSelected
+        validCell.setMarked(validCell.isSelected, cellState)
+    }
+    
+    static func isToday(_ cellState: CellState) -> Bool{
+        let formatter = DateFormatter()
+        formatter.dateFormat="yyyyMMdd"
+        
+        let todaysDateStr = formatter.string(from: Date())
+        let cellDateStr = formatter.string(from: cellState.date)
+        return todaysDateStr == cellDateStr
     }
     
     func handleCellTextColor(_ cellState: CellState, _ cell: JTAppleCell?){
         guard let validCell = cell as? DateCell else {return}
         
-        formatter.dateFormat="yyyyMMdd"
-        let todaysDateStr = formatter.string(from: Date())
-        
-        if(validCell.backgroundCircle.isHidden && todaysDateStr == formatter.string(from: cellState.date)){
-            validCell.dateLabel.textColor = AppDelegate.UCSD_BRIGHT_YELLOW
-            validCell.hideEvents()
+        if(!validCell.isMarked() && DateController.isToday(cellState)){
+            validCell.dateLabel.textColor = UIColor.black
+            //validCell.hideEvents()
         }else{
-            if(!validCell.backgroundCircle.isHidden){
+            if(validCell.isMarked()){
                 validCell.dateLabel.textColor = UIColor.black
             }else{
                 if cellState.dateBelongsTo == .thisMonth {
-                    validCell.dateLabel.textColor = UIColor.white
+                    validCell.dateLabel.textColor = AppDelegate.UCSD_DARK_BLUE
                 } else {
-                    validCell.dateLabel.textColor = UCSD_DARK_BLUE
+                    validCell.dateLabel.textColor = AppDelegate.UCSD_DARK_BLUE
                 }
-            }
-            
-            let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-            let myComponents = myCalendar.components(.day, from: cellState.date)
-            if(myComponents.day! % 5 == 0 && validCell.backgroundCircle.isHidden){
-                validCell.showEvents()
-            }else{
-                validCell.hideEvents()
             }
         }
         
@@ -128,8 +133,8 @@ class DateControllerViewController: UIViewController, JTAppleCalendarViewDataSou
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         guard let validCell = cell as? DateCell else {return}
         
-        if(cellState.isSelected && !validCell.backgroundCircle.isHidden){
-            validCell.backgroundCircle.isHidden = true
+        if(cellState.isSelected && validCell.isMarked()){
+            validCell.setMarked(false, cellState)
         }else{
             handleCellSelected(cellState, cell)
         }
@@ -166,7 +171,6 @@ class DateControllerViewController: UIViewController, JTAppleCalendarViewDataSou
         cell.selectionStyle = .none
         return cell
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
