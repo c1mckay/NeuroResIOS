@@ -15,37 +15,36 @@ class DateCell: JTAppleCell, UITableViewDelegate, UITableViewDataSource  {
     @IBOutlet weak private var backgroundCircle: UIView!
     @IBOutlet weak var eventBannerList: UITableView!
     
-    var daysEvents:[DateCellEvent] = []
+    var daysEvents = [Event]()
+    var currentDate : Date?
+    
+    static var CALENDAR_OFFWHITE = AppDelegate.uicolorFromHex(rgbValue: 0xF0F3FF)
+    static var CALENDAR_TODAY    = AppDelegate.uicolorFromHex(rgbValue: 0xFFED80)
+    static var CALENDAR_SELECTED = AppDelegate.uicolorFromHex(rgbValue: 0xD1D1D1)//AppDelegate.UCSD_DARK_BLUE
     
     func setMarked(_ isSelected: Bool, _ cellState: CellState?){
         if(isSelected){
-            eventBannerList.backgroundColor = AppDelegate.OFFWHITE
-            backgroundCircle.backgroundColor = AppDelegate.OFFWHITE
+            eventBannerList.backgroundColor = DateCell.CALENDAR_SELECTED
+            backgroundCircle.backgroundColor = DateCell.CALENDAR_SELECTED
         }else if(DateController.isToday(cellState!)){
-            eventBannerList.backgroundColor = AppDelegate.UCSD_TEAL
-            backgroundCircle.backgroundColor = AppDelegate.UCSD_TEAL
+            eventBannerList.backgroundColor = DateCell.CALENDAR_TODAY
+            backgroundCircle.backgroundColor = DateCell.CALENDAR_TODAY
         }else{
-            eventBannerList.backgroundColor = AppDelegate.UCSD_LIGHT_BLUE
-            backgroundCircle.backgroundColor = AppDelegate.UCSD_LIGHT_BLUE
+            eventBannerList.backgroundColor = DateCell.CALENDAR_OFFWHITE
+            backgroundCircle.backgroundColor = DateCell.CALENDAR_OFFWHITE
         }
+        
+        eventBannerList.reloadData()
     }
     
     func isMarked() -> Bool{
-        return backgroundCircle.backgroundColor == AppDelegate.UCSD_YELLOW_ORANGE
+        return backgroundCircle.backgroundColor == DateCell.CALENDAR_SELECTED
     }
     
-    
-    
-    func showEvent(_ dce: DateCellEvent){
-        daysEvents.append(dce)
-    }
-    
-    func clearEvents(){
-        daysEvents.removeAll()
-    }
-    
-    func update(){
+    func update(_ newEvents: [Event], currentDate_o: Date){
+        self.daysEvents = newEvents
         eventBannerList.reloadData()
+        self.currentDate = currentDate_o
     }
     
     //table view methods
@@ -57,6 +56,9 @@ class DateCell: JTAppleCell, UITableViewDelegate, UITableViewDataSource  {
         let cell = tableView.dequeueReusableCell(withIdentifier: "eventbanner", for: indexPath) as! EventBanner
         cell.selectionStyle = .none
         cell.style()
+        cell.setMarked(isMarked())
+        cell.titleText.text = daysEvents[indexPath.row]._title
+        cell.timeText.text = daysEvents[indexPath.row].getShortTimeText(currentDate)
         return cell
     }
 }

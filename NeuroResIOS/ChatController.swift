@@ -21,6 +21,7 @@ class ChatController: JSQMessagesViewController{
     let BASE_URL = AppDelegate.BASE_URL
     let ERROR_ID = "-2"
     
+    static let OUTGOING_COLOR = AppDelegate.UCSD_MEDIUM_GREY
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
         let message = messages[indexPath.row]
@@ -77,7 +78,7 @@ class ChatController: JSQMessagesViewController{
         let message = messages[indexPath.row]
         
         if getName() == message.senderDisplayName {
-            return bubbleFactory?.outgoingMessagesBubbleImage(with: outgoingColor())
+            return bubbleFactory?.outgoingMessagesBubbleImage(with: ChatController.OUTGOING_COLOR)
         }else if message.senderId == ERROR_ID{
             return bubbleFactory?.incomingMessagesBubbleImage(with: errorColor())
         }else{
@@ -87,10 +88,6 @@ class ChatController: JSQMessagesViewController{
     
     func incomingColor() -> UIColor{
         return UIColor(0, 106, 150)
-    }
-    
-    func outgoingColor() -> UIColor{
-        return UIColor(182, 177, 169)
     }
     
     func errorColor() -> UIColor{
@@ -526,13 +523,11 @@ class ChatController: JSQMessagesViewController{
         }
     }
     
-    func convertFromJSONDate(_ date_s: String ) -> Date{
+    static func convertFromJSONDate(_ date_s: String ) -> Date{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'.000Z'"
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
         return dateFormatter.date(from : date_s)!
-        
-        //return getTimeString(date!)
     }
     
     static func CacheConvo(_ convID_s: String, _ stringEncoding: String){
@@ -563,7 +558,7 @@ class ChatController: JSQMessagesViewController{
             let userIdInt = Int(userid!)!
             let date_s = json["date"].string
             
-            let dateShow = self.convertFromJSONDate(date_s!)
+            let dateShow = ChatController.convertFromJSONDate(date_s!)
             array.append((userIdInt, text!, dateShow))
         }
         
@@ -695,7 +690,7 @@ class ChatController: JSQMessagesViewController{
             return 0
         }
         
-        return convID as! Int!
+        return (convID as! Int?)!
     }
     
     func setUnread(){

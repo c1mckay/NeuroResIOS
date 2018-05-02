@@ -8,6 +8,7 @@
 
 import UIKit
 import JTAppleCalendar
+import SwiftyJSON
 
 class DateController: UIViewController, JTAppleCalendarViewDataSource, JTAppleCalendarViewDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -18,6 +19,8 @@ class DateController: UIViewController, JTAppleCalendarViewDataSource, JTAppleCa
     @IBOutlet weak var eventTable: UITableView!
     
     let formatter = DateFormatter()
+    
+    var events = [Event]()
     
     
     override func viewDidLoad() {
@@ -44,11 +47,17 @@ class DateController: UIViewController, JTAppleCalendarViewDataSource, JTAppleCa
         calendarView.minimumLineSpacing = 0
         calendarView.minimumInteritemSpacing = 0
         
-        calendarView.selectDates([ Date() ])
-        calendarView.scrollToDate( Date(), animateScroll: false)
-        
         calendarView.visibleDates { visibleDates in
             self.setupViewsOfCalendar(visibleDates)
+        }
+        
+        DateController.getEvents { (events_ret: [Event]) in
+            self.events = events_ret
+            self.calendarView.reloadData()
+            self.eventTable.reloadData()
+            
+            self.calendarView.selectDates([ Date() ])
+            self.calendarView.scrollToDate( Date(), animateScroll: false)
         }
     }
     
@@ -84,30 +93,33 @@ class DateController: UIViewController, JTAppleCalendarViewDataSource, JTAppleCa
         
         let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
         let myComponents = myCalendar.components(.day, from: cellState.date)
-        cell.clearEvents()
         if(myComponents.day! > 0){
-            for i in 0 ... (2 * (myComponents.day! % 3)){
-                cell.showEvent(DateCellEvent("NeuroResMeeting" + String(i), "8:00", "9:00"))
-            }
-            cell.update()
+            cell.update(filterEvents(cellState.date), currentDate_o: date)
         }
         
         return cell
+    }
+    
+    func filterEvents(_ selectedDate: Date) -> [Event]{
+        var ret = [Event]()
+        
+        for e in self.events{
+            if(e.contains(selectedDate)){
+                ret.append(e)
+            }
+        }
+        return ret
     }
     
     func handleCellSelected(_ cellState: CellState, _ cell : JTAppleCell?){
         guard let validCell = cell as? DateCell else {return}
         
         validCell.setMarked(validCell.isSelected, cellState)
+        self.eventTable.reloadData()
     }
     
     static func isToday(_ cellState: CellState) -> Bool{
-        let formatter = DateFormatter()
-        formatter.dateFormat="yyyyMMdd"
-        
-        let todaysDateStr = formatter.string(from: Date())
-        let cellDateStr = formatter.string(from: cellState.date)
-        return todaysDateStr == cellDateStr
+        return DateController.isSameDay(Date(), cellState.date)
     }
     
     func handleCellTextColor(_ cellState: CellState, _ cell: JTAppleCell?){
@@ -115,7 +127,6 @@ class DateController: UIViewController, JTAppleCalendarViewDataSource, JTAppleCa
         
         if(!validCell.isMarked() && DateController.isToday(cellState)){
             validCell.dateLabel.textColor = UIColor.black
-            //validCell.hideEvents()
         }else{
             if(validCell.isMarked()){
                 validCell.dateLabel.textColor = UIColor.black
@@ -161,21 +172,118 @@ class DateController: UIViewController, JTAppleCalendarViewDataSource, JTAppleCa
     
     func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {}
     
+    func getSelectedEvents() -> [Event]{
+        if(self.calendarView.selectedDates.count == 0){
+            return [Event]()
+        }
+        return filterEvents(self.calendarView.selectedDates[0])
+        
+    }
+    
+    static func isSameDay(_ date1: Date, _ date2: Date) -> Bool{
+        let formatter = DateFormatter()
+        formatter.dateFormat="yyyyMMdd"
+        
+        let todaysDateStr = formatter.string(from: date1)
+        let cellDateStr = formatter.string(from: date2)
+        return todaysDateStr == cellDateStr
+    }
+    
     //table view methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return getSelectedEvents().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell", for: indexPath) as! EventCell
+        let selectedEvent = getSelectedEvents()[indexPath.row]
         cell.selectionStyle = .none
+        cell.title.text     = selectedEvent._title
+        cell.location.text  = selectedEvent._location
+        cell.subtitle.text  = selectedEvent.getDescription()
+        cell.time.text      = selectedEvent.getLongTimeText()
         return cell
+    }
+    
+    static func getEvents(completion: @escaping (_: [Event]) -> Void ) {
+        
+        var events:[Event] = []
+        
+        let userGroup = DispatchGroup()
+        var request = URLRequest(url: URL(string: AppDelegate.BASE_URL + "get_events")!)
+        request.httpMethod = "POST"
+        request.addValue(SlideMenuController.getToken(), forHTTPHeaderField: "auth")
+        userGroup.enter()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print("error=\(String(describing: error))")
+                userGroup.leave()
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                print("statusCode should be 200, but is \(httpStatus.statusCode) in getting users")
+                print("response = \(String(describing: response))")
+                userGroup.leave()
+                return
+            }
+            
+            
+            let parsedData = ChatController.dataToJSON(data)
+            CacheCalendar(parsedData.rawString()!)
+            
+            events = parseJSONToEvents(parsedData)
+            
+            userGroup.leave()
+        }
+        task.resume()
+        userGroup.wait()
+        DispatchQueue.main.async {
+            if events.isEmpty{
+                events = LoadCalendarCache()
+            }
+            completion(events)
+        }
+    }
+    
+    static func parseJSONToEvents(_ parsedData: JSON) -> [Event]{
+        var array = [Event]()
+        
+        for json in parsedData.array! {
+            let title = json["title"].string!
+            let startDate_s:String = json["start"].string!
+            let startDate:Date = ChatController.convertFromJSONDate(startDate_s)
+            let endDate_s:String? = json["end"].string
+            var endDate:Date? = nil
+            if(endDate_s != nil){
+                endDate = ChatController.convertFromJSONDate(endDate_s!)
+            }
+            let location = json["location"].string
+            let description = json["description"].string
+            
+            array.append(Event(title, startDate, endDate, location, description))
+        }
+        
+        return array
+    }
+    
+    static func LoadCalendarCache() -> [Event]{
+        let calCacheString = UserDefaults.standard.value(forKey: AppDelegate.CACHE_CALENDAR)! as! String;
+        let parsedJson = JSON.init(parseJSON: calCacheString)
+        
+        return DateController.parseJSONToEvents(parsedJson)
+    }
+    
+    static func CacheCalendar(_ stringEncoding: String){
+        UserDefaults.standard.set(stringEncoding, forKey: AppDelegate.CACHE_CALENDAR)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
 
 }
 

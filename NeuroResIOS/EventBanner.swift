@@ -11,6 +11,9 @@ import UIKit
 class EventBanner: UITableViewCell {
 
     @IBOutlet weak var bannerBackground: UIView!
+    @IBOutlet weak var bannerBackground2: UIView!
+    @IBOutlet weak var titleText: UILabel!
+    @IBOutlet weak var timeText: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,6 +24,10 @@ class EventBanner: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func setMarked(_ isMarked: Bool){
+
     }
     
     func style(){

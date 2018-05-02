@@ -10,6 +10,9 @@ import UIKit
 
 class EventCell: UITableViewCell {
 
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var time: UILabel!
+    @IBOutlet weak var location: UILabel!
     @IBOutlet weak var subtitle: UILabel!
     
     override func awakeFromNib() {

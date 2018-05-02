@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate{
     static let CACHE_USERS_LIST     = "USERS_LIST"
     static let CACHE_CONV           = "CONV"
     static let CACHE_CONV_PHONEBOOK = "PHONEBOOK"
+    static let CACHE_CALENDAR       = "CAL"
     
     
     var window: UIWindow?
@@ -34,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate{
     static let UCSD_LIGHT_BLUE = AppDelegate.uicolorFromHex(rgbValue: 0x006A96)
     static let UCSD_TEAL = AppDelegate.uicolorFromHex(rgbValue: 0x00C6D7)
     static let UCSD_LIGHT_GREY = AppDelegate.uicolorFromHex(rgbValue: 0xB6B1A9)
+    static let UCSD_MEDIUM_GREY = AppDelegate.uicolorFromHex(rgbValue: 0x747678)
     static let OFFWHITE = AppDelegate.uicolorFromHex(rgbValue: 0xF5F5F5)
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
