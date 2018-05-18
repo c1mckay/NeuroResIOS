@@ -42,7 +42,22 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     *   Menu button which was tapped to display the menu
     */
     var btnMenu: UIButton!
+    @IBOutlet weak var zoomButton: UIButton!
     
+    @IBAction func zoomClicked(_ sender: Any) {
+        //var instagramHooks = "zoom://user?username=johndoe"
+        //var instagramUrl = URL(string: instagramHooks)
+        /*if UIApplication.shared.canOpenURL(instagramUrl! as URL)
+        {
+            UIApplication.shared.openURL(instagramUrl! as URL)
+            
+        } else {
+            //redirect to safari because the user doesn't have Instagram
+            
+        }*/
+        //https://stackoverflow.com/questions/33932303/swift-how-to-open-a-new-app-when-uibutton-is-tapped
+        UIApplication.shared.openURL(URL(string: "https://uchealth.zoom.us/j/3329671357")!)
+    }
     @IBOutlet weak var usernameLabel: UILabel!
     /**
     *   Delegate of the MenuVC
@@ -99,8 +114,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             SlideMenuController.CacheUsers(parsedData.rawString()!)
             
             (users, emailToId, staff) = parseJSONToInfo(parsedData)
-                
-            
            
             userGroup.leave()
         }

@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/SlideMenuController.swift"
-            timestampString = "546907572.431039"
+            timestampString = "548296199.611613"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "548"
-            endingLineNumber = "548"
+            startingLineNumber = "561"
+            endingLineNumber = "561"
             landmarkName = "moreCell(indexPath:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -553,69 +553,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NeuroResIOS/SlideMenuController.swift"
-            timestampString = "546907572.432547"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "getUsers(token:myName:completion:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static NeuroResIOS.SlideMenuController.getUsers(token: Swift.String, myName: Swift.String, completion: (Swift.Array&lt;Swift.String&gt;, Swift.Dictionary&lt;Swift.String, Swift.Int&gt;, Swift.Dictionary&lt;Swift.String, Swift.Array&lt;Swift.String&gt;&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "NeuroResIOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/SlideMenuController.swift"
-                  timestampString = "538977996.12862"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
-                  offsetFromSymbolStart = "176">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__ObjC.URLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in static NeuroResIOS.SlideMenuController.getUsers(token: Swift.String, myName: Swift.String, completion: (Swift.Array&lt;Swift.String&gt;, Swift.Dictionary&lt;Swift.String, Swift.Int&gt;, Swift.Dictionary&lt;Swift.String, Swift.Array&lt;Swift.String&gt;&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "NeuroResIOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/SlideMenuController.swift"
-                  timestampString = "538977996.130523"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
-                  offsetFromSymbolStart = "48">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 () -&gt; () in static NeuroResIOS.SlideMenuController.getUsers(token: Swift.String, myName: Swift.String, completion: (Swift.Array&lt;Swift.String&gt;, Swift.Dictionary&lt;Swift.String, Swift.Int&gt;, Swift.Dictionary&lt;Swift.String, Swift.Array&lt;Swift.String&gt;&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "NeuroResIOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/SlideMenuController.swift"
-                  timestampString = "538977996.1337169"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
             timestampString = "546969430.500268"
             startingColumnNumber = "9223372036854775807"
@@ -808,11 +745,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/SlideMenuController.swift"
-            timestampString = "546907572.433473"
+            timestampString = "548296199.6129071"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "787"
-            endingLineNumber = "787"
+            startingLineNumber = "800"
+            endingLineNumber = "800"
             landmarkName = "getDirectUserName(indexPath:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -824,11 +761,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/SlideMenuController.swift"
-            timestampString = "546907572.433817"
+            timestampString = "548296199.614024"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "731"
-            endingLineNumber = "731"
+            startingLineNumber = "744"
+            endingLineNumber = "744"
             landmarkName = "scrollToBottom()"
             landmarkType = "7">
          </BreakpointContent>
@@ -840,11 +777,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/SlideMenuController.swift"
-            timestampString = "546907572.434155"
+            timestampString = "548296199.614898"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "688"
-            endingLineNumber = "688"
+            startingLineNumber = "701"
+            endingLineNumber = "701"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
