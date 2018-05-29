@@ -30,7 +30,7 @@ class ChatController: JSQMessagesViewController{
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
-        if(indexPath.row == 0){
+        if(indexPath.row == 0 || messages.count <= indexPath.row){
             return 20
         }
         let prevID = messages[indexPath.row - 1].senderId
@@ -65,7 +65,7 @@ class ChatController: JSQMessagesViewController{
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
-        if(messages.count < indexPath.row || indexPath.row < 0){
+        if(messages.count <= indexPath.row || indexPath.row < 0){
             return nil
         }
         return messages[indexPath.row]
@@ -74,6 +74,10 @@ class ChatController: JSQMessagesViewController{
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource!{
         let bubbleFactory = JSQMessagesBubbleImageFactory()
+        
+        if(messages.count <= indexPath.row){
+            return bubbleFactory?.outgoingMessagesBubbleImage(with: ChatController.OUTGOING_COLOR)
+        }
         
         let message = messages[indexPath.row]
         
