@@ -154,6 +154,9 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             users.append(name!)
             emailToId[name!] = (id! as Int)
             let userType = json?["user_type"].string
+            if(userType == nil){
+                continue //probably a dev user, and i don't want to display this
+            }
             if staff[userType!] != nil {
                 staff[userType!]!.append(name!)
             }
