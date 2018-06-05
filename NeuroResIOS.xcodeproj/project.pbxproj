@@ -26,6 +26,8 @@
 		F68439BC1E5F92C90027802C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F68439BA1E5F92C90027802C /* LaunchScreen.storyboard */; };
 		F68439C71E5F92C90027802C /* NeuroResIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68439C61E5F92C90027802C /* NeuroResIOSTests.swift */; };
 		F6AD37711F293FF300786F5C /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6AD37701F293FF300786F5C /* SwiftyJSON.framework */; };
+		F6B8EBE620BE069F00D81379 /* ClinicPDFController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B8EBE520BE069F00D81379 /* ClinicPDFController.swift */; };
+		F6B8EBE820BE09D800D81379 /* clinicsessions.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F6B8EBE720BE09D800D81379 /* clinicsessions.pdf */; };
 		F6E309321E64D527007EE749 /* ChatTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E309311E64D527007EE749 /* ChatTableCell.swift */; };
 		F6E309341E67B1CB007EE749 /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E309331E67B1CB007EE749 /* SlideMenuController.swift */; };
 		F6F7DE3C1E67CD6700F79E6D /* ChatDescripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7DE3B1E67CD6700F79E6D /* ChatDescripCell.swift */; };
@@ -77,6 +79,8 @@
 		F68439C61E5F92C90027802C /* NeuroResIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuroResIOSTests.swift; sourceTree = "<group>"; };
 		F68439C81E5F92C90027802C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6AD37701F293FF300786F5C /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../Library/Developer/Xcode/DerivedData/NeuroResIOS-aqybawcqrqvwmzfdekxgcqjzxaol/Build/Products/Debug-iphonesimulator/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
+		F6B8EBE520BE069F00D81379 /* ClinicPDFController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicPDFController.swift; sourceTree = "<group>"; };
+		F6B8EBE720BE09D800D81379 /* clinicsessions.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = clinicsessions.pdf; sourceTree = "<group>"; };
 		F6B948CF2023E86800704B53 /* NeuroResIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NeuroResIOS.entitlements; sourceTree = "<group>"; };
 		F6E309311E64D527007EE749 /* ChatTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatTableCell.swift; path = ../ChatTableCell.swift; sourceTree = "<group>"; };
 		F6E309331E67B1CB007EE749 /* SlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuController.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 			children = (
 				F60EC96B20463401006EB7AA /* GoogleService-Info.plist */,
 				F648B91D1F4FEB0000D4EA8A /* reshandbook.pdf */,
+				F6B8EBE720BE09D800D81379 /* clinicsessions.pdf */,
 				F68439AE1E5F92C90027802C /* NeuroResIOS */,
 				F68439C51E5F92C90027802C /* NeuroResIOSTests */,
 				F68439AD1E5F92C90027802C /* Products */,
@@ -170,6 +175,7 @@
 				F68439B31E5F92C90027802C /* ChatController.swift */,
 				F6E309311E64D527007EE749 /* ChatTableCell.swift */,
 				F648B91B1F4FDBA800D4EA8A /* PDFController.swift */,
+				F6B8EBE520BE069F00D81379 /* ClinicPDFController.swift */,
 				F6FA9C701EC0E49300939202 /* SwiftWebSocket.h */,
 				F6FA9C6E1EC0E32500939202 /* WebSocket.swift */,
 				F6622D4F206D7D6E007C8D7E /* EventBanner.swift */,
@@ -318,6 +324,7 @@
 				F60EC96C2046340A006EB7AA /* GoogleService-Info.plist in Resources */,
 				F68439BC1E5F92C90027802C /* LaunchScreen.storyboard in Resources */,
 				F68439B91E5F92C90027802C /* Assets.xcassets in Resources */,
+				F6B8EBE820BE09D800D81379 /* clinicsessions.pdf in Resources */,
 				F68439B71E5F92C90027802C /* Main.storyboard in Resources */,
 				F648B91E1F4FEB0000D4EA8A /* reshandbook.pdf in Resources */,
 			);
@@ -459,6 +466,7 @@
 				F68439B41E5F92C90027802C /* ChatController.swift in Sources */,
 				F648B91C1F4FDBA800D4EA8A /* PDFController.swift in Sources */,
 				F6F7DE481E6CAC1700F79E6D /* ChatHeaderCell.swift in Sources */,
+				F6B8EBE620BE069F00D81379 /* ClinicPDFController.swift in Sources */,
 				F68439B01E5F92C90027802C /* AppDelegate.swift in Sources */,
 				F6F7DE541E736DE900F79E6D /* StaffNameDescripCell.swift in Sources */,
 				F6F7DE3C1E67CD6700F79E6D /* ChatDescripCell.swift in Sources */,
@@ -563,7 +571,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -615,7 +623,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
