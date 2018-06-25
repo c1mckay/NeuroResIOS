@@ -14,12 +14,13 @@ import Foundation
 
 
 
-class ChatController: JSQMessagesViewController{
+class ChatController: JSQMessagesViewController, WebSocketResponder{
     
     static let MAX_CHARACTERS = 375
     
     let BASE_URL = AppDelegate.BASE_URL
     let ERROR_ID = "-2"
+    
     
     static let OUTGOING_COLOR = AppDelegate.UCSD_MEDIUM_GREY
     
@@ -43,6 +44,8 @@ class ChatController: JSQMessagesViewController{
         }
         
     }
+    
+    var ws = WebSocket(AppDelegate.SOCKET_URL)
     
     override func textViewDidChange(_ textView: UITextView) {
         super.textViewDidChange(textView)
@@ -129,9 +132,6 @@ class ChatController: JSQMessagesViewController{
     var convID = Int() // Conversation Data - ID
     var convUsers = Int() // Conversation Data - UserID
     var messages = [JSQMessage]() // contains messages
-    
-    var ws = WebSocket(AppDelegate.SOCKET_URL)
-    
     
     override func viewDidLoad() {
         self.senderId = "0"
@@ -514,7 +514,7 @@ class ChatController: JSQMessagesViewController{
             
             
             for (userID, text, date) in array{
-                self.pushMessage(userID, text, date)
+                self.pushMessage(userID, text, date, false)
             }
             
             if hadMessage{
@@ -585,7 +585,7 @@ class ChatController: JSQMessagesViewController{
         }
     }
     
-    func pushMessage(_ userIdInt: Int, _ text: String, _ date: Date){
+    func pushMessage(_ userIdInt: Int, _ text: String, _ date: Date, _ pushToBottom: Bool){
         let userIdString = String(describing: userIdInt)
         let displayName = self.getUserName(id: userIdInt)
 
@@ -597,6 +597,11 @@ class ChatController: JSQMessagesViewController{
         }*/
         let jqMessage = JSQMessage(senderId: userIdString, displayName: displayName, text: text)
         self.messages.append(jqMessage!)
+        
+        if(pushToBottom){
+            self.collectionView.reloadData()
+            self.scrollToBottom(animated: true)
+        }
         
     }
     
@@ -668,7 +673,9 @@ class ChatController: JSQMessagesViewController{
             }
             self.getMessages(String(self.convID))
             self.setUnread()
-            self.connectSocket()
+            self.ws.close()
+            self.ws = WebSocket(AppDelegate.SOCKET_URL)
+            connectSocket(ws, self)
         }
     }
     
@@ -742,56 +749,20 @@ class ChatController: JSQMessagesViewController{
     func sendGreeting(){
         let dict: [String : Any] = ["greeting": self.getToken()]
         let dictAsString = self.asString(jsonDictionary: dict)
-        self.ws.send(dictAsString)
+        self.send(dictAsString)
     }
     
-    func connectSocket(){
-        ws.close()
-        ws = WebSocket(AppDelegate.SOCKET_URL)
-        ws.event.open = sendGreeting
-        ws.event.close = { code, reason, clean in
-            print("socket close")
-            print(reason)
-            print(code)
-        }
-        ws.event.error = { error in
-            print("whoa, error in websocket")
-            print("error \(error)")
-        }
-        ws.event.message = { myString in
-            let json = JSON.init(parseJSON : myString as! String)
-            if (json["userStatusUpdate"].exists()){
-                if(json["activeUsers"].exists()){
-                    self.saveUsers(json: json);
-                }
-                if(json["onlineUser"].exists()){
-                    self.addOnlineUser(json: json);
-                }
-                if(json["offlineUser"].exists()){
-                    self.removeOnlineUser(json: json);
-                }
-            }else if(json["wipeThread"].exists()){
-                //to test
-                self.messages = []
-                ChatController.CacheConvo(String(json["convID"].int!), "[]")
-            }else{
-                if json["conv_id"].int != self.convID{
-                    return
-                }
-                let userIdInt = json["from"].int
-                //let userIdString = json["from"}.]
-                let mText = json["text"].string
-                
-                let date = Date()
-
-                self.updateCache(userIdInt!, mText!, date)
-                
-                self.pushMessage(userIdInt!, mText!, date)
-                self.collectionView.reloadData()
-                self.scrollToBottom(animated: true)
-            }
-        }
+    func send(_ packet: String){
+        self.ws.send(packet)
     }
+    
+    func wipeThread(_ thread : Int){
+        self.messages = []
+        ChatController.CacheConvo(String(thread), "[]")
+    }
+    
+    
+    
     
     func updateCache(_ userIdInt : Int, _ text : String, _ date: Date){
         
