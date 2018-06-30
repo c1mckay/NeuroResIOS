@@ -25,23 +25,9 @@ class NeuroWebController: UIViewController, WKNavigationDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(AppDelegate.BASE_URL + "token/tokenGenerator.php")
-        //let myURL = URL(string: "https://a5.ucsd.edu/tritON/profile/SAML2/Redirect/SSO?execution=e1s1")
         let myURL = URL(string: AppDelegate.BASE_URL + "token/tokenGenerator.php")
-        //let myURL = URL(string: "https://www.google.com")
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
-    }
-    
-    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-        print("did receive server redirect")
-        var x = 4
-        x = x + 3
-        print(x)
-    }
-    
-    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        print("did commit")
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

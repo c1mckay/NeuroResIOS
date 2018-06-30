@@ -13,7 +13,6 @@
 		F619407C20643C1C00472FFB /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F619407B20643C1C00472FFB /* DateController.swift */; };
 		F619407E2064413C00472FFB /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F619407D2064413C00472FFB /* DateCell.swift */; };
 		F61D2B8C20977E4700E3E164 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61D2B8B20977E4700E3E164 /* Event.swift */; };
-		F62C774320E198F2004E7A6B /* WebsocketResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62C774220E198F2004E7A6B /* WebsocketResponder.swift */; };
 		F634DC7B20699F2E00217350 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F634DC7A20699F2E00217350 /* EventCell.swift */; };
 		F648B91C1F4FDBA800D4EA8A /* PDFController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F648B91B1F4FDBA800D4EA8A /* PDFController.swift */; };
 		F648B91E1F4FEB0000D4EA8A /* reshandbook.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F648B91D1F4FEB0000D4EA8A /* reshandbook.pdf */; };
@@ -63,7 +62,6 @@
 		F619407B20643C1C00472FFB /* DateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateController.swift; sourceTree = "<group>"; };
 		F619407D2064413C00472FFB /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		F61D2B8B20977E4700E3E164 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		F62C774220E198F2004E7A6B /* WebsocketResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsocketResponder.swift; sourceTree = "<group>"; };
 		F634DC7A20699F2E00217350 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		F648B91B1F4FDBA800D4EA8A /* PDFController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFController.swift; sourceTree = "<group>"; };
 		F648B91D1F4FEB0000D4EA8A /* reshandbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = reshandbook.pdf; sourceTree = "<group>"; };
@@ -135,14 +133,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		F62C774420E1A9EE004E7A6B /* WebSocketResponders */ = {
-			isa = PBXGroup;
-			children = (
-				F62C774220E198F2004E7A6B /* WebsocketResponder.swift */,
-			);
-			path = WebSocketResponders;
-			sourceTree = "<group>";
-		};
 		F68439A31E5F92C90027802C = {
 			isa = PBXGroup;
 			children = (
@@ -169,7 +159,6 @@
 		F68439AE1E5F92C90027802C /* NeuroResIOS */ = {
 			isa = PBXGroup;
 			children = (
-				F62C774420E1A9EE004E7A6B /* WebSocketResponders */,
 				F6B948CF2023E86800704B53 /* NeuroResIOS.entitlements */,
 				F6F7DE421E69005500F79E6D /* SWRevealViewController */,
 				F68439AF1E5F92C90027802C /* AppDelegate.swift */,
@@ -475,7 +464,6 @@
 				F619407C20643C1C00472FFB /* DateController.swift in Sources */,
 				F6F7DE4C1E6D204600F79E6D /* MoreDescripCell.swift in Sources */,
 				F68439B41E5F92C90027802C /* ChatController.swift in Sources */,
-				F62C774320E198F2004E7A6B /* WebsocketResponder.swift in Sources */,
 				F648B91C1F4FDBA800D4EA8A /* PDFController.swift in Sources */,
 				F6F7DE481E6CAC1700F79E6D /* ChatHeaderCell.swift in Sources */,
 				F6B8EBE620BE069F00D81379 /* ClinicPDFController.swift in Sources */,

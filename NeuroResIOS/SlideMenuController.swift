@@ -16,7 +16,7 @@ protocol SlideMenuDelegate{
     func slideMenuItemSelectedAtIndex(_ index: Int32)
 }
 
-class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDataSource, WebSocketResponder{
+class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     let BASE_URL = AppDelegate.BASE_URL
     
@@ -282,7 +282,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                     self.unreadCount[email] = unread_count
                 }
                 self.userTableView.reloadData()
-                //self.connectSocket()
             }
 
         }
@@ -375,7 +374,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             usersList.dataSource = self
         }
         configured = true
-        connectSocket()
     }
     
     //MARK: UITableViewDelegate and Datasource Methods
@@ -843,58 +841,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         return !onlineUsers.contains(user_id_i)
     }
     
-    var ws = WebSocket(AppDelegate.SOCKET_URL)
     
-    func assignWebSocket() {
-        ws.close();
-        ws = WebSocket(AppDelegate.SOCKET_URL);
-    }
     
-    func addOnlineUser(json: JSON) {
-        /*
-         In this section, you don't need to use UserDefaults(aka shared memory).  You can take out this code, look at isOffline for the implementation, and do the following:
-        -Add a variable that is a list of integers
-         -whenever an online user is added, update that list, and call reload data
-         */
-        let offline = String(describing: json["onlineUser"].int! as Int)
-        var onlineUsers = (UserDefaults.standard.array(forKey: "onlineUsers")!).map { $0 as! String }
-        onlineUsers.append(offline)
-        
-        let defaults = UserDefaults.standard
-        defaults.set(onlineUsers, forKey: "onlineUsers")
-        
-        self.usersList.reloadData()
-    }
-    
-    func removeOnlineUser(json: JSON) {
-        let offline = String(describing: json["offlineUser"].int! as Int)
-        var onlineUsers = (UserDefaults.standard.array(forKey: "onlineUsers")!).map { $0 as! String }
-        onlineUsers = onlineUsers.filter(){$0 != offline}
-        
-        let defaults = UserDefaults.standard
-        defaults.set(onlineUsers, forKey: "onlineUsers")
-        
-        
-        self.usersList.reloadData()
-    }
-    
-    func wipeThread(_ thread: Int) {
-    
-    }
-    
-    func updateCache(_ userID: Int, _ text: String, _ date: Date) {
-    
-    }
-    
-    func onMessageReceive(_ convID: Int, _ userID: Int, _ text: String, _ date: Date, _ pushDown: Bool) {
-        
-    }
-    
-    func getMessages(_ convID: String) {
-        
-    }
-    
-    func send(_ packet: String) {
-        
-    }
 }
