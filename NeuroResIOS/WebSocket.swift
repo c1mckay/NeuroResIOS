@@ -1490,6 +1490,7 @@ private class InnerWebSocket: Hashable {
         try write(payloadBytes, length: payloadBytes.count)
     }
     func close(_ code : Int = 1000, reason : String = "Normal Closure") {
+        print("socket closed on the client side")
         let f = Frame()
         f.code = .close
         f.statusCode = UInt16(truncatingIfNeeded: code)

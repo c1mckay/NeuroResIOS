@@ -16,6 +16,8 @@ import Foundation
 
 class ChatController: JSQMessagesViewController, WebSocketResponder{
     
+    
+    
     static let MAX_CHARACTERS = 375
     
     let BASE_URL = AppDelegate.BASE_URL
@@ -31,6 +33,7 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
+        
         if(indexPath.row == 0 || messages.count <= indexPath.row){
             return 20
         }
@@ -113,7 +116,7 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
             return
         }
         let testMessage: [String : Any] = ["text": text, "conv_id" : self.convID]
-        let testMessageString = self.asString(jsonDictionary: testMessage)
+        let testMessageString = ChatController.asString(jsonDictionary: testMessage)
         self.ws.send(testMessageString)
         self.finishSendingMessage()
     }
@@ -190,7 +193,6 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
         
         //Register for the applicationWillResignActive anywhere in your app.
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.applicationWillResignActive(notification:)), name: NSNotification.Name.UIApplicationWillResignActive, object: app)
-        loadMessagesAndConnect()
         
         let nc = NotificationCenter.default // Note that default is now a property, not a method call
         nc.addObserver(self, selector: #selector(self.applicationWillResignActive), name:Notification.Name("MY_NAME_NOTIFICATION"), object: nil)
@@ -200,6 +202,11 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
     
     @objc func applicationWillResignActive(notification: NSNotification) {
         loadMessagesAndConnect()
+    }
+    
+    func assignWebSocket() {
+        ws.close();
+        ws = WebSocket(AppDelegate.SOCKET_URL);
     }
     
     func loadMessagesAndConnect(){
@@ -417,7 +424,7 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
     }
     
     @IBAction func sendMessage(_ sender: Any) {
-
+        
         
         
         messageInput.text = ""
@@ -454,8 +461,12 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
         view.endEditing(true)
     }
     
-    func getToken() -> String{
+    static func getToken() -> String{
         return UserDefaults.standard.string(forKey: "user_auth_token")!
+    }
+    
+    func getToken() -> String{
+        return ChatController.getToken()
     }
     
     func getName() -> String{
@@ -514,7 +525,7 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
             
             
             for (userID, text, date) in array{
-                self.pushMessage(userID, text, date, false)
+                self.onMessageReceive(self.convID, userID, text, date, false)
             }
             
             if hadMessage{
@@ -576,7 +587,7 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
         return dateFormatter.string(from: date)
     }
     
-    func asString(jsonDictionary: [String : Any]) -> String {
+    static func asString(jsonDictionary: [String : Any]) -> String {
         do {
             let data = try JSONSerialization.data(withJSONObject: jsonDictionary, options: .prettyPrinted)
             return String(data: data, encoding: String.Encoding.utf8) ?? ""
@@ -585,7 +596,11 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
         }
     }
     
-    func pushMessage(_ userIdInt: Int, _ text: String, _ date: Date, _ pushToBottom: Bool){
+    func onMessageReceive(_ convID : Int,_ userIdInt: Int, _ text: String, _ date: Date, _ pushToBottom: Bool){
+        if convID != self.convID{
+            return
+        }
+        
         let userIdString = String(describing: userIdInt)
         let displayName = self.getUserName(id: userIdInt)
 
@@ -673,9 +688,7 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
             }
             self.getMessages(String(self.convID))
             self.setUnread()
-            self.ws.close()
-            self.ws = WebSocket(AppDelegate.SOCKET_URL)
-            connectSocket(ws, self)
+            self.connectSocket()
         }
     }
     
@@ -746,11 +759,7 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
         return JSON.init(parseJSON: somedata)
     }
     
-    func sendGreeting(){
-        let dict: [String : Any] = ["greeting": self.getToken()]
-        let dictAsString = self.asString(jsonDictionary: dict)
-        self.send(dictAsString)
-    }
+    
     
     func send(_ packet: String){
         self.ws.send(packet)
@@ -784,28 +793,12 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
         
     }
     
-    func saveUsers(json : JSON){
-        let array = json["activeUsers"].arrayValue.map({$0.stringValue})
-        let defaults = UserDefaults.standard
-        defaults.set(array, forKey: "onlineUsers")
-    }
-    
     func removeOnlineUser(json : JSON){
-        let offline = String(describing: json["offlineUser"].int! as Int)
-        var onlineUsers = (UserDefaults.standard.array(forKey: "onlineUsers")!).map { $0 as! String }
-        onlineUsers = onlineUsers.filter(){$0 != offline}
         
-        let defaults = UserDefaults.standard
-        defaults.set(onlineUsers, forKey: "onlineUsers")
     }
     
     func addOnlineUser(json : JSON){
-        let offline = String(describing: json["onlineUser"].int! as Int)
-        var onlineUsers = (UserDefaults.standard.array(forKey: "onlineUsers")!).map { $0 as! String }
-        onlineUsers.append(offline)
         
-        let defaults = UserDefaults.standard
-        defaults.set(onlineUsers, forKey: "onlineUsers")
     }
     
 
