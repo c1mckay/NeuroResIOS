@@ -25,7 +25,7 @@ class NeuroWebController: UIViewController, WKNavigationDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let myURL = URL(string: AppDelegate.BASE_URL + "token/tokenGenerator.php")
+        let myURL = URL(string: "https://neurores.ucsd.edu/token/tokenGenerator.php")
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
     }
@@ -35,10 +35,10 @@ class NeuroWebController: UIViewController, WKNavigationDelegate{
             return
         }
         var url = webView.url?.absoluteString
-        if(url!.contains(AppDelegate.BASE_URL + "key/")){
-            url = url?.replacingOccurrences(of: AppDelegate.BASE_URL + "key/", with: "")
+        if(url!.contains("https://neurores.ucsd.edu/key/")){
+            url = url?.replacingOccurrences(of: "https://neurores.ucsd.edu/key/", with: "")
             getUserName(url!)
-        }else if(url!.contains(AppDelegate.BASE_URL + "token/unathorized")){
+        }else if(url!.contains("https://neurores.ucsd.edu/token/unathorized")){
             dismiss(animated: true, completion: nil)
         }
     }
