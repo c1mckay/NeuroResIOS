@@ -9,28 +9,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.498825"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "823"
-            endingLineNumber = "823"
-            landmarkName = "removeOnlineUser(json:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/SlideMenuController.swift"
-            timestampString = "548296199.611613"
+            timestampString = "552025337.550843"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "561"
-            endingLineNumber = "561"
+            startingLineNumber = "566"
+            endingLineNumber = "566"
             landmarkName = "moreCell(indexPath:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499004"
+            timestampString = "552025337.551496"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,43 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499078"
+            timestampString = "552025337.551963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "778"
-            endingLineNumber = "778"
-            landmarkName = "connectSocket()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499133"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "762"
-            endingLineNumber = "762"
-            landmarkName = "connectSocket()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499182"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "473"
-            endingLineNumber = "473"
+            startingLineNumber = "488"
+            endingLineNumber = "488"
             landmarkName = "getMessages(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.49923"
+            timestampString = "552025337.552242"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "482"
-            endingLineNumber = "482"
+            startingLineNumber = "497"
+            endingLineNumber = "497"
             landmarkName = "getMessages(_:)"
             landmarkType = "7">
             <Locations>
@@ -218,13 +170,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499279"
+            timestampString = "552025337.552505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "750"
-            endingLineNumber = "750"
-            landmarkName = "connectSocket()"
-            landmarkType = "7">
+            startingLineNumber = "773"
+            endingLineNumber = "773"
+            landmarkName = "ChatController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -234,27 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499323"
+            timestampString = "552025337.552785"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "825"
-            endingLineNumber = "825"
-            landmarkName = "removeOnlineUser(json:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499367"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -266,27 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499413"
+            timestampString = "552025337.553035"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "606"
-            endingLineNumber = "606"
-            landmarkName = "startConversation(info:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499457"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
             landmarkName = "loadMessagesAndConnect()"
             landmarkType = "7">
          </BreakpointContent>
@@ -298,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499503"
+            timestampString = "552025337.55328"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -314,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499606"
+            timestampString = "552025337.553528"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -330,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499673"
+            timestampString = "552025337.553779"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "502"
-            endingLineNumber = "502"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
             landmarkName = "getMessages(_:)"
             landmarkType = "7">
             <Locations>
@@ -378,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499723"
+            timestampString = "552025337.554032"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "521"
-            endingLineNumber = "521"
+            startingLineNumber = "536"
+            endingLineNumber = "536"
             landmarkName = "getMessages(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -394,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499768"
+            timestampString = "552025337.554288"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "689"
-            endingLineNumber = "689"
+            startingLineNumber = "713"
+            endingLineNumber = "713"
             landmarkName = "loadConvIDCache(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -410,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.49982"
+            timestampString = "552025337.554552"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "661"
-            endingLineNumber = "661"
+            startingLineNumber = "685"
+            endingLineNumber = "685"
             landmarkName = "startConversation(info:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -426,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499863"
+            timestampString = "552025337.554812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "674"
-            endingLineNumber = "674"
+            startingLineNumber = "698"
+            endingLineNumber = "698"
             landmarkName = "saveConvIDCache(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -442,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.499907"
+            timestampString = "552025337.5550801"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "507"
-            endingLineNumber = "507"
+            startingLineNumber = "522"
+            endingLineNumber = "522"
             landmarkName = "getMessages(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -454,15 +374,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/NeuroWebController.swift"
-            timestampString = "541472160.247333"
+            timestampString = "552025337.555339"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "getUserName(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -474,11 +394,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.49998"
+            timestampString = "552025337.555393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "493"
-            endingLineNumber = "493"
+            startingLineNumber = "508"
+            endingLineNumber = "508"
             landmarkName = "getMessages(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -490,7 +410,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/LoginController.swift"
-            timestampString = "541563215.446959"
+            timestampString = "552019530.3236901"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "28"
@@ -502,15 +422,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/NeuroWebController.swift"
-            timestampString = "541472160.2474329"
+            timestampString = "552025337.555663"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "getUserName(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -522,12 +442,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.500109"
+            timestampString = "552025337.555716"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "586"
-            endingLineNumber = "586"
-            landmarkName = "pushMessage(_:_:_:)"
+            startingLineNumber = "605"
+            endingLineNumber = "605"
+            landmarkName = "onMessageReceive(_:_:_:_:_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -538,29 +458,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.500162"
+            timestampString = "552025337.55597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "747"
-            endingLineNumber = "747"
-            landmarkName = "connectSocket()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.500268"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "742"
-            endingLineNumber = "742"
-            landmarkName = "sendGreeting()"
-            landmarkType = "7">
+            startingLineNumber = "773"
+            endingLineNumber = "773"
+            landmarkName = "ChatController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -570,7 +474,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/AppDelegate.swift"
-            timestampString = "546969430.5003361"
+            timestampString = "552025337.556235"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "113"
@@ -586,7 +490,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/AppDelegate.swift"
-            timestampString = "546969430.500419"
+            timestampString = "552025337.556281"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "42"
@@ -602,7 +506,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/AppDelegate.swift"
-            timestampString = "546969430.500501"
+            timestampString = "552025337.5563231"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "115"
@@ -618,7 +522,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/AppDelegate.swift"
-            timestampString = "546969430.5005749"
+            timestampString = "552025337.5563641"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "114"
@@ -634,7 +538,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/AppDelegate.swift"
-            timestampString = "546969430.5006551"
+            timestampString = "552025337.556403"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "117"
@@ -650,11 +554,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/ChatController.swift"
-            timestampString = "546969430.500731"
+            timestampString = "552025337.556443"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "874"
-            endingLineNumber = "874"
+            startingLineNumber = "842"
+            endingLineNumber = "842"
             landmarkName = "application(_:didFailToRegisterForRemoteNotificationsWithError:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -665,91 +569,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NeuroResIOS/NeuroWebController.swift"
-            timestampString = "541472160.249007"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "getUserName(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "NeuroResIOS.NeuroWebController.getUserName(Swift.String) -&gt; ()"
-                  moduleName = "NeuroResIOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/NeuroWebController.swift"
-                  timestampString = "540257584.271134"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "96">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__ObjC.URLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in NeuroResIOS.NeuroWebController.getUserName(Swift.String) -&gt; ()"
-                  moduleName = "NeuroResIOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/NeuroWebController.swift"
-                  timestampString = "540257584.272976"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "44">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 () -&gt; () in NeuroResIOS.NeuroWebController.getUserName(Swift.String) -&gt; ()"
-                  moduleName = "NeuroResIOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/NeuroWebController.swift"
-                  timestampString = "540257584.27486"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NeuroResIOS/AppDelegate.swift"
-            timestampString = "546969430.500797"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "application(_:didReceiveRemoteNotification:fetchCompletionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/SlideMenuController.swift"
-            timestampString = "548296199.6129071"
+            timestampString = "552025337.556703"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "800"
-            endingLineNumber = "800"
+            startingLineNumber = "805"
+            endingLineNumber = "805"
             landmarkName = "getDirectUserName(indexPath:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -761,11 +586,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/SlideMenuController.swift"
-            timestampString = "548296199.614024"
+            timestampString = "552025337.556978"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "744"
-            endingLineNumber = "744"
+            startingLineNumber = "749"
+            endingLineNumber = "749"
             landmarkName = "scrollToBottom()"
             landmarkType = "7">
          </BreakpointContent>
@@ -777,12 +602,364 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NeuroResIOS/SlideMenuController.swift"
-            timestampString = "548296199.614898"
+            timestampString = "552025337.5572931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "701"
-            endingLineNumber = "701"
+            startingLineNumber = "706"
+            endingLineNumber = "706"
             landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/ChatController.swift"
+            timestampString = "552025337.557557"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "430"
+            endingLineNumber = "430"
+            landmarkName = "sendMessage(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/SlideMenuController.swift"
+            timestampString = "552025337.557819"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "859"
+            endingLineNumber = "859"
+            landmarkName = "addOnlineUser(json:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/SlideMenuController.swift"
+            timestampString = "552025337.5580781"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "872"
+            endingLineNumber = "872"
+            landmarkName = "removeOnlineUser(json:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NeuroResIOS.SlideMenuController.removeOnlineUser(json: SwiftyJSON.JSON) -&gt; ()"
+                  moduleName = "NeuroResIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/SlideMenuController.swift"
+                  timestampString = "552025337.9094321"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "872"
+                  endingLineNumber = "872"
+                  offsetFromSymbolStart = "956">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.String) -&gt; Swift.Bool in NeuroResIOS.SlideMenuController.removeOnlineUser(json: SwiftyJSON.JSON) -&gt; ()"
+                  moduleName = "NeuroResIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/SlideMenuController.swift"
+                  timestampString = "552025337.911142"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "872"
+                  endingLineNumber = "872"
+                  offsetFromSymbolStart = "40">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/SlideMenuController.swift"
+            timestampString = "552025337.5583251"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
+            landmarkName = "respondToSwipeGesture(gesture:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/SlideMenuController.swift"
+            timestampString = "552025337.55856"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
+            landmarkName = "slideMenuShowing()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/SlideMenuController.swift"
+            timestampString = "552025337.558795"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
+            landmarkName = "prepare(for:sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/SlideMenuController.swift"
+            timestampString = "552025337.559032"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
+            landmarkName = "onCloseMenuClick(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/WebSocketResponders/WebsocketResponder.swift"
+            timestampString = "551745297.3108701"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "connectSocket()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/WebSocketResponders/WebsocketResponder.swift"
+            timestampString = "551745297.310921"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "sendGreeting()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/WebSocketResponders/WebsocketResponder.swift"
+            timestampString = "551745297.310964"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "connectSocket()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(extension in NeuroResIOS):NeuroResIOS.WebSocketResponder.connectSocket() -&gt; ()"
+                  moduleName = "NeuroResIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/WebSocketResponders/WebsocketResponder.swift"
+                  timestampString = "552025337.938429"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "920">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Error) -&gt; () in (extension in NeuroResIOS):NeuroResIOS.WebSocketResponder.connectSocket() -&gt; ()"
+                  moduleName = "NeuroResIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/WebSocketResponders/WebsocketResponder.swift"
+                  timestampString = "552025337.940243"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "50"
+                  endingLineNumber = "50"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/WebSocketResponders/WebsocketResponder.swift"
+            timestampString = "551745297.311003"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "connectSocket()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(extension in NeuroResIOS):NeuroResIOS.WebSocketResponder.connectSocket() -&gt; ()"
+                  moduleName = "NeuroResIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/WebSocketResponders/WebsocketResponder.swift"
+                  timestampString = "552025337.944783"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "1180">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Any) -&gt; () in (extension in NeuroResIOS):NeuroResIOS.WebSocketResponder.connectSocket() -&gt; ()"
+                  moduleName = "NeuroResIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/WebSocketResponders/WebsocketResponder.swift"
+                  timestampString = "552025337.9466209"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/WebSocketResponders/WebsocketResponder.swift"
+            timestampString = "551745297.311044"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "connectSocket()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(extension in NeuroResIOS):NeuroResIOS.WebSocketResponder.connectSocket() -&gt; ()"
+                  moduleName = "NeuroResIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/WebSocketResponders/WebsocketResponder.swift"
+                  timestampString = "552025337.95118"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "660">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Int, Swift.String, Swift.Bool) -&gt; () in (extension in NeuroResIOS):NeuroResIOS.WebSocketResponder.connectSocket() -&gt; ()"
+                  moduleName = "NeuroResIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c1mckay/Documents/NeuroResIOS/NeuroResIOS/WebSocketResponders/WebsocketResponder.swift"
+                  timestampString = "552025337.953324"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "40">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/WebSocketResponders/WebsocketResponder.swift"
+            timestampString = "551745297.311084"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "connectSocket()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NeuroResIOS/WebSocketResponders/WebsocketResponder.swift"
+            timestampString = "551745297.311123"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "connectSocket()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
