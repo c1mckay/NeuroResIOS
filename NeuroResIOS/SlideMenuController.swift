@@ -169,9 +169,10 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     
-    static func getUnread(token: String, myName: String, _ lookup :[Int:String], completion: @escaping (_ : [Int:Int]) -> Void ) {
+    static func getUnread(token: String, myName: String, _ lookup :[Int:String], completion: @escaping (_ : [Int:Int], Bool) -> Void ) {
         
         var unreads:[Int:Int] = [:]
+        var badToken = false
         
         let userGroup = DispatchGroup()
         var request = URLRequest(url: URL(string: AppDelegate.BASE_URL + "conversation_data")!)
@@ -188,12 +189,13 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
                 print("response = \(String(describing: response))")
+                badToken = true
                 userGroup.leave()
                 return
             }
             
-            let jsonString = String(data: data, encoding: String.Encoding.utf8) as String!
-            let json = JSON.init(parseJSON : jsonString! as String)
+            let jsonString = String(data: data, encoding: String.Encoding.utf8) as! String
+            let json = JSON.init(parseJSON : jsonString as String)
                 
             for(_, detail) in json{
                 if(detail["last_seen"] != JSON.null){
@@ -212,7 +214,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         task.resume()
         userGroup.wait()
         DispatchQueue.main.async {
-            completion(unreads)
+            completion(unreads, badToken)
         }
         
         
@@ -274,22 +276,36 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.staff_type_hiding.append(staff_type_name)
             }
             
-            SlideMenuController.getUnread(token: SlideMenuController.getToken(), myName: SlideMenuController.getName(), self.idToEmail) { (unreads_ret : [Int:Int]) in
-                
-                for(user_id, unread_count) in unreads_ret{
-                    let email = self.idToEmail[user_id]!
-                    self.unread.append(email)
-                    self.unreadCount[email] = unread_count
-                }
-                self.userTableView.reloadData()
-                //self.connectSocket()
-            }
+            self.refreshUnreads()
 
         }
         
         userTableView.rowHeight = UITableViewAutomaticDimension
         userTableView.estimatedRowHeight = 1
         
+    }
+    
+    func refreshUnreads(){
+        SlideMenuController.getUnread(token: SlideMenuController.getToken(), myName: SlideMenuController.getName(), self.idToEmail) { (unreads_ret : [Int:Int], loginError: Bool) in
+            
+            if(loginError){
+                /*DispatchQueue.main.async {
+                 self.performSegue(withIdentifier: "noLoginTokenSegue", sender: nil)
+                 }*/
+                return
+            }
+            
+            self.unread.removeAll()
+            self.unreadCount.removeAll()
+            
+            for(user_id, unread_count) in unreads_ret{
+                let email = self.idToEmail[user_id]!
+                self.unread.append(email)
+                self.unreadCount[email] = unread_count
+            }
+            self.userTableView.reloadData()
+            //self.connectSocket()
+        }
     }
     
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
@@ -328,8 +344,8 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         // Pass the selected object to the new view controller.
     }
     */
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.ws.close()
         if segue.identifier == "staffNameSelect" || segue.identifier == "directNameSelect" {
             UIView.animate(withDuration: 0.3, animations: { () -> Void in
                 self.view.frame = CGRect(x: -UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width,height: UIScreen.main.bounds.size.height)
@@ -375,6 +391,7 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             usersList.dataSource = self
         }
         configured = true
+        refreshUnreads()
         connectSocket()
     }
     
@@ -572,14 +589,6 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         return total_count == indexPath.row
     }
     
-    /*func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if(header(indexPath: indexPath)){
-            return 50
-        }else{
-            return 30
-        }
-    }*/
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(unreadHeader(indexPath: indexPath)){
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
@@ -597,8 +606,9 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
             }else{
                 cell.statusIco.image = UIImage(named: "online")
             }
-            let unreadCount_s = self.unreadCount[cell.name.text!]!
-            cell.unreadCount.text = String(describing: unreadCount_s)
+            let unreadCount = self.unreadCount[cell.name.text!]!
+            cell.unreadCount.isHidden = unreadCount == 0
+            cell.unreadCount.text = String(describing: unreadCount)
             return cell
         }else if(staffHeader(indexPath: indexPath)){
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHeaderCell", for: indexPath) as! ChatHeaderCell
@@ -878,23 +888,36 @@ class SlideMenuController: UIViewController, UITableViewDelegate, UITableViewDat
         self.usersList.reloadData()
     }
     
-    func wipeThread(_ thread: Int) {
+    func saveUsers(json : JSON){
+        let array = json["activeUsers"].arrayValue.map({$0.stringValue})
+        let defaults = UserDefaults.standard
+        defaults.set(array, forKey: "onlineUsers")
+        
+        self.usersList.reloadData()
+    }
     
+    func wipeThread(_ thread: Int) {
+        self.refreshUnreads()
     }
     
     func updateCache(_ userID: Int, _ text: String, _ date: Date) {
-    
+        //stub
     }
     
     func onMessageReceive(_ convID: Int, _ userID: Int, _ text: String, _ date: Date, _ pushDown: Bool) {
+        let email = self.idToEmail[userID]!
         
+        if(unread.contains(email)){
+            unreadCount[email] = unreadCount[email]! + 1
+        }else{
+            unread.append(email)
+            unreadCount[email] = 1
+        }
+        
+        self.usersList.reloadData()
     }
     
     func getMessages(_ convID: String) {
-        
-    }
-    
-    func send(_ packet: String) {
-        
+        //stub
     }
 }

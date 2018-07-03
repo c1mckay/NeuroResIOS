@@ -80,9 +80,7 @@ extension WebSocketResponder {
         }
     }
     
-    func saveUsers(json : JSON){
-        let array = json["activeUsers"].arrayValue.map({$0.stringValue})
-        let defaults = UserDefaults.standard
-        defaults.set(array, forKey: "onlineUsers")
+    func send(_ packet: String){
+        self.ws.send(packet)
     }
 }

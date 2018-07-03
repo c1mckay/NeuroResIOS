@@ -18,6 +18,7 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
     
     
     
+    
     static let MAX_CHARACTERS = 375
     
     let BASE_URL = AppDelegate.BASE_URL
@@ -193,6 +194,8 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
         
         //Register for the applicationWillResignActive anywhere in your app.
         NotificationCenter.default.addObserver(self, selector: #selector(ChatController.applicationWillResignActive(notification:)), name: NSNotification.Name.UIApplicationWillResignActive, object: app)
+        loadMessagesAndConnect()
+        
         
         let nc = NotificationCenter.default // Note that default is now a property, not a method call
         nc.addObserver(self, selector: #selector(self.applicationWillResignActive), name:Notification.Name("MY_NAME_NOTIFICATION"), object: nil)
@@ -201,7 +204,7 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
     }
     
     @objc func applicationWillResignActive(notification: NSNotification) {
-        loadMessagesAndConnect()
+        loadMessagesAndConnect()  //handles case when phone is locked/turned off
     }
     
     func assignWebSocket() {
@@ -424,9 +427,6 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
     }
     
     @IBAction func sendMessage(_ sender: Any) {
-        
-        
-        
         messageInput.text = ""
         scrollToBottom()
 
@@ -761,12 +761,11 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
     
     
     
-    func send(_ packet: String){
-        self.ws.send(packet)
-    }
-    
     func wipeThread(_ thread : Int){
-        self.messages = []
+        if(self.convID == thread){
+            self.messages = []
+            self.collectionView.reloadData()
+        }
         ChatController.CacheConvo(String(thread), "[]")
     }
     
@@ -801,6 +800,10 @@ class ChatController: JSQMessagesViewController, WebSocketResponder{
         
     }
     
+    
+    func saveUsers(json: JSON) {
+        
+    }
 
     /**
      * Function to get UserIDs
